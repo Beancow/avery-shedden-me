@@ -1,33 +1,11 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
+import TopBar from './components/Layout/TopBar.vue'
 </script>
 
 <template>
-  <div class="navOuter">
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-    </nav>
-  </div>
-
+  <TopBar />
   <RouterView />
 </template>
 
-<style scoped>
-template {
-  display: grid;
-  grid-template-columns: 1fr 80vw;
-  height: 100vh;
-}
-
-.navOuter {
-  display: grid;
-  grid-template-columns: 1fr;
-  height: auto;
-}
-
-nav {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-}
-</style>
+<style scoped></style>

@@ -11,12 +11,14 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vueuse/core": "^13.1.0",
     "linkedin-api-client": "^0.3.0",
     "radix-vue": "^1.9.17",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@iconify/vue": "^4.3.0",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vue/test-utils": "^2.4.6",
     "jsdom": "^26.0.0",

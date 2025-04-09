@@ -10,6 +10,7 @@
   display: grid;
   grid-template-columns: 1fr;
   min-height: 100vh;
+  background-color: var(--clr-1);
 }
 
 body {

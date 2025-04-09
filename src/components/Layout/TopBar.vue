@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import menuItems from './navMenu.js'
+import menuItems from '../../router/navMenu.js'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useMediaQuery } from '@vueuse/core'

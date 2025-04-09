@@ -1,32 +1,37 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import {
     DropdownMenuRoot,
     DropdownMenuTrigger,
     DropdownMenuContent,
     DropdownMenuPortal,
     DropdownMenuItem,
-} from 'radix-vue'
+} from 'reka-ui'
 import { useCssModule } from 'vue'
+import { useRoute } from 'vue-router'
 const classes = useCssModule()
-import menuItems from '../Layout/navMenu.js'
+import menuItems from '../../router/navMenu.js'
 import BurgerIcon from '../DropDownMenu/BurgerIcon.vue'
 const toggleState = ref()
-watch(toggleState, (newValue) => {
-    console.log('toggle changed:', newValue)
+const route = useRoute()
+const currentRoute = computed(() => route.path)
+watch(currentRoute, (newValue) => {
+    console.log('route changed:', newValue)
 })
 </script>
 
 <template>
-    <DropdownMenuRoot v-model:open="toggleState" :class="classes.DropdownMenuRoot">
+    <DropdownMenuRoot v-model:open="toggleState" :modal="true" :class="classes.DropdownMenuRoot">
         <DropdownMenuTrigger>
             <BurgerIcon :is-open="toggleState" />
         </DropdownMenuTrigger>
-        <DropdownMenuPortal :class="classes.DropdownMenuPortal">
-            <DropdownMenuContent :class="classes.DropdownMenuContent">
-                <DropdownMenuItem :class="classes.DropdownMenuItem" v-for="item in menuItems" :key="item.label"
-                    :href="item.href">
-                    <router-link :to="item.href" class="nav-item" :class="{ active: currentRoute === item.href }">
+        <DropdownMenuPortal>
+            <DropdownMenuContent :class="classes.DropdownMenuContent" :update-position-strategy="'fixed'">
+                <DropdownMenuItem v-for="item in menuItems" :key="item.label" :href="item.href" :class="[
+                    classes.DropdownMenuItem,
+                    { [classes.active]: currentRoute === item.href }
+                ]">
+                    <router-link :to="item.href" class="nav-item">
                         {{ item.label }}
                     </router-link>
                 </DropdownMenuItem>
@@ -41,59 +46,47 @@ button {
     margin: 8px;
 }
 
-.DropdownMenuRoot {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    padding: 12px;
+a {
+    text-decoration: none;
+    color: white;
 }
 
-.DropdownMenuTrigger {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    padding: 12px;
-    margin: 0px auto;
-    border: #A30262 1px solid;
-    border-radius: 9999999px;
-    font-weight: 500;
-}
-
-.DropdownMenuPortal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
 
 .DropdownMenuItem {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 8px 16px;
+    width: 100%;
+    max-height: 3em;
+    max-width: 18em;
+    padding: 8px 12px;
+    margin: 8px 12px;
     cursor: pointer;
-    text-decoration: none;
+    border-radius: 0.5rem;
+    position: relative;
+    background: var(--clr-1);
+}
+
+.DropdownMenuItem:hover,
+.DropdownMenuItem:focus,
+.DropdownMenuItem:active {
+    background-color: #d24398;
     color: white;
-    background-color: #000;
-    font-weight: 500;
 }
 
 .DropdownMenuContent {
+    position: relative;
     transform-origin: top left;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
-    background-color: white;
-    color: black;
+    display: grid;
+    align-content: start;
+    place-items: center;
+    grid-template-columns: 1fr;
     animation: scaleIn 0.5s ease-out;
-    min-width: 100vw;
+    width: 100vw;
     min-height: 100vh;
+    z-index: 1;
+    background: var(--clr-1);
 }
 
 @keyframes scaleIn {
@@ -105,6 +98,42 @@ button {
     to {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+@property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.DropdownMenuItem.active::before,
+.DropdownMenuItem.active::after {
+    content: "";
+    position: absolute;
+    inset: -0.15rem;
+    background: conic-gradient(from var(--gradient-angle),
+            var(--clr-3),
+            var(--clr-4),
+            var(--clr-5),
+            var(--clr-4),
+            var(--clr-3));
+    border-radius: inherit;
+    animation: rotation 8s linear infinite;
+    z-index: -1;
+}
+
+.DropdownMenuItem.active::after {
+    filter: blur(0.25rem) brightness(1.5);
+}
+
+@keyframes rotation {
+    0% {
+        --gradient-angle: 0deg;
+    }
+
+    100% {
+        --gradient-angle: 360deg;
     }
 }
 </style>

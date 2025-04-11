@@ -21,6 +21,14 @@ const props = defineProps({
 
 <style scoped>
 .container {
+    --dark-orange: #D52D00;
+    --orange: #EF7627;
+    --light-orange: #FF9A56;
+    --white: #FFFFFF;
+    --pink: #D162A4;
+    --dark-pink: #B55690;
+    --magenta: #A30262;
+
     display: grid;
     grid-template-columns: 1fr;
     cursor: pointer;
@@ -40,28 +48,28 @@ const props = defineProps({
 }
 
 .bar1 {
-    background-color: #D52D00;
+    background-color: var(--dark-orange);
     transition: 0.5s;
 }
 
 .bar2 {
-    background-color: #FF9A56;
+    background-color: var(--light-orange);
     transition: 2s;
 }
 
 .bar3 {
-    background-color: #FFFFFF;
+    background-color: var(--white);
     transition: 4s;
 }
 
 
 .bar4 {
-    background-color: #D162A4;
+    background-color: var(--dark-pink);
     transition: 2s;
 }
 
 .bar5 {
-    background-color: #A30262;
+    background-color: var(--magenta);
     transition: 0.5s;
 }
 

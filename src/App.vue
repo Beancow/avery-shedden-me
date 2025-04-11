@@ -7,5 +7,3 @@ import TopBar from './components/Layout/TopBar.vue'
   <TopBar />
   <RouterView />
 </template>
-
-<style scoped></style>

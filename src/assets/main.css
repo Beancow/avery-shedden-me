@@ -1,9 +1,5 @@
 @import './base.css';
 
 :root {
-    --clr-1: #52014d;
-    --clr-2: #d26fee;
-    --clr-3: #ff5492;
-    --clr-4: #812dff;
-    --clr-5: #f67a28;
+    --main-bg: #52014d;
 }

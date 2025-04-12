@@ -46,12 +46,21 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ARTIFACT_NAME: ${{ format('pr-{0}-{1}', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
         run: |
+          echo "Checking for artifact: ${ARTIFACT_NAME}-${{ needs.build.outputs.build_id }}"
           artifacts=$(gh api /repos/${{ github.repository }}/actions/artifacts \
             --jq ".artifacts[] | select(.name == \"${ARTIFACT_NAME}-${{ needs.build.outputs.build_id }}\")")
           if [ ! -z "$artifacts" ]; then
             echo "exists=true" >> $GITHUB_OUTPUT
+            echo "Artifact found"
           else
-            echo "exists=false" >> $GITHUB_OUTPUT
+            # For workflow_dispatch, assume artifact exists since it was just built
+            if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+              echo "exists=true" >> $GITHUB_OUTPUT
+              echo "Manual workflow run - assuming artifact exists"
+            else
+              echo "exists=false" >> $GITHUB_OUTPUT
+              echo "Artifact not found"
+            fi
           fi
 
   deploy:

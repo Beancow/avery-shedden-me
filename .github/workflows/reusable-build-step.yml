@@ -30,20 +30,6 @@ jobs:
     outputs:
       build_id: ${{ github.run_id }}
     steps:
-      # This step needs to complete before the build step
-      - name: Set up environment
-        id: setup_env
-        run: |
-          echo "Setting up environment..."
-          echo "GITHUB_WORKFLOW=${{ inputs.caller_workflow }}" >> $GITHUB_ENV
-          echo "BUILD_ID=${{ github.run_id }}" >> $GITHUB_ENV
-      - name: Create output directory
-        run: |
-          mkdir -p ./${{ inputs.working_directory }}
-          echo "Output directory created."
-          echo "Output directory:"
-          ls -a
-
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -54,17 +40,15 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        working-directory: ./${{ inputs.working_directory }}
         run: npm install
         env:
           CI: true
 
       - name: Build
-        working-directory: ${{ inputs.working_directory }}
         run: npm run build
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.artifacts_prefix }}-${{ github.run_id }}
-          path: ${{ inputs.working_directory }}/.output/
+          path: /.output/

@@ -43,6 +43,7 @@ jobs:
       - name: Check for build artifacts
         id: check_artifacts
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ARTIFACT_NAME: ${{ format('pr-{0}-{1}', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
         run: |
           artifacts=$(gh api /repos/${{ github.repository }}/actions/artifacts \

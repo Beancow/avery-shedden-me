@@ -11,6 +11,14 @@ on:
         required: true
         type: string
         description: 'Node.js version to use'
+      working_directory:
+        required: true
+        type: string
+        description: 'Directory containing the site to build'
+      artifacts_prefix:
+        required: true
+        type: string
+        description: 'Prefix for artifact names'
 
 jobs:
   build:
@@ -91,5 +99,5 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: build-output-${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}-${{ github.run_id }}
+          name: ${{ inputs.artifacts_prefix }}-${{ github.run_id }}
           path: .output/

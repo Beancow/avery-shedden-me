@@ -50,8 +50,10 @@ jobs:
   build:
     uses: ./.github/workflows/reusable-build-step.yml
     with:
-      nodejs-version: '20' # LTS version
+      nodejs-version: '20'
       caller_workflow: ${{ github.workflow }}
+      artifacts_prefix: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}-build-output
+      working_directory: '.'
 
   deploy:
     needs: build
@@ -63,6 +65,6 @@ jobs:
       channel_id: ${{ github.ref == 'refs/heads/main' && 'live' || github.ref_name }}
       working_directory: '.'
       caller_workflow: ${{ github.workflow }}
-      artifacts_prefix: 'build-output'
+      artifacts_prefix: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}-build-output
     secrets:
       FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AVERY_SHEDDEN_ME }}

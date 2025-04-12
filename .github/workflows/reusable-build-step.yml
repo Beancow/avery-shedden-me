@@ -34,7 +34,7 @@ jobs:
         run: |
           mkdir -p ./${{ inputs.working_directory }}
           echo "Output directory created."
-          ls -la ./${{ inputs.working_directory }}
+          ls
 
       - name: Checkout repository
         uses: actions/checkout@v3

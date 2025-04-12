@@ -1,5 +1,9 @@
 name: build-and-deploy-pipeline
 
+permissions:
+  contents: write
+  pull-requests: write
+
 on:
   push:
     branches:
@@ -16,7 +20,7 @@ on:
         type: choice
         options:
           - Avery Shedden
-          - GitHub Actions
+          - Avery Shedden (GitHub Actions)
         default: Avery Shedden
 
 jobs:
@@ -46,7 +50,7 @@ jobs:
   build:
     uses: ./.github/workflows/reusable-build-step.yml
     with:
-      nodejs-version: '22'
+      nodejs-version: '20' # LTS version
       caller_workflow: ${{ github.workflow }}
 
   deploy:

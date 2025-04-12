@@ -33,17 +33,32 @@ jobs:
     name: Deploy to Firebase Hosting
     runs-on: ubuntu-latest
     if: |
-      inputs.caller_workflow == 'build-and-deploy-pipeline'
+      inputs.caller_workflow == 'build-and-deploy-pipeline' ||
+      inputs.caller_workflow == 'manual-build-and-deploy'
     defaults:
       run:
         working-directory: ${{ inputs.working_directory }}
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output-${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}-${{ github.run_id }}
+          path: |
+            .output/server
+            .output/public
+
       - name: Download build artifact
         uses: actions/download-artifact@v3
         with:
           name: build-output
-          path: dist
+          path: ${{ inputs.working_directory }}
 
       - name: Deploy to Firebase Hosting (Preview)
         if: ${{ inputs.env == 'preview' }}

@@ -16,8 +16,12 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     if: |
-      inputs.caller_workflow == 'build-and-deploy-pipeline'
+      inputs.caller_workflow == 'build-and-deploy-pipeline' ||
+      inputs.caller_workflow == 'manual-build-and-deploy'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -36,17 +40,40 @@ jobs:
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
+      - name: Cache build
+        uses: actions/cache@v3
+        with:
+          path: |
+            .nuxt
+            .output
+          key: ${{ runner.os }}-build-${{ hashFiles('**/*.{vue,js,ts}') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
       - name: Increment Version
+        if: |
+          inputs.caller_workflow == 'build-and-deploy-pipeline' &&
+          (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/preview') &&
+          github.event_name != 'pull_request'
+        id: version
         run: |
           npm version minor --no-git-tag-version
           VERSION=$(node -p "require('./package.json').version")
-          echo "New version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Commit Version Bump
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/preview'
         run: |
+          if git diff --quiet package.json package-lock.json; then
+            echo "No changes to commit"
+            exit 0
+          fi
           git add package.json package-lock.json
           git commit -m "chore: bump version to $(node -p "require('./package.json').version")"
-          git push
+          git push || {
+            echo "::error::Failed to push changes"
+            exit 1
+          }
 
       - name: Install dependencies
         run: npm ci
@@ -54,9 +81,15 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Upload build artifact
+      - name: Verify build output
+        run: |
+          if [ ! -d ".output" ]; then
+            echo "::error::Build output directory .output/ not found!"
+            exit 1
+          fi
+
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: build-output
-          path: dist/
-          retention-days: 1
+          name: build-output-${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}-${{ github.run_id }}
+          path: .output/

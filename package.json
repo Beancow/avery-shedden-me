@@ -1,5 +1,7 @@
 {
-  "name": "nuxt-app",
+  "name": "avery-shedden-me",
+  "version": "1.0.0",
+  "description": "Avery Shedden's personal website",
   "private": true,
   "type": "module",
   "runtime": "nodejs22",

@@ -12,16 +12,16 @@ on:
         type: string
         description: 'Environment to deploy to (preview or production)'
       channel_id:
-        required: false
+        required: true
         type: string
         description: 'Channel ID for preview deployments'
       working_directory:
-        required: false
+        required: true
         type: string
         default: '.'
         description: 'Directory containing the site to deploy'
       caller_workflow:
-        required: false
+        required: true
         type: string
         description: 'Name of the workflow that called this reusable workflow'
     secrets:
@@ -33,8 +33,7 @@ jobs:
     name: Deploy to Firebase Hosting
     runs-on: ubuntu-latest
     if: |
-      inputs.caller_workflow == 'build-and-deploy-pipeline' ||
-      inputs.caller_workflow == 'manual-build-and-deploy'
+      inputs.caller_workflow == 'build-and-deploy-pipeline'
     defaults:
       run:
         working-directory: ${{ inputs.working_directory }}

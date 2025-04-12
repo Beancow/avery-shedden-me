@@ -17,8 +17,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     if: |
-      inputs.caller_workflow == 'build-and-deploy-pipeline' ||
-      inputs.caller_workflow == 'manual-build-and-deploy'
+      inputs.caller_workflow == 'build-and-deploy-pipeline'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

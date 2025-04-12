@@ -1,4 +1,4 @@
-name: Build and Deploy Pipeline
+name: build-and-deploy-pipeline
 
 on:
   push:
@@ -8,6 +8,16 @@ on:
     types: [closed]
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      choice:
+        description: 'Who is the author of this workflow?'
+        required: true
+        type: choice
+        options:
+          - Avery Shedden
+          - GitHub Actions
+        default: Avery Shedden
 
 jobs:
   extract-metadata:
@@ -48,5 +58,6 @@ jobs:
       env: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
       channel_id: ${{ github.ref == 'refs/heads/main' && 'live' || github.ref_name }}
       working_directory: '.'
+      caller_workflow: ${{ github.workflow }}
     secrets:
       FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AVERY_SHEDDEN_ME }}

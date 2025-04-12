@@ -31,7 +31,7 @@ jobs:
     with:
       caller_workflow: ${{ github.workflow }}
       artifacts_prefix: ${{ format('pr-{0}-{1}', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
-      working_directory: ./.output
+      working_directory: .output
       nodejs-version: '20'
 
   verify_artifacts:

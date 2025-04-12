@@ -31,7 +31,10 @@ jobs:
       build_id: ${{ github.run_id }}
     steps:
       - name: Create output directory
-        run: mkdir -p ${{ inputs.working_directory }}
+        run: |
+          mkdir -p ./${{ inputs.working_directory }}
+          echo "Output directory created."
+          ls -la ./${{ inputs.working_directory }}
 
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -43,8 +46,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        working-directory: ${{ inputs.working_directory }}
-        run: npm ci
+        working-directory: ./${{ inputs.working_directory }}
+        run: npm install
+        env:
+          CI: true
 
       - name: Build
         working-directory: ${{ inputs.working_directory }}

@@ -4,16 +4,16 @@ on:
   workflow_dispatch:
     inputs:
       channelId:
-        required: false
-        type: string
-      projectId:
-        required: false
-        type: string
+        type: choice
+        description: Which channel to deploy to
+        options:
+          - live
+          - preview
       name:
-        required: true
-        type: string
+        type: choice
         description: Who is running this
-        default: avery
+        options:
+          - avery
 
 permissions:
   checks: write

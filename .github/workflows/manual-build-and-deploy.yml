@@ -22,6 +22,6 @@ jobs:
           workflow: build-and-deploy.yml
           inputs: |
             {
-              "caller_workflow": "manual-deploy"
+              "caller_workflow": "manual-build-and-deploy",  
             }
           token: ${{ secrets.GITHUB_TOKEN }}

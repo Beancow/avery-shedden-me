@@ -33,7 +33,7 @@ env:
   ARTIFACT_NAME: ${{ format('{0}-{1}-{2}', github.event.pull_request.number > 0 && 'pr' || 'm', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
 
 jobs:
-  build:
+  build_and_upload:
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     uses: ./.github/workflows/reusable-build-step.yml
     with:
@@ -42,19 +42,8 @@ jobs:
       working_directory: .output
       nodejs-version: '20'
 
-  upload_artifacts:
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ${{ github.env.ARTIFACT_NAME }}
-          path: .output
-          include-hidden-files: true
-          retention-days: 1
-
   deploy:
-    needs: [build]
+    needs: [build_and_upload]
     uses: ./.github/workflows/reusable-deploy.yml
     with:
       env: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'preview' }}

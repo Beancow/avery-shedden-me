@@ -25,20 +25,13 @@ concurrency:
   group: build-and-deploy-${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: true
 
-env:
-  GITHUB_WORKFLOW: ${{ github.workflow }}
-  GITHUB_REPOSITORY: ${{ github.repository }}
-  GITHUB_REF: ${{ github.ref }}
-  GITHUB_ACTOR: ${{ github.actor }}
-  ARTIFACT_NAME: ${{ format('{0}-{1}-{2}', github.event.pull_request.number > 0 && 'pr' || 'm', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
-
 jobs:
   build_and_upload:
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     uses: ./.github/workflows/reusable-build-step.yml
     with:
       caller_workflow: ${{ github.workflow }}
-      artifacts_name: ${{ github.env.ARTIFACT_NAME }}
+      artifacts_name: ${{ format('{0}-{1}-{2}', github.event.pull_request.number > 0 && 'pr' || 'm', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
       working_directory: .output
       nodejs-version: '20'
 
@@ -50,7 +43,7 @@ jobs:
       channel_id: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'preview' }}
       working_directory: .output
       caller_workflow: ${{ github.workflow }}
-      artifacts_name: ${{ github.env.ARTIFACT_NAME }}
-      site: ${{ github.env.FIREBASE_SITE }}
+      artifacts_name: ${{ format('{0}-{1}-{2}', github.event.pull_request.number > 0 && 'pr' || 'm', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
+      site: 'avery-shedden-me'
     secrets:
       FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AVERY_SHEDDEN_ME }}

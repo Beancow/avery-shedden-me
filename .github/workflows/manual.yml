@@ -1,4 +1,4 @@
-name: Manual workflow run
+name: Manual Deploy to Firebase Hosting
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
         description: Who is running this
         options:
           - avery
-      chanelId:
+      channelId:
         type: choice
         description: Which channel to deploy to
         options:
@@ -18,6 +18,6 @@ jobs:
   call_build_and_preview:
     uses: ./.github/workflows/firebase-hosting-pull-request.yml
     with:
-      channelId: ${{ github.event.inputs.chanelId }}
+      channelId: ${{ github.event.inputs.channelId }}
       projectId: 'avery-shedden-me'
     secrets: inherit

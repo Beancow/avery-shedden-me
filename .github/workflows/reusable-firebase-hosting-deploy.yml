@@ -32,7 +32,6 @@ jobs:
   deploy:
     name: Deploy to Firebase Hosting
     runs-on: ubuntu-latest
-    # Remove the condition if you want this job to always run
     if: |
       inputs.caller_workflow == 'build-and-deploy-pipeline' ||
       inputs.caller_workflow == 'manual-build-and-deploy'

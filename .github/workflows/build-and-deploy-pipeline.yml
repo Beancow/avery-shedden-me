@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       author: ${{ steps.get-author.outputs.author }}
-      commit_msg: ${{ steps.get-commit.outputs.message }}
     steps:
       - name: Get PR author
         if: github.event_name == 'pull_request'
@@ -34,10 +33,6 @@ jobs:
           else
               echo "author=${{ steps.get-author-push.outputs.author }}" >> $GITHUB_OUTPUT
           fi
-
-      - name: Get commit message
-        id: get-commit
-        run: echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
   build:
     uses: ./.github/workflows/reusable-build-step.yml
     with:

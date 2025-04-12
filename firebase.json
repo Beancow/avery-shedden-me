@@ -1,12 +1,9 @@
 {
+  "functions": { "source": ".output/server", "runtime": "nodejs22", "region": "eu-west1" },
   "hosting": {
-    "public": "dist",
-    "ignore": [],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
+    "public": ".output/public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "cleanUrls": true,
+    "rewrites": [{ "function": "server", "source": "**" }]
   }
 }

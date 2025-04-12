@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="container" :class="{ isOpen }">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
-            <div class="bar4"></div>
-            <div class="bar5"></div>
+            <div class="stripe1"></div>
+            <div class="stripe2"></div>
+            <div class="stripe3"></div>
+            <div class="stripe4"></div>
+            <div class="stripe5"></div>
         </div>
     </div>
 </template>
@@ -22,11 +22,9 @@ const props = defineProps({
 <style scoped>
 .container {
     --dark-orange: #D52D00;
-    --orange: #EF7627;
     --light-orange: #FF9A56;
     --white: #FFFFFF;
     --pink: #D162A4;
-    --dark-pink: #B55690;
     --magenta: #A30262;
 
     display: grid;
@@ -38,61 +36,61 @@ const props = defineProps({
     border-radius: 9999999px;
 }
 
-.bar1,
-.bar2,
-.bar3,
-.bar4,
-.bar5 {
+.stripe1,
+.stripe2,
+.stripe3,
+.stripe4,
+.stripe5 {
     width: 28px;
     height: 5px;
 }
 
-.bar1 {
+.stripe1 {
     background-color: var(--dark-orange);
     transition: 0.5s;
 }
 
-.bar2 {
+.stripe2 {
     background-color: var(--light-orange);
     transition: 2s;
 }
 
-.bar3 {
+.stripe3 {
     background-color: var(--white);
     transition: 4s;
 }
 
 
-.bar4 {
+.stripe4 {
     background-color: var(--dark-pink);
     transition: 2s;
 }
 
-.bar5 {
+.stripe5 {
     background-color: var(--magenta);
     transition: 0.5s;
 }
 
-.container.isOpen .bar1 {
+.container.isOpen .stripe1 {
     transform: translate(0, 10px) rotate(-408deg);
 }
 
-.container.isOpen .bar2 {
+.container.isOpen .stripe2 {
     opacity: 0;
     transition: 0s;
 }
 
-.container.isOpen .bar3 {
+.container.isOpen .stripe3 {
     opacity: 0;
     transition: 0s;
 }
 
-.container.isOpen .bar4 {
+.container.isOpen .stripe4 {
     opacity: 0;
     transition: 0s;
 }
 
-.container.isOpen .bar5 {
+.container.isOpen .stripe5 {
     transform: translate(0, -10px) rotate(408deg);
 }
 </style>

@@ -1,26 +1,3 @@
-// imports 'src/assets/glowcolors.css'
-<template>
-    <div :style="{ isolation: 'isolate' }">
-        <div :class="['glow-item',
-            { active: isActive === true }]">
-            <slot name="left" />
-            <slot></slot>
-            <slot name="right" />
-        </div>
-    </div>
-</template>
-
-<script setup>
-import { defineProps } from 'vue';
-const props = defineProps({
-    isActive: {
-        type: Boolean,
-        default: false
-    }
-});
-</script>
-
-<style scoped>
 .glow-item {
     --glow-colors-1: #52014d;
     --glow-colors-2: #d26fee;
@@ -94,4 +71,3 @@ const props = defineProps({
         --gradient-angle: 360deg;
     }
 }
-</style>

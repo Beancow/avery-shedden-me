@@ -30,11 +30,19 @@ jobs:
     outputs:
       build_id: ${{ github.run_id }}
     steps:
+      # This step needs to complete before the build step
+      - name: Set up environment
+        id: setup_env
+        run: |
+          echo "Setting up environment..."
+          echo "GITHUB_WORKFLOW=${{ inputs.caller_workflow }}" >> $GITHUB_ENV
+          echo "BUILD_ID=${{ github.run_id }}" >> $GITHUB_ENV
       - name: Create output directory
         run: |
           mkdir -p ./${{ inputs.working_directory }}
           echo "Output directory created."
-          ls
+          echo "Output directory:"
+          ls -a
 
       - name: Checkout repository
         uses: actions/checkout@v3

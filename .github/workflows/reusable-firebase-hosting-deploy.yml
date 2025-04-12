@@ -24,6 +24,11 @@ on:
         required: true
         type: string
         description: 'Name of the workflow that called this reusable workflow'
+      artifacts_prefix:
+        required: false
+        type: string
+        default: 'build-output'
+        description: 'Prefix for artifact names'
     secrets:
       FIREBASE_SERVICE_ACCOUNT:
         required: true
@@ -49,7 +54,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: build-output-${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}-${{ github.run_id }}
+          name: ${{ inputs.artifacts_prefix }}-${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}-${{ github.run_id }}
           path: |
             .output/server
             .output/public
@@ -57,8 +62,8 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v3
         with:
-          name: build-output
-          path: ${{ inputs.working_directory }}
+          name: ${{ inputs.artifacts_prefix }}-${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}-${{ github.run_id }}
+          path: ${{ inputs.working_directory }}/.output
 
       - name: Deploy to Firebase Hosting (Preview)
         if: ${{ inputs.env == 'preview' }}

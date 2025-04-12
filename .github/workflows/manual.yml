@@ -2,24 +2,22 @@ name: Manual workflow run
 
 on:
   workflow_dispatch:
-    inputs: 
-       name:
+    inputs:
+      name:
         type: choice
         description: Who is running this
-        options: 
-        - avery
-permissions:
-  checks: write
-  contents: read
-  pull-requests: write
+        options:
+          - avery
+      chanelId:
+        type: choice
+        description: Which channel to deploy to
+        options:
+          - live
+          - preview
 jobs:
-  build_and_preview:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: npm install && echo 'Install Done 👌' && npm run build && echo 'Build Done 👌'
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AVERY_SHEDDEN_ME }}
-          projectId: avery-shedden-me
+  call_build_and_deploy:
+    uses: ./.github/workflows/firebase-hosting-pull-request.yml
+    with:
+      channelId: ${{ github.event.inputs.chanelId }}
+      projectId: 'avery-shedden-me'
+    secrets: inherit

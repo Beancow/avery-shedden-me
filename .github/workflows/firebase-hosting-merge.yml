@@ -13,11 +13,8 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - name: Install dependencies
-        run: npm ci
-      - run: npm run build path=./dist
+      - run: npm install && echo 'Install Done 👌' && npm run build && echo 'Build Done 👌'
       - uses: FirebaseExtended/action-hosting-deploy@v0
-        id: deploy
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AVERY_SHEDDEN_ME }}

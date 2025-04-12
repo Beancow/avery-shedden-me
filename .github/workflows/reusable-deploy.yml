@@ -1,0 +1,51 @@
+name: Reusable Deploy Workflow
+
+on:
+  workflow_call:
+    inputs:
+      site:
+        required: true
+        type: string
+      env:
+        required: true
+        type: string
+      channel_id:
+        required: true
+        type: string
+      working_directory:
+        required: true
+        type: string
+      caller_workflow:
+        required: true
+        type: string
+      build_id:
+        required: true
+        type: string
+      artifacts_prefix:
+        required: true
+        type: string
+    secrets:
+      FIREBASE_SERVICE_ACCOUNT:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifacts_prefix }}-${{ inputs.build_id }}
+          path: ${{ inputs.working_directory }}
+      - name: Deploy to Firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: ${{ inputs.site }}
+          channelId: ${{ inputs.channel_id }}
+          target: ${{ inputs.site }}
+          entryPoint: ${{ inputs.working_directory }}

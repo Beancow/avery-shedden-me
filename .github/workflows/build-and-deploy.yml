@@ -1,0 +1,72 @@
+name: Build and Deploy
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - preview
+          - production
+      deployer:
+        description: 'Deployer name'
+        required: true
+        type: choice
+        options:
+          - avery
+
+concurrency:
+  group: build-and-deploy-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/reusable-build-step.yml
+    with:
+      caller_workflow: ${{ github.workflow }}
+      artifacts_prefix: ${{ format('pr-{0}-{1}', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
+      working_directory: .output
+      nodejs-version: '20'
+
+  verify_artifacts:
+    needs: build
+    runs-on: ubuntu-latest
+    outputs:
+      artifact_exists: ${{ steps.check_artifacts.outputs.exists }}
+    steps:
+      - name: Check for build artifacts
+        id: check_artifacts
+        env:
+          ARTIFACT_NAME: ${{ format('pr-{0}-{1}', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
+        run: |
+          artifacts=$(gh api /repos/${{ github.repository }}/actions/artifacts \
+            --jq ".artifacts[] | select(.name == \"${ARTIFACT_NAME}-${{ needs.build.outputs.build_id }}\")")
+          if [ ! -z "$artifacts" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+  deploy:
+    needs: [build, verify_artifacts]
+    if: |
+      needs.verify_artifacts.outputs.artifact_exists == 'true' &&
+      ((github.event_name == 'pull_request' && github.event.pull_request.merged == true) ||
+      github.event_name == 'workflow_dispatch')
+    uses: ./.github/workflows/reusable-deploy.yml
+    with:
+      site: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'preview' }}
+      env: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'preview' }}
+      channel_id: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'preview' }}
+      working_directory: .output
+      caller_workflow: ${{ github.workflow }}
+      build_id: ${{ needs.build.outputs.build_id }}
+      artifacts_prefix: ${{ format('pr-{0}-{1}', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
+    secrets:
+      FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AVERY_SHEDDEN_ME }}

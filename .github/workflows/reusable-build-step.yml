@@ -1,0 +1,53 @@
+name: Reusable Build Step
+
+on:
+  workflow_call:
+    inputs:
+      caller_workflow:
+        required: true
+        type: string
+      nodejs-version:
+        required: true
+        type: string
+      artifacts_prefix:
+        required: true
+        type: string
+      working_directory:
+        required: true
+        type: string
+    outputs:
+      build_id:
+        description: 'Build ID for artifact naming'
+        value: ${{ jobs.build.outputs.build_id }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      build_id: ${{ github.run_id }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.nodejs-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        working-directory: ${{ inputs.working_directory }}
+        run: npm ci
+
+      - name: Build
+        working-directory: ${{ inputs.working_directory }}
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.artifacts_prefix }}-${{ github.run_id }}
+          path: ${{ inputs.working_directory }}/.output/

@@ -38,7 +38,7 @@ jobs:
     uses: ./.github/workflows/reusable-build-step.yml
     with:
       caller_workflow: ${{ github.workflow }}
-      artifacts_name: ${{ format('pr-{0}-{1}', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
+      artifacts_name: ${{ github.env.ARTIFACT_NAME }}
       working_directory: .output
       nodejs-version: '20'
 

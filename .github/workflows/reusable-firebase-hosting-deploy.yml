@@ -48,17 +48,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Build
-        run: npm run build
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ inputs.artifacts_prefix }}-${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}-${{ github.run_id }}
-          path: |
-            .output/server
-            .output/public
-
       - name: Download build artifact
         uses: actions/download-artifact@v3
         with:

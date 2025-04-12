@@ -63,5 +63,6 @@ jobs:
       channel_id: ${{ github.ref == 'refs/heads/main' && 'live' || github.ref_name }}
       working_directory: '.'
       caller_workflow: ${{ github.workflow }}
+      artifacts_prefix: 'build-output'
     secrets:
       FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AVERY_SHEDDEN_ME }}

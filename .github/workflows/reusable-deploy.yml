@@ -37,7 +37,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.artifacts_name }}
-          path: ${{ inputs.working_directory }}
       - name: Deploy to Firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -46,4 +45,3 @@ jobs:
           projectId: ${{ inputs.site }}
           channelId: ${{ inputs.channel_id }}
           target: ${{ inputs.site }}
-          entryPoint: ${{ inputs.working_directory }}

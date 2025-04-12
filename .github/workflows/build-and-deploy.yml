@@ -1,4 +1,5 @@
 name: Build and Deploy
+description: Build and deploy the project to Firebase Hosting
 
 on:
   pull_request:
@@ -24,59 +25,43 @@ concurrency:
   group: build-and-deploy-${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: true
 
+env:
+  GITHUB_WORKFLOW: ${{ github.workflow }}
+  GITHUB_REPOSITORY: ${{ github.repository }}
+  GITHUB_REF: ${{ github.ref }}
+  GITHUB_ACTOR: ${{ github.actor }}
+  ARTIFACT_NAME: ${{ format('{0}-{1}-{2}', github.event.pull_request.number > 0 && 'pr' || 'm', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
+
 jobs:
   build:
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     uses: ./.github/workflows/reusable-build-step.yml
     with:
       caller_workflow: ${{ github.workflow }}
-      artifacts_prefix: ${{ format('pr-{0}-{1}', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
+      artifacts_name: ${{ format('pr-{0}-{1}', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
       working_directory: .output
       nodejs-version: '20'
 
-  verify_artifacts:
-    needs: build
+  upload_artifacts:
     runs-on: ubuntu-latest
-    outputs:
-      artifact_exists: ${{ steps.check_artifacts.outputs.exists }}
+    needs: [build]
     steps:
-      - name: Check for build artifacts
-        id: check_artifacts
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ARTIFACT_NAME: ${{ format('pr-{0}-{1}', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
-        run: |
-          echo "Checking for artifact: ${ARTIFACT_NAME}-${{ needs.build.outputs.build_id }}"
-          artifacts=$(gh api /repos/${{ github.repository }}/actions/artifacts \
-            --jq ".artifacts[] | select(.name == \"${ARTIFACT_NAME}-${{ needs.build.outputs.build_id }}\")")
-          if [ ! -z "$artifacts" ]; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-            echo "Artifact found"
-          else
-            # For workflow_dispatch, assume artifact exists since it was just built
-            if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-              echo "exists=true" >> $GITHUB_OUTPUT
-              echo "Manual workflow run - assuming artifact exists"
-            else
-              echo "exists=false" >> $GITHUB_OUTPUT
-              echo "Artifact not found"
-            fi
-          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.env.ARTIFACT_NAME }}
+          path: .output
+          include-hidden-files: true
+          retention-days: 1
 
   deploy:
-    needs: [build, verify_artifacts]
-    if: |
-      needs.verify_artifacts.outputs.artifact_exists == 'true' &&
-      ((github.event_name == 'pull_request' && github.event.pull_request.merged == true) ||
-      github.event_name == 'workflow_dispatch')
+    needs: [build]
     uses: ./.github/workflows/reusable-deploy.yml
     with:
-      site: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'preview' }}
       env: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'preview' }}
       channel_id: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'preview' }}
       working_directory: .output
       caller_workflow: ${{ github.workflow }}
-      build_id: ${{ needs.build.outputs.build_id }}
-      artifacts_prefix: ${{ format('pr-{0}-{1}', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
+      artifacts_name: ${{ github.env.ARTIFACT_NAME }}
+      site: ${{ github.env.FIREBASE_SITE }}
     secrets:
       FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AVERY_SHEDDEN_ME }}

@@ -1,11 +1,9 @@
 name: Reusable Deploy Workflow
+description: Reusable workflow for deploying to Firebase Hosting
 
 on:
   workflow_call:
     inputs:
-      site:
-        required: true
-        type: string
       env:
         required: true
         type: string
@@ -18,10 +16,10 @@ on:
       caller_workflow:
         required: true
         type: string
-      build_id:
+      artifacts_name:
         required: true
         type: string
-      artifacts_prefix:
+      site:
         required: true
         type: string
     secrets:
@@ -38,7 +36,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: ${{ inputs.artifacts_prefix }}-${{ inputs.build_id }}
+          name: ${{ inputs.artifacts_name }}
           path: ${{ inputs.working_directory }}
       - name: Deploy to Firebase
         uses: FirebaseExtended/action-hosting-deploy@v0

@@ -9,16 +9,12 @@ on:
       nodejs-version:
         required: true
         type: string
-      artifacts_prefix:
+      artifacts_name:
         required: true
         type: string
       working_directory:
         required: true
         type: string
-    outputs:
-      build_id:
-        description: 'Build ID for artifact naming'
-        value: ${{ jobs.build.outputs.build_id }}
 
 jobs:
   build:
@@ -47,19 +43,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: check for build artifacts
-        id: check_artifacts
-        run: |
-          if [ -d ".output" ]; then
-            ls .output
-            else
-            echo "exists=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.artifacts_prefix }}
-          path: .output/*
+          name: ${{ inputs.artifacts_name }}
+          path: .output
           include-hidden-files: true
           retention-days: 1

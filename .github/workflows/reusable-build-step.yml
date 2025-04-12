@@ -1,0 +1,39 @@
+name: Reusable Build Step
+
+on:
+  workflow_call:
+    inputs:
+      caller_workflow:
+        required: true
+        type: string
+        description: 'Name of the calling workflow'
+      nodejs-version:
+        required: true
+        type: string
+        description: 'Node.js version to use'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    if: |
+      inputs.caller_workflow == 'build-and-deploy-pipeline' ||
+      inputs.caller_workflow == 'manual-build-and-deploy'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.nodejs-version }}
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output
+          path: dist/
+          retention-days: 1

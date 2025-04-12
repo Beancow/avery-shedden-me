@@ -1,0 +1,68 @@
+name: Reusable Firebase Hosting Deploy
+
+on:
+  workflow_call:
+    inputs:
+      site:
+        required: true
+        type: string
+        description: 'Firebase site ID to deploy to'
+      env:
+        required: true
+        type: string
+        description: 'Environment to deploy to (preview or production)'
+      channel_id:
+        required: false
+        type: string
+        description: 'Channel ID for preview deployments'
+      working_directory:
+        required: false
+        type: string
+        default: '.'
+        description: 'Directory containing the site to deploy'
+      caller_workflow:
+        required: false
+        type: string
+        description: 'Name of the workflow that called this reusable workflow'
+    secrets:
+      FIREBASE_SERVICE_ACCOUNT:
+        required: true
+
+jobs:
+  deploy:
+    name: Deploy to Firebase Hosting
+    runs-on: ubuntu-latest
+    # Remove the condition if you want this job to always run
+    if: |
+      inputs.caller_workflow == 'build-and-deploy-pipeline' ||
+      inputs.caller_workflow == 'manual-build-and-deploy'
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-output
+          path: dist
+
+      - name: Deploy to Firebase Hosting (Preview)
+        if: ${{ inputs.env == 'preview' }}
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ github.token }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+          projectId: '${{ inputs.site }}'
+          channelId: ${{ inputs.channel_id || github.ref_name }}
+          entryPoint: ${{ inputs.working_directory }}
+
+      - name: Deploy to Firebase Hosting (Production)
+        if: ${{ inputs.env == 'production' }}
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ github.token }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+          projectId: '${{ inputs.site }}'
+          channelId: live
+          entryPoint: ${{ inputs.working_directory }}

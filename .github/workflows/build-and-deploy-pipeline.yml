@@ -1,0 +1,57 @@
+name: Build and Deploy Pipeline
+
+on:
+  push:
+    branches:
+      - preview
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  extract-metadata:
+    runs-on: ubuntu-latest
+    outputs:
+      author: ${{ steps.get-author.outputs.author }}
+      commit_msg: ${{ steps.get-commit.outputs.message }}
+    steps:
+      - name: Get PR author
+        if: github.event_name == 'pull_request'
+        id: get-author-pr
+        run: echo "author=${{ github.event.pull_request.user.login }}" >> $GITHUB_OUTPUT
+
+      - name: Get push author
+        if: github.event_name == 'push'
+        id: get-author-push
+        run: echo "author=${{ github.actor }}" >> $GITHUB_OUTPUT
+
+      - name: Set author
+        id: get-author
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+              echo "author=${{ steps.get-author-pr.outputs.author }}" >> $GITHUB_OUTPUT
+          else
+              echo "author=${{ steps.get-author-push.outputs.author }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get commit message
+        id: get-commit
+        run: echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+  build:
+    uses: ./.github/workflows/reusable-build-step.yml
+    with:
+      nodejs-version: '22'
+      caller_workflow: ${{ github.workflow }}
+
+  deploy:
+    needs: build
+    if: github.event.pull_request.merged == true || github.ref == 'refs/heads/preview'
+    uses: ./.github/workflows/reusable-firebase-hosting-deploy.yml
+    with:
+      site: 'avery-shedden-me'
+      env: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+      channel_id: ${{ github.ref == 'refs/heads/main' && 'live' || github.ref_name }}
+      working_directory: '.'
+    secrets:
+      FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AVERY_SHEDDEN_ME }}

@@ -47,7 +47,7 @@ jobs:
         run: npm run build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.artifacts_prefix }}-${{ github.run_id }}
           path: ${{ inputs.working_directory }}/.output/

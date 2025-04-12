@@ -4,10 +4,10 @@ on:
   workflow_call:
     inputs:
       channelId:
-        required: true
+        required: false
         type: string
       projectId:
-        required: true
+        required: false
         type: string
 
 permissions:
@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   build_and_preview:
-    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    if: ${{ github.event_name == 'workflow_call' || github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

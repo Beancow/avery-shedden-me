@@ -1,49 +1,144 @@
 name: Build and Deploy
-description: Build and deploy the project to Firebase Hosting
 
 on:
   pull_request:
-    types: [closed]
-    branches: [main]
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  push:
+    branches:
+      - 'pr-*'
+    paths-ignore:
+      - '**.md'
   workflow_dispatch:
     inputs:
-      environment:
-        description: 'Target environment'
-        required: true
-        type: choice
-        options:
-          - preview
-          - production
-      deployer:
-        description: 'Deployer name'
+      username:
+        description: 'Username'
         required: true
         type: choice
         options:
           - avery
 
-concurrency:
-  group: build-and-deploy-${{ github.event.pull_request.number || github.run_id }}
-  cancel-in-progress: true
-
 jobs:
-  build_and_upload:
-    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
-    uses: ./.github/workflows/reusable-build-step.yml
-    with:
-      caller_workflow: ${{ github.workflow }}
-      artifacts_name: ${{ format('{0}-{1}-{2}', github.event.pull_request.number > 0 && 'pr' || 'm', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
-      working_directory: .output
-      nodejs-version: '20'
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate change log
+        id: changelog
+        run: |
+          CHANGES=$(git log $(git describe --tags --abbrev=0 2>/dev/null || echo HEAD~10)..HEAD --pretty=format:"- %s" | grep -v "Merge")
+          echo "CHANGES<<EOF" >> $GITHUB_ENV
+          echo "$CHANGES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Set tag based on context
+        id: set-tag
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "TAG=${{ github.ref_name }}-${{ github.event.inputs.username }}" >> $GITHUB_ENV
+          elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "TAG=pr-${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "TAG=production" >> $GITHUB_ENV
+          elif [[ "${{ github.ref_name }}" =~ ^pr- ]]; then
+            echo "TAG=${{ github.ref_name }}-${{ github.run_number }}" >> $GITHUB_ENV
+          else
+            echo "TAG=build-${{ github.run_number }}" >> $GITHUB_ENV
+          fi
+
+      - name: Build app
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: build/
+          retention-days: 1
 
   deploy:
-    needs: [build_and_upload]
-    uses: ./.github/workflows/reusable-deploy.yml
-    with:
-      env: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'preview' }}
-      channel_id: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'preview' }}
-      working_directory: .output
-      caller_workflow: ${{ github.workflow }}
-      artifacts_name: ${{ format('{0}-{1}-{2}', github.event.pull_request.number > 0 && 'pr' || 'm', github.event.pull_request.number || github.run_id, github.event_name == 'workflow_dispatch' && inputs.environment || 'production') }}
-      site: 'avery-shedden-me'
-    secrets:
-      FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AVERY_SHEDDEN_ME }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: build/
+
+      - name: Set deployment target
+        id: deployment-target
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "CHANNEL=live" >> $GITHUB_ENV
+          elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "CHANNEL=pr-${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+          elif [[ "${{ github.ref_name }}" =~ ^pr- ]]; then
+            PR_NUM=$(echo "${{ github.ref_name }}" | sed 's/pr-//')
+            echo "CHANNEL=pr-$PR_NUM-preview" >> $GITHUB_ENV
+          else
+            echo "CHANNEL=default-${{ github.run_number }}" >> $GITHUB_ENV
+          fi
+
+      - name: Deploy to Firebase Hosting
+        id: deploy-firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0.9.0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          channelId: ${{ env.CHANNEL }}
+          projectId: 'avery-shedden-me'
+
+  version-bump:
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Bump version
+        run: |
+          npm version patch -m "Bump version to %s [skip ci]"
+          git push
+          git push --tags

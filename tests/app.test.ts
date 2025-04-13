@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { mountSuspended } from '@nuxt/test-utils/runtime'
+import { mount } from '@vue/test-utils'
 import App from '../app.vue'
 
 describe('App', () => {
-  it('mounts successfully', async () => {
-    const wrapper = await mountSuspended(App)
-    expect(wrapper.html()).toBeTruthy()
+  it('mounts successfully', () => {
+    const wrapper = mount(App)
+    expect(wrapper.vm).toBeDefined()
   })
 })

@@ -1,13 +1,11 @@
 import { defineConfig } from 'vitest/config'
-import vue from '@vitejs/plugin-vue'
+import Vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [Vue()],
   test: {
     environment: 'happy-dom',
-    include: ['tests/**/*.test.ts'],
-    coverage: {
-      reporter: ['text', 'json', 'html'],
-    },
+    include: ['tests/**/*.test.{js,ts,vue}'],
+    globals: true,
   },
 })

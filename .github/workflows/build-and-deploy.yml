@@ -132,10 +132,10 @@ jobs:
         id: deploy-firebase
         uses: FirebaseExtended/action-hosting-deploy@v0.9.0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
           projectId: 'avery-shedden-me'
+          channelId: ${{ env.CHANNEL }}
+          target: 'hosting, functions'
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AVERY_SHEDDEN_ME }}
-          target: ${{ env.CHANNEL }}
 
   version-bump:
     runs-on: ubuntu-latest

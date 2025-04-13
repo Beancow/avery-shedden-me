@@ -1,3 +1,4 @@
+import { ContentFileType } from '@nuxt/content'
 import tailwindcss from '@tailwindcss/vite'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -12,6 +13,12 @@ export default defineNuxtConfig({
       httpsOptions: {
         region: 'europe-west1',
       },
+    },
+    compressPublicAssets: false,
+    preset: 'firebase',
+
+    prerender: {
+      routes: ['/'],
     },
   },
 

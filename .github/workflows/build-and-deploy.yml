@@ -135,7 +135,7 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           projectId: 'avery-shedden-me'
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AVERY_SHEDDEN_ME }}
-          channelId: ${{ env.CHANNEL }}
+          target: ${{ env.CHANNEL }}
 
   version-bump:
     runs-on: ubuntu-latest

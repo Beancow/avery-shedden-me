@@ -1,11 +1,27 @@
-import { defineConfig } from 'vitest/config'
-import Vue from '@vitejs/plugin-vue'
+import { defineVitestConfig } from '@nuxt/test-utils/config'
 
-export default defineConfig({
-  plugins: [Vue()],
+export default defineVitestConfig({
   test: {
-    environment: 'happy-dom',
-    include: ['tests/**/*.test.{js,ts,vue}'],
     globals: true,
+    environment: 'happy-dom',
+    exclude: ['**/node_modules/**', '**/.nuxt/**'],
+    coverage: {
+      reporter: ['text', 'json', 'html'],
+      all: true,
+      include: ['**/app.vue', '**/app/**/*.{js,ts,vue}'],
+      exclude: ['**/node_modules/**', '**/.nuxt/**'],
+    },
   },
+  resolve: {
+    alias: {
+      '@': '/app',
+      '~': '/app',
+      '@@': '/app',
+      '~~': '/app',
+      '@nuxt': '/nuxt',
+      '@nuxt/test-utils': '/nuxt/test-utils',
+      '@nuxt/test-utils/dist': '/nuxt/test-utils/dist',
+    },
+  },
+  root: '/app',
 })

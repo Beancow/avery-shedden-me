@@ -24,6 +24,7 @@ export default defineNuxtConfig({
     '@nuxt/test-utils',
     '@nuxt/ui',
     '@nuxt/content',
+    '@nuxt/test-utils/module',
   ],
   vite: {
     plugins: [tailwindcss()],

@@ -8,11 +8,6 @@ on:
       - '**.md'
       - 'dependabot/**'
 
-  push:
-    branches:
-      - 'pr-*'
-    paths-ignore:
-      - '**.md'
   workflow_dispatch:
     inputs:
       username:
@@ -88,8 +83,6 @@ jobs:
             echo "TAG=pr-${{ github.event.pull_request.number }}" >> $GITHUB_ENV
           elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "TAG=production" >> $GITHUB_ENV
-          elif [[ "${{ github.ref_name }}" =~ ^pr- ]]; then
-            echo "TAG=${{ github.ref_name }}-${{ github.run_number }}" >> $GITHUB_ENV
           else
             echo "TAG=build-${{ github.run_number }}" >> $GITHUB_ENV
           fi
@@ -123,9 +116,6 @@ jobs:
             echo "CHANNEL=live" >> $GITHUB_ENV
           elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
             echo "CHANNEL=pr-${{ github.event.pull_request.number }}" >> $GITHUB_ENV
-          elif [[ "${{ github.ref_name }}" =~ ^pr- ]]; then
-            PR_NUM=$(echo "${{ github.ref_name }}" | sed 's/pr-//')
-            echo "CHANNEL=pr-$PR_NUM-preview" >> $GITHUB_ENV
           else
             echo "CHANNEL=default-${{ github.run_number }}" >> $GITHUB_ENV
           fi
@@ -160,6 +150,8 @@ jobs:
 
       - name: Bump version
         run: |
+          git config user.name "GitHub Actions"
+          git config user.email "${{ github.repository_owner }}@users.noreply.github.com"
           npm version patch -m "Bump version to %s [skip ci]"
           git push
           git push --tags

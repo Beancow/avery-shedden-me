@@ -1,12 +1,13 @@
-import { ContentFileType } from '@nuxt/content'
 import tailwindcss from '@tailwindcss/vite'
-
+import autoprefixer from 'autoprefixer'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
-  css: ['~/assets/css/main.css'],
   devtools: { enabled: true },
+  css: ['./app/assets/css/main.css'],
 
+  dir: {
+    pages: './app/pages',
+  },
   nitro: {
     firebase: {
       gen: 2,
@@ -35,5 +36,11 @@ export default defineNuxtConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    css: {
+      postcss: {
+        plugins: [autoprefixer()],
+      },
+    },
   },
+  compatibilityDate: '2024-11-01',
 })

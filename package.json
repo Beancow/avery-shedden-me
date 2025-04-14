@@ -1,9 +1,9 @@
 {
-  "name": "nuxt-app",
+  "name": "averything",
+  "version": "0.0.1",
+  "author": "Avery",
   "private": true,
   "type": "module",
-  "nodeVersion": ">=20.0.0",
-  "version": "1.0.0",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",

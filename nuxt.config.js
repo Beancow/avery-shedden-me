@@ -17,6 +17,13 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/main.css"],
 
+  compressPublicAssets: false,
+  preset: "firebase",
+
+  prerender: {
+    routes: ["/"],
+  },
+
   future: {
     compatibilityVersion: 4,
   },

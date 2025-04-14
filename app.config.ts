@@ -1,3 +1,5 @@
+import { defineAppConfig } from 'nuxt/app'
+
 export default defineAppConfig({
   // https://ui.nuxt.com/getting-started/theme#design-system
   ui: {

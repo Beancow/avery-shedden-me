@@ -1,13 +1,11 @@
 import tailwindcss from '@tailwindcss/vite'
 import autoprefixer from 'autoprefixer'
+import { defineNuxtConfig } from 'nuxt/config'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['./app/assets/css/main.css'],
 
-  dir: {
-    pages: './app/pages',
-  },
   nitro: {
     firebase: {
       gen: 2,
@@ -22,6 +20,14 @@ export default defineNuxtConfig({
       routes: ['/'],
     },
   },
+
+  srcDir: 'app/',
+  rootDir: './',
+  sourcemap: {
+    server: true,
+    client: true,
+  },
+  pages: true,
 
   modules: [
     '@nuxt/eslint',

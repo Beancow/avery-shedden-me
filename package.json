@@ -2,6 +2,8 @@
   "name": "nuxt-app",
   "private": true,
   "type": "module",
+  "nodeVersion": ">=20.0.0",
+  "version": "1.0.0",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",

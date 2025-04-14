@@ -5,13 +5,13 @@ on:
     branches:
       - main
     paths-ignore:
-      - '**.md'
-      - 'dependabot/**'
+      - "**.md"
+      - "dependabot/**"
 
   workflow_dispatch:
     inputs:
       username:
-        description: 'Username'
+        description: "Username"
         required: true
         type: choice
         options:
@@ -38,8 +38,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -60,8 +60,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -126,9 +126,9 @@ jobs:
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AVERY_SHEDDEN_ME }}
-          projectId: 'avery-shedden-me'
+          projectId: "avery-shedden-me"
           channelId: ${{ env.CHANNEL }}
-          target: 'avery-shedden-me'
+          target: "avery-shedden-me"
 
   version-bump:
     runs-on: ubuntu-latest
@@ -142,8 +142,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci

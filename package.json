@@ -34,5 +34,8 @@
     "playwright-core": "^1.51.1",
     "typescript": "^5.8.3",
     "vitest": "^3.1.1"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.40.0"
   }
 }

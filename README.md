@@ -1,5 +1,5 @@
-<p align="center">
 <h1>Avery Shedden's Portfolio</h1>
+<p align="center">
     <img src="/public/favicon.png" alt="Avery Shedden's favicon" width="150" height="150" />
 </p>
 </br>

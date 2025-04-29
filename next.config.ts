@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
+import path from "path";
 const nextConfig: NextConfig = {
-  /* config options here */
+  config: {
+    turbo: {
+      root: path.join(__dirname, ".."),
+    },
+    serverExternalPackages: ["@radix-ui/themes"],
+  },
 };
 
 export default nextConfig;

@@ -1,30 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Avery Shedden's Portfolio
 
-## Getting Started
+Welcome to my personal portfolio repository! This site serves as a comprehensive showcase of my professional journey, creative pursuits, and personal interests.
 
-First, run the development server:
+## Table of Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [CV/Resume](./app/cv/README.md): Detailed overview of my professional qualifications, skills, and experience
+- [Work History](./app/work-history/README.md): Timeline of my career journey with key achievements and responsibilities
+- [Hobbies](./app/hobbies/README.md): Exploration of my personal interests and activities outside of work
+- [Pride Groups](./app/pride/README.md): Information about LGBTQ+ organizations and initiatives I'm involved with
+- [Photography](./app/photography/README.md): Gallery showcasing my photographic work and artistic vision
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To access the web version of this portfolio, visit the corresponding pages:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [CV/Resume](/cv)
+- [Work History](/work-history)
+- [Hobbies](/hobbies)
+- [Pride Groups](/pride)
+- [Photography](/photography)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Development
 
-## Learn More
+This portfolio is built using [technologies to be added] and hosted on [platform to be added].
 
-To learn more about Next.js, take a look at the following resources:
+## Contact
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Feel free to reach out to me via [contact information to be added].
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## License
+
+[License information to be added]

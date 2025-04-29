@@ -1,0 +1,32 @@
+/* This file contains the CSS styles specific to the Pride Groups section. 
+   It defines classes for styling the pride layout and elements. */
+
+.pride-container {
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+
+.pride-title {
+  font-size: 2rem;
+  color: #ff4081;
+  margin-bottom: 10px;
+}
+
+.pride-description {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.pride-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.pride-item {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}

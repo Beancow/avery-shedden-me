@@ -1,0 +1,33 @@
+.cvContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.cvHeader {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.cvSection {
+  margin: 15px 0;
+}
+
+.cvItem {
+  margin: 5px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.cvLink {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.cvLink:hover {
+  text-decoration: underline;
+}

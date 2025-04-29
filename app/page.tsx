@@ -5,8 +5,8 @@ export default function Page() {
     <main className={styles.container}>
       <h1>Avery's Website</h1>
       <p>
-        This is a simple website built with Next.js. It is a work in progress, so
-        please check back later for more updates!
+        This is a simple website built with Next.js. It is a work in progress,
+        so please check back later for more updates!
       </p>
     </main>
   );

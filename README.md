@@ -1,5 +1,9 @@
 # Avery Shedden's Portfolio
 
+<p align="center">
+    <img src="/public/favicon.png" alt="Avery Shedden's favicon" width="16" height="16" />
+</p>
+
 Welcome to my personal portfolio repository! This site serves as a comprehensive showcase of my professional journey, creative pursuits, and personal interests.
 
 ## Table of Contents

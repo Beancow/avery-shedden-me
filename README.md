@@ -1,6 +1,6 @@
 <h1>Avery Shedden's Portfolio</h1>
 <p align="center">
-    <img src="/public/favicon.png" alt="Avery Shedden's favicon" width="150" height="150" />
+    <img src="/public/favicon.png" alt="Avery Shedden's favicon" width="200" height="200" />
 </p>
 </br>
 

@@ -1,14 +1,24 @@
-import React from 'react';
-import styles from './cv.module.css';
+import React from "react";
+import Summary from "./components/Summary";
+import Employment from "./components/Employment";
+import Education from "./components/Education";
+import TechnicalSkills from "./components/TechnicalSkills";
+import ProjectExperience from "./components/ProjectExperience";
+import SoftSkills from "./components/SoftSkills";
+import Languages from "./components/Languages";
+import styles from "./cv.module.css"; // Assuming you have this CSS module
 
-const CVPage = () => {
-    return (
-        <div className={styles.cvContainer}>
-            <h1 className={styles.title}>Curriculum Vitae</h1>
-            <p className={styles.description}>This section contains a detailed overview of my professional qualifications, skills, and experience.</p>
-            {/* Additional CV content goes here */}
-        </div>
-    );
-};
-
-export default CVPage;
+export default function CVPage() {
+  return (
+    <div className={styles.cvContainer}>
+      <h1>Avery Shedden's CV/Resume</h1>
+      <Summary />
+      <Employment />
+      <Education />
+      <TechnicalSkills />
+      <ProjectExperience />
+      <SoftSkills />
+      <Languages />
+    </div>
+  );
+}

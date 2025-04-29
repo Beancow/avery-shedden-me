@@ -14,14 +14,6 @@ Welcome to my personal portfolio repository! This site serves as a comprehensive
 - [Pride Groups](./app/pride/README.md): Information about LGBTQ+ organizations and initiatives I'm involved with
 - [Photography](./app/photography/README.md): Gallery showcasing my photographic work and artistic vision
 
-To access the web version of this portfolio, visit the corresponding pages:
-
-- [CV/Resume](/cv)
-- [Work History](/work-history)
-- [Hobbies](/hobbies)
-- [Pride Groups](/pride)
-- [Photography](/photography)
-
 ## Development
 
 This portfolio is built using [technologies to be added] and hosted on [platform to be added].

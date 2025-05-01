@@ -18,7 +18,7 @@ Welcome to my personal portfolio repository! This site serves as a comprehensive
 
 A static version of this site is automatically deployed to GitHub Pages on every push to the `main` branch.
 
-[**View Live Static Preview**](https://avery.github.io/avery-shedden-me/)
+[**View Live Static Preview**](https://beancow.github.io/avery-shedden-me/)
 
 _(Note: This static version is built using Next.js static export and may have limitations compared to a full SSR deployment, such as disabled image optimization or lack of certain server-side features.)_
 

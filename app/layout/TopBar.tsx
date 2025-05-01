@@ -1,17 +1,23 @@
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 import styles from "./layout.module.css";
-import { Navigation } from "./Navigation"; // Import the new component
+import { Navigation } from "./Navigation";
 
 export function TopBar() {
   return (
     <header className={styles.topBar}>
-      {/* You might want a logo or title link here */}
-      <a href="/" className={styles.navLink}>
-        {" "}
-        {/* Example Title Link */}
-        Avery Shedden
-      </a>
-      <Navigation /> {/* Use the Navigation component */}
+      <Link href="/" className={styles.logoLink}>
+        <Image
+          src="/favicon.svg"
+          alt="Avery Shedden Portfolio Logo"
+          width={40}
+          height={40}
+          className={styles.logoImage}
+          priority
+        />
+      </Link>
+      <Navigation />
     </header>
   );
 }

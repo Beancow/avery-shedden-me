@@ -3,10 +3,11 @@ import path from "path";
 import process from "process";
 
 const isStaticBuild = process.env.BUILD_TARGET === "static";
+const repoName = "avery-shedden-me";
 
 console.log(
   `Building for: ${isStaticBuild ? "Static Export" : "SSR/Standard"}`
-); // Log build type
+);
 
 const nextConfig: NextConfig = {
   config: {
@@ -17,6 +18,8 @@ const nextConfig: NextConfig = {
   },
 
   ...(isStaticBuild && { output: "export" }),
+
+  ...(isStaticBuild && { basePath: `/${repoName}` }), // Add this line
 
   images: {
     ...(isStaticBuild && { unoptimized: true }),

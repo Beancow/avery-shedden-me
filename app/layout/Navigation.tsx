@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation"; // Import usePathname
+import { usePathname } from "next/navigation";
 import styles from "./layout.module.css";
 
 const navLinks = [
@@ -21,12 +21,13 @@ export function Navigation() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Helper function to determine if a link is active
   const isActive = (href: string) => {
-    const expectedPathSegment = href === "/" ? "/" : href; // e.g. "/" or "/cv"
+    const expectedPathSegment = href === "/" ? "/" : href;
+
     if (expectedPathSegment === "/") {
-      return pathname === "/" || /^\/[^/]+\/$/.test(pathname); // Matches '/' or '/something/'
+      return pathname === "/" || pathname.endsWith("/");
     }
+
     return pathname.endsWith(expectedPathSegment);
   };
 
@@ -48,9 +49,7 @@ export function Navigation() {
 
       <div className={styles.mobileNavContainer}>
         <button onClick={toggleMobileMenu} className={styles.burgerButton}>
-          <div />
-          <div />
-          <div />
+          <div /> <div /> <div />
         </button>
         {isMobileMenuOpen && (
           <nav className={styles.mobileNav}>
@@ -61,7 +60,7 @@ export function Navigation() {
                 className={`${styles.glowItem} ${styles.mobileNavLink} ${
                   isActive(link.href) ? styles.active : ""
                 }`}
-                onClick={toggleMobileMenu} // Close menu on click
+                onClick={toggleMobileMenu}
               >
                 {link.label}
               </Link>

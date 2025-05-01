@@ -9,11 +9,17 @@ console.log(
 );
 
 const nextConfig: NextConfig = {
-  ...(isStaticBuild && { output: "export" }),
-  ...(isStaticBuild && { basePath: `/${repoName}` }),
+  ...(isStaticBuild && {
+    output: "export",
+    basePath: `/${repoName}`,
+    assetPrefix: `/${repoName}/`,
+    trailingSlash: true,
+  }),
 
   images: {
-    ...(isStaticBuild && { unoptimized: true }),
+    ...(isStaticBuild && {
+      unoptimized: true,
+    }),
   },
 };
 

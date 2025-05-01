@@ -1,209 +1,97 @@
 .topBar {
-  /* Add styles for your top bar here */
-  padding: 1rem;
-  background-color: #333;
-  color: white;
-  /* Example styles */
   display: flex;
-  justify-content: space-between; /* Space out logo/title and nav */
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  position: relative;
+  z-index: 100;
+  background-color: #222;
+}
+
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  z-index: 110;
+}
+
+.logoImage {
+  display: block;
+  height: 40px;
+  width: auto;
+}
+
+.desktopNav {
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
   align-items: center;
 }
 
-.mainContent {
-  /* Add styles for the main content area */
-  padding: 1rem;
-  min-height: calc(100vh - 60px); /* Example: Adjust based on topBar height */
+.mobileNavTriggerContainer {
+  display: none;
 }
 
-/* --- Navigation Styles --- */
-
-/* Desktop Navigation (visible by default) */
-.desktopNav {
-  display: flex; /* Arrange links horizontally */
-  gap: 1rem; /* Space between links */
+.dialogOverlay {
+  background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+  position: fixed;
+  inset: 0;
+  z-index: 101;
+  animation: fadeIn 0.2s ease-out;
 }
 
-.navLink {
-  /* ... existing navLink styles ... */
-  position: relative; /* Needed for the underline pseudo-element */
-  transition: color 0.2s ease; /* Smooth color transition */
-}
-
-.navLink::after {
-  /* Underline effect for non-active links on hover */
-  content: "";
-  position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 2px;
-  bottom: -2px; /* Position the underline slightly below the text */
+.dialogContent {
+  background-color: #222;
+  position: fixed;
+  top: 0;
   left: 0;
-  background-color: var(--accent-9); /* Use Radix gold theme color */
-  transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
+  width: 100%;
+  height: 100%;
+  z-index: 102;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease-out;
 }
 
-.navLink:hover::after {
-  /* Underline expands on hover */
-  transform: scaleX(1);
-  transform-origin: bottom left;
+.dialogCloseButton {
+  position: absolute !important;
+  top: 1rem;
+  right: 1rem;
+  color: white !important;
 }
 
-/* Style for the currently active desktop link */
-.activeLink {
-  color: var(--accent-9); /* Use Radix gold theme color */
-  font-weight: bold; /* Example: make it bold */
+/* --- Mobile Styles --- */
+@media (max-width: 768px) {
+  .desktopNav {
+    display: none;
+  }
+
+  .mobileNavTriggerContainer {
+    display: block;
+  }
+
+  .burgerButton {
+    color: white !important; /* Ensure icon is visible */
+    background-color: transparent !important;
+  }
+
+  .mobileNavLink {
+    position: relative
+    width: 80%;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 1rem;
+    /* Inherits .glowItem styles */
+  }
 }
 
-.activeLink::after {
-  /* Keep the underline visible for the active link */
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-
-/* Style for the currently active mobile link */
-.activeMobileLink {
-  background-color: var(
-    --accent-5
-  ); /* Lighter gold background for mobile active */
-  color: var(--gray-12); /* Darker text for contrast */
-  font-weight: bold;
-}
-
-/* Ensure mobile links also have hover effects if desired */
-.mobileNavLink {
-  /* ... existing mobileNavLink styles ... */
-  transition: background-color 0.2s ease;
-}
-
-.mobileNavLink:hover {
-  background-color: #666; /* Keep existing hover */
-}
-
-/* Override hover for the active mobile link if needed */
-.activeMobileLink:hover {
-  background-color: var(--accent-6); /* Slightly darker gold on hover */
-}
-
-/* Mobile Navigation Container (hidden on desktop) */
-.mobileNavContainer {
-  display: none; /* Hide on larger screens */
-  position: relative; /* For positioning the mobile menu */
-}
-
-/* Burger Button */
-.burgerButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 4px; /* Space between burger lines */
-}
-
-.burgerButton div {
-  width: 25px;
-  height: 3px;
-  background-color: white; /* Burger line color */
-  border-radius: 2px;
-}
-
-/* Mobile Menu (Dropdown Style Example) */
-.mobileNav {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 100%; /* Position below the button */
-  right: 0;
-  background-color: #444; /* Background for the dropdown */
-  border: 1px solid #555;
-  border-radius: 4px;
-  padding: 0.5rem;
-  z-index: 10; /* Ensure it's above other content */
-  min-width: 150px; /* Minimum width */
-}
-
-.mobileNavLink {
-  color: white;
-  text-decoration: none;
-  padding: 0.8rem 1rem;
-  border-bottom: 1px solid #555; /* Separator */
-  text-align: left;
-}
-.mobileNavLink:last-child {
-  border-bottom: none;
-}
-
-.mobileNavLink:hover {
-  background-color: #666;
-}
-
-/* --- Glow Effect Styles --- */
-@property --gradient-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-.glowItem {
-  --glow-colors-1: #52014d; /* Dark Purple */
-  --glow-colors-2: #d26fee; /* Orchid */
-  --glow-colors-3: #ff5492; /* Pink */
-  --glow-colors-4: #812dff; /* Bright Purple */
-  --glow-colors-5: #f67a28; /* Orange */
-
-  position: relative; /* Needed for pseudo-elements */
-  /* display: flex; */ /* Keep existing flex from .desktopNav or column from .mobileNav */
-  /* place-items: center; */ /* Keep existing alignment */
-  /* gap: 0.5rem; */ /* Keep existing gap */
-  /* margin: 0.5rem auto; */ /* Remove margin, handled by nav container */
-  padding: 0.5rem 1rem; /* Adjust padding as needed */
-  border-radius: 0.5rem;
-  /* background: var(--glow-colors-1); */ /* Let's keep the default transparent background */
-  color: white; /* Ensure text color is white */
-  text-decoration: none; /* Ensure no underline by default */
-  transition: background-color 0.2s ease, color 0.2s ease; /* Smooth transitions */
-  border: 1px solid transparent; /* Add transparent border to prevent layout shift on hover/active */
-}
-
-/* Remove the default hover background from glowItem if you only want the glow */
-/* .glowItem:hover,
-.glowItem:focus {
-  background-color: var(--glow-colors-1);
-  color: white;
-} */
-
-/* Apply glow effect using the 'active' class */
-.glowItem.active::before,
-.glowItem.active::after {
-  content: "";
-  position: absolute;
-  z-index: -1; /* Place behind the link content */
-  inset: -0.15rem; /* Control the size of the glow border */
-  background: conic-gradient(
-    from var(--gradient-angle),
-    var(--glow-colors-1),
-    var(--glow-colors-3),
-    var(--glow-colors-4),
-    var(--glow-colors-3),
-    var(--glow-colors-1)
-  );
-  border-radius: inherit; /* Match the parent's border radius */
-  animation: rotation 8s linear infinite;
-  filter: blur(0.35rem) brightness(1.3); /* Adjust blur and brightness */
-}
-
-/* Optional: Add a subtle background to the active item itself */
-.glowItem.active {
-  background-color: rgba(
-    82,
-    1,
-    77,
-    0.3
-  ); /* Semi-transparent version of --glow-colors-1 */
-  color: #fff; /* Ensure text remains white */
-  font-weight: bold;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes rotation {
@@ -215,59 +103,70 @@
   }
 }
 
-/* --- Remove or Adjust Previous Active Styles --- */
-/* Comment out or remove the old .activeLink and .activeMobileLink styles */
-/*
-.activeLink { ... }
-.activeLink::after { ... }
-.activeMobileLink { ... }
-.activeMobileLink:hover { ... }
-*/
-
-/* Adjust base navLink styles if needed */
-.navLink {
-  /* Combine with glowItem - remove redundant properties */
-  /* padding: 0.5rem; */ /* Handled by glowItem */
-  /* transition: background-color 0.2s ease; */ /* Handled by glowItem */
-  /* Remove underline effect if using glow */
+/* --- Glow Item Styles --- */
+.glowItem {
+  --glow-colors-1: #52014d;
+  --glow-colors-2: #d26fee;
+  --glow-colors-3: #ff5492;
+  --glow-colors-4: #812dff;
+  --glow-colors-5: #f67a28;
+  /* Base styles for the link */
   position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  color: white !important; /* Ensure white color, use !important if needed to override */
   text-decoration: none;
-}
-/* Remove the hover underline effect if using glow */
-/* .navLink::after { content: none; } */
-/* .navLink:hover::after { content: none; } */
-
-.mobileNavLink {
-  /* Combine with glowItem - remove redundant properties */
-  /* padding: 0.8rem 1rem; */ /* Handled by glowItem */
-  /* border-bottom: 1px solid #555; */ /* Remove border if using glow */
-  text-align: left;
-  width: 100%; /* Ensure mobile links take full width */
-  border-radius: 0.5rem; /* Match glowItem */
-  margin-bottom: 0.25rem; /* Add some space between mobile links */
-}
-/* .mobileNavLink:last-child { border-bottom: none; } */
-/* .mobileNavLink:hover { background-color: #666; } */ /* Let glow handle hover/active */
-
-/* --- Ensure TopBar alignment is correct --- */
-.topBar {
-  /* ... existing topBar styles ... */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 1rem; /* Adjust padding if needed */
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border: 1px solid transparent; /* Add transparent border for consistent size */
+  background-color: transparent; /* Ensure default background is transparent */
 }
 
-/* Adjust desktop nav container */
-.desktopNav {
-  display: flex;
-  gap: 0.5rem; /* Adjust gap to work with glowItem padding */
-  align-items: center;
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
 
-/* Adjust mobile nav container */
-.mobileNav {
-  /* ... existing mobileNav styles ... */
-  padding: 0.5rem; /* Add padding around the links */
-  gap: 0.25rem; /* Space between links */
+.glowItem:hover,
+.glowItem:focus {
+  background-color: rgba(82, 1, 77, 0.2); /* Subtle background on hover/focus */
+  color: white;
+}
+
+.glowItem.active::before,
+.glowItem.active::after {
+  content: "";
+  position: absolute;
+  z-index: -1; /* Keep -1 for desktop, adjust if needed for mobile later */
+  inset: -0.15rem;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    var(--glow-colors-1),
+    var(--glow-colors-3),
+    var(--glow-colors-4),
+    var(--glow-colors-3),
+    var(--glow-colors-1)
+  );
+  border-radius: inherit;
+  animation: rotation 8s linear infinite;
+  filter: blur(0.35rem) brightness(1.3);
+}
+
+.glowItem.active {
+  background-color: rgba(82, 1, 77, 0.3); /* Semi-transparent background when active */
+  color: #fff;
+  font-weight: bold;
+  position: relative; /* Keep relative positioning */
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

@@ -1,7 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React from "react"; // Removed useState, useEffect
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import * as Dialog from "@radix-ui/react-dialog";
+import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { Button, Flex } from "@radix-ui/themes";
 import styles from "./layout.module.css";
 
 const navLinks = [
@@ -13,21 +16,17 @@ const navLinks = [
   { href: "/photography", label: "Photography" },
 ];
 
-export function Navigation() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const pathname = usePathname();
+// Read the base path from the environment variable for image paths
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+export function Navigation() {
+  const pathname = usePathname();
 
   const isActive = (href: string) => {
     const expectedPathSegment = href === "/" ? "/" : href;
-
     if (expectedPathSegment === "/") {
-      return pathname === "/" || pathname.endsWith("/");
+      return pathname === basePath || pathname === `${basePath}/`;
     }
-
     return pathname.endsWith(expectedPathSegment);
   };
 
@@ -47,26 +46,58 @@ export function Navigation() {
         ))}
       </nav>
 
-      <div className={styles.mobileNavContainer}>
-        <button onClick={toggleMobileMenu} className={styles.burgerButton}>
-          <div /> <div /> <div />
-        </button>
-        {isMobileMenuOpen && (
-          <nav className={styles.mobileNav}>
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`${styles.glowItem} ${styles.mobileNavLink} ${
-                  isActive(link.href) ? styles.active : ""
-                }`}
-                onClick={toggleMobileMenu}
+      <div className={styles.mobileNavTriggerContainer}>
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
+            <Button variant="soft" size="3" className={styles.burgerButton}>
+              <HamburgerMenuIcon width="24" height="24" />
+            </Button>
+          </Dialog.Trigger>
+
+          <Dialog.Portal>
+            <Dialog.Overlay className={styles.dialogOverlay} />
+
+            <Dialog.Content
+              title="Navigation Menu"
+              className={styles.dialogContent}
+            >
+              <Dialog.Title className={styles.dialogTitle}>
+                Navigation Menu
+              </Dialog.Title>
+              <Dialog.Close asChild>
+                <Button
+                  variant="ghost"
+                  size="3"
+                  className={styles.dialogCloseButton}
+                  aria-label="Close"
+                >
+                  <Cross2Icon width="24" height="24" />
+                </Button>
+              </Dialog.Close>
+
+              <Flex
+                direction="column"
+                gap="4"
+                align="center"
+                justify="center"
+                height="100%"
               >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-        )}
+                {navLinks.map((link) => (
+                  <Dialog.Close asChild key={link.href}>
+                    <Link
+                      href={link.href}
+                      className={`${styles.glowItem} ${styles.mobileNavLink} ${
+                        isActive(link.href) ? styles.active : ""
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </Dialog.Close>
+                ))}
+              </Flex>
+            </Dialog.Content>
+          </Dialog.Portal>
+        </Dialog.Root>
       </div>
     </>
   );

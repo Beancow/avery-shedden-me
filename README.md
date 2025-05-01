@@ -14,6 +14,14 @@ Welcome to my personal portfolio repository! This site serves as a comprehensive
 - [Pride Groups](./app/pride/README.md): Information about LGBTQ+ organizations and initiatives I'm involved with
 - [Photography](./app/photography/README.md): Gallery showcasing my photographic work and artistic vision
 
+## Live Preview (GitHub Pages)
+
+A static version of this site is automatically deployed to GitHub Pages on every push to the `main` branch.
+
+[**View Live Static Preview**](https://avery.github.io/avery-shedden-me/)
+
+_(Note: This static version is built using Next.js static export and may have limitations compared to a full SSR deployment, such as disabled image optimization or lack of certain server-side features.)_
+
 ## Development
 
 This portfolio is built using [technologies to be added] and hosted on [platform to be added].

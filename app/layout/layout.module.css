@@ -1,9 +1,18 @@
+:root {
+  --glow-colors-1: #52014d;
+  --glow-colors-2: #d26fee;
+  --glow-colors-3: #ff5492;
+  --glow-colors-4: #812dff;
+  --glow-colors-5: #f67a28;
+}
+
 .topBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1rem;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 100;
   background-color: #222;
 }
@@ -20,11 +29,30 @@
   width: auto;
 }
 
-.desktopNav {
+.NavigationMenuRoot {
   position: relative;
   display: flex;
-  gap: 0.5rem;
-  align-items: center;
+  justify-content: end;
+  width: 100vw;
+  z-index: 1;
+  color: white;
+}
+
+.desktopNavLink {
+  min-width: 5rem;
+  color: white;
+}
+
+.NavigationMenuList {
+  display: flex;
+  flex-basis: 2fr;
+  flex-direction: row;
+  list-style: none;
+}
+
+.NavigationMenuList > a {
+  min-height: 2.5rem;
+  align-content: center;
 }
 
 .mobileNavTriggerContainer {
@@ -60,9 +88,8 @@
   color: white !important;
 }
 
-/* --- Mobile Styles --- */
-@media (max-width: 768px) {
-  .desktopNav {
+@media (max-width: 830px) {
+  .NavigationMenuList {
     display: none;
   }
 
@@ -81,7 +108,7 @@
     text-align: center;
     font-size: 1.5rem;
     padding: 1rem;
-    /* Inherits .glowItem styles */
+    margin: 1rem;
   }
 }
 
@@ -103,42 +130,27 @@
   }
 }
 
-/* --- Glow Item Styles --- */
-.glowItem {
-  --glow-colors-1: #52014d;
-  --glow-colors-2: #d26fee;
-  --glow-colors-3: #ff5492;
-  --glow-colors-4: #812dff;
-  --glow-colors-5: #f67a28;
-  /* Base styles for the link */
-  position: relative;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  color: white !important; /* Ensure white color, use !important if needed to override */
-  text-decoration: none;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  border: 1px solid transparent; /* Add transparent border for consistent size */
-  background-color: transparent; /* Ensure default background is transparent */
-}
-
 @property --gradient-angle {
   syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
 }
 
-.glowItem:hover,
-.glowItem:focus {
-  background-color: rgba(82, 1, 77, 0.2); /* Subtle background on hover/focus */
-  color: white;
+.glowItem {
+  position: relative;
+  background-color: var(--glow-colors-1);
+  margin: 0.5rem;
+  padding: 0 auto;
+  justify-content: center;
+  border-radius: 0.5rem;
 }
 
 .glowItem.active::before,
 .glowItem.active::after {
   content: "";
   position: absolute;
-  z-index: -1; /* Keep -1 for desktop, adjust if needed for mobile later */
-  inset: -0.15rem;
+  inset: -0.1rem;
+  z-index: -1;
   background: conic-gradient(
     from var(--gradient-angle),
     var(--glow-colors-1),
@@ -153,15 +165,8 @@
 }
 
 .glowItem.active {
-  background-color: rgba(
-    82,
-    1,
-    77,
-    0.3
-  ); /* Semi-transparent background when active */
-  color: #fff;
+  background-color: rgba(82, 1, 77, 0.3);
   font-weight: bold;
-  position: relative; /* Keep relative positioning */
 }
 
 @keyframes scaleIn {

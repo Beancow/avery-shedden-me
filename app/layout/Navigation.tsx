@@ -1,11 +1,11 @@
 "use client";
-import React from "react"; // Removed useState, useEffect
-import Link from "next/link";
+import React from "react";
 import { usePathname } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { Button, Flex } from "@radix-ui/themes";
+import { Button, Flex, Link } from "@radix-ui/themes";
 import styles from "./layout.module.css";
+import * as Nav from "@radix-ui/react-navigation-menu";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -32,19 +32,21 @@ export function Navigation() {
 
   return (
     <>
-      <nav className={styles.desktopNav}>
-        {navLinks.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={`${styles.glowItem} ${
-              isActive(link.href) ? styles.active : ""
-            }`}
-          >
-            {link.label}
-          </Link>
-        ))}
-      </nav>
+      <Nav.Root className={styles.NavigationMenuRoot}>
+        <Nav.List className={styles.NavigationMenuList}>
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`${styles.glowItem} ${styles.desktopNavLink} ${
+                isActive(link.href) ? styles.active : ""
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </Nav.List>
+      </Nav.Root>
 
       <div className={styles.mobileNavTriggerContainer}>
         <Dialog.Root>

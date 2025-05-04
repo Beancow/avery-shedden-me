@@ -18,7 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Theme accentColor="gold">
+        <Theme
+          accentColor="plum"
+          grayColor="sage"
+          radius="medium"
+          panelBackground="solid"
+        >
           <TopBar />
           <MainContent>{children}</MainContent>
         </Theme>

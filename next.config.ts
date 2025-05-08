@@ -11,10 +11,12 @@ console.log(
 const nextConfig: Partial<NextConfig> = {
   output: isStaticBuild ? "export" : undefined,
   basePath,
-  trailingSlash: false,
-  images: {
-    unoptimized: isStaticBuild,
-  },
+  trailingSlash: isStaticBuild ? true : undefined,
+  images: isStaticBuild
+    ? {
+        unoptimized: true,
+      }
+    : undefined,
 };
 
 console.log(`Next.js config: ${JSON.stringify(nextConfig, null, 2)}`);

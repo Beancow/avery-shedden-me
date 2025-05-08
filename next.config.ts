@@ -9,7 +9,6 @@ console.log(
 
 const config = {
   basePath,
-  output: "export",
 };
 
 export default config;

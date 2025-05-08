@@ -1,0 +1,27 @@
+.navigationMenuBarRoot {
+  display: none;
+}
+
+.navigationMenuList {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 1rem;
+}
+
+.navigationMenuLink {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem; /* Example */
+}
+
+@media (min-width: 780px) {
+  .navigationMenuBarRoot {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0;
+    background-color: #333;
+  }
+}

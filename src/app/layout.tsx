@@ -1,5 +1,5 @@
 import "@radix-ui/themes/styles.css";
-import "../styles/global.css";
+import "./global.css";
 import { Theme } from "@radix-ui/themes";
 import { TopBar } from "../components/layout/TopBar";
 import type { Metadata } from "next";

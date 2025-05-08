@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+  border-box: none;
+}
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.glowItem {
+  --glow-colors-1: #52014d;
+  --glow-colors-2: #d26fee;
+  --glow-colors-3: #ff5492;
+  --glow-colors-4: #812dff;
+  --glow-colors-5: #f67a28;
+  position: relative;
+  background-color: var(--glow-colors-1);
+  margin: 0.5rem;
+  padding: 0 auto;
+  justify-content: center;
+  border-radius: 0.5rem;
+}
+
+.glowItem.active::before,
+.glowItem.active::after {
+  content: "";
+  position: absolute;
+  inset: -0.1rem;
+  z-index: -1;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    var(--glow-colors-1),
+    var(--glow-colors-3),
+    var(--glow-colors-4),
+    var(--glow-colors-3),
+    var(--glow-colors-1)
+  );
+  border-radius: inherit;
+  animation: rotation 8s linear infinite;
+  filter: blur(0.35rem) brightness(1.3);
+}
+
+.glowItem.active {
+  background-color: rgba(82, 1, 77, 0.3);
+  font-weight: bold;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

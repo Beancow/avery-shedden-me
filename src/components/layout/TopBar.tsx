@@ -1,9 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Navigation } from "../navigation/Navigation";
 import styles from "./styles.module.css";
-import { Navigation } from "./Navigation";
-
-const imagePath = process.env.REPO_NAME || "";
 
 export function TopBar() {
   return (
@@ -18,7 +16,6 @@ export function TopBar() {
           priority
         />
       </Link>
-
       <Navigation />
     </header>
   );

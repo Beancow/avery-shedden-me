@@ -15,7 +15,7 @@ module.exports = {
     ? {
         unoptimized: true,
         loader: "custom",
-        loaderFile: "./utils/imageLoader.ts",
+        loaderFile: "src/utils/imageLoader.ts",
       }
     : undefined,
 };

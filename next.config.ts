@@ -8,17 +8,18 @@ console.log(
   `Building for: ${isStaticBuild ? "Static Export" : "SSR/Standard"}`
 );
 
-module.exports = async (
-  _: any,
-  { defaultConfig }: { defaultConfig: NextConfig }
-) => ({
-  ...defaultConfig,
-  ...(isStaticBuild && {
-    output: "export",
-    basePath: `/${repoName}`,
-    images: {
-      ...defaultConfig.image,
-      unoptimized: true,
-    },
-  }),
-});
+module.exports = async (phase: any, { defaultConfig }: NextConfig) => {
+  const nextConfig = {
+    ...defaultConfig,
+    ...(isStaticBuild && {
+      output: "export",
+      basePath: `/${repoName}`,
+      images: {
+        ...defaultConfig.image,
+        unoptimized: true,
+      },
+    }),
+  };
+  console.log("config.basePath", nextConfig);
+  return nextConfig;
+};

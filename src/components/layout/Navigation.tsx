@@ -14,14 +14,23 @@ import { Button, Flex, Link } from "@radix-ui/themes";
 import styles from "./styles.module.css";
 import {
   NavigationMenu,
+  NavigationMenuItem,
   NavigationMenuList,
 } from "@radix-ui/react-navigation-menu";
+import { useRouter } from "next/navigation";
 
 export function Navigation() {
   const pathname = usePathname();
 
   const isActive = (href: string) => {
     return pathname === href || pathname.startsWith(href + "/");
+  };
+  const router = useRouter();
+  const handleLinkClick = (href: string) => {
+    if (href === pathname) {
+      return;
+    }
+    router.push(href);
   };
 
   const navLinks = [
@@ -33,15 +42,15 @@ export function Navigation() {
       <NavigationMenu className={styles.NavigationMenuRoot}>
         <NavigationMenuList className={styles.NavigationMenuList}>
           {navLinks.map((link) => (
-            <Link
+            <NavigationMenuItem
               key={link.href}
-              href={link.href}
+              onClick={() => handleLinkClick(link.href)}
               className={`${styles.glowItem} ${styles.desktopNavLink} ${
                 isActive(link.href) ? styles.active : ""
               }`}
             >
               {link.label}
-            </Link>
+            </NavigationMenuItem>
           ))}
         </NavigationMenuList>
       </NavigationMenu>

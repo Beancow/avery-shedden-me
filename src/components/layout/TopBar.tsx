@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./styles.module.css";
 import { Navigation } from "./Navigation";
-import React from "react";
 
 export function TopBar() {
   return (

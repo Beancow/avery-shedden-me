@@ -4,16 +4,16 @@ import { Theme } from "@radix-ui/themes";
 import { TopBar } from "../components/layout/TopBar";
 import type { Metadata } from "next";
 
+type Props = {
+  children: React.ReactNode;
+};
+
 export const metadata: Metadata = {
   title: "Averything",
   description: "My Portfolio and other stuff",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body>

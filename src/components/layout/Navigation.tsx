@@ -1,23 +1,13 @@
 "use client";
+import React from "react";
 import { usePathname } from "next/navigation";
-import {
-  Dialog,
-  DialogPortal,
-  DialogTrigger,
-  DialogContent,
-  DialogOverlay,
-  DialogTitle,
-  DialogClose,
-} from "@radix-ui/react-dialog";
+import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { Button, Flex, Link } from "@radix-ui/themes";
+import { Button, Flex } from "@radix-ui/themes";
+import Link from "next/link";
 import styles from "./styles.module.css";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-} from "@radix-ui/react-navigation-menu";
-import { useRouter } from "next/navigation";
+import * as Nav from "@radix-ui/react-navigation-menu";
+import {} from "next/router";
 
 export function Navigation() {
   const pathname = usePathname();
@@ -25,55 +15,49 @@ export function Navigation() {
   const isActive = (href: string) => {
     return pathname === href || pathname.startsWith(href + "/");
   };
-  const router = useRouter();
-  const handleLinkClick = (href: string) => {
-    if (href === pathname) {
-      return;
-    }
-    router.push(href);
-  };
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/work-history", label: "Work History" },
+    { href: "/", label: "Home", replace: false },
+    { href: "/work-history", label: "Work History", replace: true },
   ];
   return (
     <>
-      <NavigationMenu className={styles.NavigationMenuRoot}>
-        <NavigationMenuList className={styles.NavigationMenuList}>
+      <Nav.Root className={styles.NavigationMenuRoot}>
+        <Nav.List className={styles.NavigationMenuList}>
           {navLinks.map((link) => (
-            <NavigationMenuItem
+            <Link
               key={link.href}
-              onClick={() => handleLinkClick(link.href)}
+              href={link.href}
+              replace={link.replace}
               className={`${styles.glowItem} ${styles.desktopNavLink} ${
                 isActive(link.href) ? styles.active : ""
               }`}
             >
               {link.label}
-            </NavigationMenuItem>
+            </Link>
           ))}
-        </NavigationMenuList>
-      </NavigationMenu>
+        </Nav.List>
+      </Nav.Root>
 
       <div className={styles.mobileNavTriggerContainer}>
-        <Dialog>
-          <DialogTrigger asChild>
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
             <Button variant="soft" size="3" className={styles.burgerButton}>
               <HamburgerMenuIcon width="24" height="24" />
             </Button>
-          </DialogTrigger>
+          </Dialog.Trigger>
 
-          <DialogPortal>
-            <DialogOverlay className={styles.dialogOverlay} />
+          <Dialog.Portal>
+            <Dialog.Overlay className={styles.dialogOverlay} />
 
-            <DialogContent
+            <Dialog.Content
               title="Navigation Menu"
               className={styles.dialogContent}
             >
-              <DialogTitle className={styles.dialogTitle}>
+              <Dialog.Title className={styles.dialogTitle}>
                 Navigation Menu
-              </DialogTitle>
-              <DialogClose asChild>
+              </Dialog.Title>
+              <Dialog.Close asChild>
                 <Button
                   variant="ghost"
                   size="3"
@@ -82,7 +66,7 @@ export function Navigation() {
                 >
                   <Cross2Icon width="24" height="24" />
                 </Button>
-              </DialogClose>
+              </Dialog.Close>
 
               <Flex
                 direction="column"
@@ -92,7 +76,7 @@ export function Navigation() {
                 height="100%"
               >
                 {navLinks.map((link) => (
-                  <DialogClose asChild key={link.href}>
+                  <Dialog.Close asChild key={link.href}>
                     <Link
                       href={link.href}
                       className={`${styles.glowItem} ${styles.mobileNavLink} ${
@@ -101,12 +85,12 @@ export function Navigation() {
                     >
                       {link.label}
                     </Link>
-                  </DialogClose>
+                  </Dialog.Close>
                 ))}
               </Flex>
-            </DialogContent>
-          </DialogPortal>
-        </Dialog>
+            </Dialog.Content>
+          </Dialog.Portal>
+        </Dialog.Root>
       </div>
     </>
   );

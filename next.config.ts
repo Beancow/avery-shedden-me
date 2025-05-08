@@ -8,21 +8,9 @@ console.log(
   `Building for: ${isStaticBuild ? "Static Export" : "SSR/Standard"}`
 );
 
-const nextConfig = (): Partial<NextConfig> => {
-  if (isStaticBuild) {
-    return {
-      basePath: `/${repoName}`,
-      assetPrefix: `/${repoName}/`,
-      output: "export",
-      trailingSlash: true,
-      images: {
-        unoptimized: true,
-      },
-    };
-  }
-  return {};
+module.exports = {
+  basePath: isStaticBuild ? `/${repoName}` : undefined,
+  output: isStaticBuild ? "export" : undefined,
+  trailingSlash: isStaticBuild ? true : undefined,
+  images: isStaticBuild ? { unoptimized: true } : undefined,
 };
-
-console.log(`Next.js config: ${JSON.stringify(nextConfig, null, 2)}`);
-
-export default nextConfig;

@@ -11,7 +11,7 @@
     "test": "jest --watchAll=false",
     "test:ci": "jest --watchAll=false --ci",
     "test:coverage": "jest --watchAll=false --coverage",
-    "build:static": "cross-env BUILD_TARGET=static NEXT_PUBLIC_BASE_PATH=/avery-shedden-me next build"
+    "build:static": "cross-env BUILD_TARGET=static next build"
   },
   "dependencies": {
     "next": "15.3.1",

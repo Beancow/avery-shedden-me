@@ -1,39 +1,38 @@
 "use client";
 import React from "react";
 import { usePathname } from "next/navigation";
-import * as Dialog from "@radix-ui/react-dialog";
+import {
+  Dialog,
+  DialogPortal,
+  DialogTrigger,
+  DialogContent,
+  DialogOverlay,
+  DialogTitle,
+  DialogClose,
+} from "@radix-ui/react-dialog";
 import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { Button, Flex, Link } from "@radix-ui/themes";
-import styles from "./layout.module.css";
-import * as Nav from "@radix-ui/react-navigation-menu";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "cv", label: "CV" },
-  { href: "work-history", label: "Work History" },
-  { href: "hobbies", label: "Hobbies" },
-  { href: "pride", label: "Pride Groups" },
-  { href: "photography", label: "Photography" },
-];
-
-// Read the base path from the environment variable for image paths
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import styles from "./styles.module.css";
+import {
+  NavigationMenu,
+  NavigationMenuList,
+} from "@radix-ui/react-navigation-menu";
 
 export function Navigation() {
   const pathname = usePathname();
 
   const isActive = (href: string) => {
-    const expectedPathSegment = href === "/" ? "/" : href;
-    if (expectedPathSegment === "/") {
-      return pathname === basePath || pathname === `${basePath}/`;
-    }
-    return pathname.endsWith(expectedPathSegment);
+    return pathname === href || pathname.startsWith(href + "/");
   };
 
+  const navLinks = [
+    { href: "/", label: "Home", replace: false },
+    { href: "/work-history", label: "Work History", replace: true },
+  ];
   return (
     <>
-      <Nav.Root className={styles.NavigationMenuRoot}>
-        <Nav.List className={styles.NavigationMenuList}>
+      <NavigationMenu className={styles.NavigationMenuRoot}>
+        <NavigationMenuList className={styles.NavigationMenuList}>
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -45,28 +44,28 @@ export function Navigation() {
               {link.label}
             </Link>
           ))}
-        </Nav.List>
-      </Nav.Root>
+        </NavigationMenuList>
+      </NavigationMenu>
 
       <div className={styles.mobileNavTriggerContainer}>
-        <Dialog.Root>
-          <Dialog.Trigger asChild>
+        <Dialog>
+          <DialogTrigger asChild>
             <Button variant="soft" size="3" className={styles.burgerButton}>
               <HamburgerMenuIcon width="24" height="24" />
             </Button>
-          </Dialog.Trigger>
+          </DialogTrigger>
 
-          <Dialog.Portal>
-            <Dialog.Overlay className={styles.dialogOverlay} />
+          <DialogPortal>
+            <DialogOverlay className={styles.dialogOverlay} />
 
-            <Dialog.Content
+            <DialogContent
               title="Navigation Menu"
               className={styles.dialogContent}
             >
-              <Dialog.Title className={styles.dialogTitle}>
+              <DialogTitle className={styles.dialogTitle}>
                 Navigation Menu
-              </Dialog.Title>
-              <Dialog.Close asChild>
+              </DialogTitle>
+              <DialogClose asChild>
                 <Button
                   variant="ghost"
                   size="3"
@@ -75,7 +74,7 @@ export function Navigation() {
                 >
                   <Cross2Icon width="24" height="24" />
                 </Button>
-              </Dialog.Close>
+              </DialogClose>
 
               <Flex
                 direction="column"
@@ -85,7 +84,7 @@ export function Navigation() {
                 height="100%"
               >
                 {navLinks.map((link) => (
-                  <Dialog.Close asChild key={link.href}>
+                  <DialogClose asChild key={link.href}>
                     <Link
                       href={link.href}
                       className={`${styles.glowItem} ${styles.mobileNavLink} ${
@@ -94,12 +93,12 @@ export function Navigation() {
                     >
                       {link.label}
                     </Link>
-                  </Dialog.Close>
+                  </DialogClose>
                 ))}
               </Flex>
-            </Dialog.Content>
-          </Dialog.Portal>
-        </Dialog.Root>
+            </DialogContent>
+          </DialogPortal>
+        </Dialog>
       </div>
     </>
   );

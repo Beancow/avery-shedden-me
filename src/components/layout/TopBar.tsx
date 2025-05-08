@@ -1,11 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import styles from "./layout.module.css";
+import styles from "./styles.module.css";
 import { Navigation } from "./Navigation";
 import React from "react";
-
-// Read the base path from the environment variable for image paths
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export function TopBar() {
   return (

@@ -9,6 +9,10 @@ console.log(
 
 const config = {
   basePath,
+  output: "export",
+  images: {
+    unoptimized: isStaticBuild,
+  },
 };
 
 export default config;

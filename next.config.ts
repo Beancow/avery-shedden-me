@@ -1,25 +1,15 @@
-import { NextConfig } from "next";
 import process from "process";
 
 const isStaticBuild = process.env.BUILD_TARGET === "static";
-const repoName = "avery-shedden-me";
+const basePath = isStaticBuild ? "/avery-shedden-me" : "";
 
 console.log(
   `Building for: ${isStaticBuild ? "Static Export" : "SSR/Standard"}`
 );
 
-module.exports = async (phase: any, { defaultConfig }: NextConfig) => {
-  const nextConfig = {
-    ...defaultConfig,
-    ...(isStaticBuild && {
-      output: "export",
-      basePath: `/${repoName}`,
-      images: {
-        ...defaultConfig.image,
-        unoptimized: true,
-      },
-    }),
-  };
-  console.log("config.basePath", nextConfig);
-  return nextConfig;
+const config = {
+  basePath,
+  output: "export",
 };
+
+export default config;

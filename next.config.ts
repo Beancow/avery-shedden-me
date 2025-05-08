@@ -12,6 +12,7 @@ const nextConfig = (): Partial<NextConfig> => {
   if (isStaticBuild) {
     return {
       basePath: `/${repoName}`,
+      assetPrefix: `/${repoName}/`,
       output: "export",
       trailingSlash: true,
       images: {

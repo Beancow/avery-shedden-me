@@ -25,8 +25,8 @@ export function Navigation() {
   };
 
   const navLinks = [
-    { href: "/", label: "Home", replace: false },
-    { href: "/work-history", label: "Work History", replace: true },
+    { href: "/", label: "Home" },
+    { href: "/work-history", label: "Work History" },
   ];
   return (
     <>

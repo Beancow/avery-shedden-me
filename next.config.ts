@@ -1,4 +1,3 @@
-import { NextConfig } from "next/types";
 import process from "process";
 
 const isStaticBuild = process.env.BUILD_TARGET === "static";
@@ -12,5 +11,11 @@ module.exports = {
   basePath: isStaticBuild ? `/${repoName}` : undefined,
   output: isStaticBuild ? "export" : undefined,
   trailingSlash: isStaticBuild ? true : undefined,
-  images: isStaticBuild ? { unoptimized: true } : undefined,
+  images: isStaticBuild
+    ? {
+        unoptimized: true,
+        loader: "custom",
+        loaderFile: "./utils/imageLoader.ts",
+      }
+    : undefined,
 };

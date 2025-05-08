@@ -1,18 +1,20 @@
+import { NextConfig } from "next/types";
 import process from "process";
 
 const isStaticBuild = process.env.BUILD_TARGET === "static";
-const basePath = isStaticBuild ? "/avery-shedden-me" : "";
+const basePath = isStaticBuild ? "/avery-shedden-me" : undefined;
 
 console.log(
   `Building for: ${isStaticBuild ? "Static Export" : "SSR/Standard"}`
 );
 
-const config = {
+const nextConfig: NextConfig = {
   basePath,
-  output: "export",
+  output: isStaticBuild ? "export" : undefined,
+  trailingSlash: isStaticBuild,
   images: {
     unoptimized: isStaticBuild,
   },
 };
 
-export default config;
+export default nextConfig;

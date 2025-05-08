@@ -12,7 +12,7 @@ export function TopBar() {
     <header className={styles.topBar}>
       <Link href="/" className={styles.logoLink}>
         <Image
-          src={`${basePath}/favicon.svg`}
+          src="favicon.svg"
           alt="Avery Shedden Portfolio Logo"
           width={40}
           height={40}

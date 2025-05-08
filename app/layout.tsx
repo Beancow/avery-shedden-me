@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 import { TopBar } from "./layout/TopBar";
-import { MainContent } from "./layout/MainContent";
 
 export const metadata: Metadata = {
   title: "Averything",
@@ -25,7 +23,7 @@ export default function RootLayout({
           panelBackground="solid"
         >
           <TopBar />
-          <MainContent>{children}</MainContent>
+          <>{children}</>
         </Theme>
       </body>
     </html>

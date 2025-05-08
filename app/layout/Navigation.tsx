@@ -9,11 +9,11 @@ import * as Nav from "@radix-ui/react-navigation-menu";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/cv", label: "CV" },
-  { href: "/work-history", label: "Work History" },
-  { href: "/hobbies", label: "Hobbies" },
-  { href: "/pride", label: "Pride Groups" },
-  { href: "/photography", label: "Photography" },
+  { href: "cv", label: "CV" },
+  { href: "work-history", label: "Work History" },
+  { href: "hobbies", label: "Hobbies" },
+  { href: "pride", label: "Pride Groups" },
+  { href: "photography", label: "Photography" },
 ];
 
 // Read the base path from the environment variable for image paths

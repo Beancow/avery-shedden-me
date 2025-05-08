@@ -1,4 +1,5 @@
 import { NextConfig } from "next/types";
+import path from "path";
 import process from "process";
 
 const isStaticBuild = process.env.BUILD_TARGET === "static";
@@ -9,9 +10,15 @@ console.log(
 );
 
 const nextConfig: NextConfig = {
-  basePath,
+  config: {
+    turbo: {
+      root: path.join(__dirname, ".."),
+    },
+    serverExternalPackages: ["@radix-ui/themes"],
+  },
+
   output: isStaticBuild ? "export" : undefined,
-  trailingSlash: isStaticBuild,
+  basePath,
   images: {
     unoptimized: isStaticBuild,
   },

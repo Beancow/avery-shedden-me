@@ -1,0 +1,89 @@
+.navigationModalRoot {
+}
+
+/* Styles for the Radix Dialog components */
+.dialogOverlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  max-width: 500px;
+  background-color: #222; /* Consistent with .dialogContent */
+  color: white; /* Consistent with .dialogContent */
+  padding: 1rem; /* Consistent with .dialogContent */
+  box-sizing: border-box;
+  overflow-y: auto; /* Allow scrolling if content is too long */
+  z-index: 50; /* Ensure it's above overlay, matches .dialogContent */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* To center .mobileNavLink items */
+  justify-content: center; /* To vertically center content, matches .dialogContent */
+}
+
+.dialogContent {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  max-width: 500px;
+  background-color: #222; /* Consistent with .dialogContent */
+  color: white; /* Consistent with .dialogContent */
+  padding: 1rem; /* Consistent with .dialogContent */
+  box-sizing: border-box;
+  overflow-y: auto; /* Allow scrolling if content is too long */
+  z-index: 50; /* Ensure it's above overlay, matches .dialogContent */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* To center .mobileNavLink items */
+  justify-content: center; /* To vertically center content, matches .dialogContent */
+}
+
+.dialogTitle {
+  /* Visually hidden, but good for accessibility */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.dialogCloseButton {
+  position: absolute !important; /* Override Radix default if needed */
+  top: 1rem;
+  right: 1rem;
+  color: white !important; /* Ensure icon is visible */
+  background-color: transparent !important;
+}
+
+/* Styles for links within the mobile modal */
+.mobileNavLink {
+  width: 80%;
+  text-align: center;
+  font-size: 1.5rem; /* Larger text for mobile */
+  padding: 1rem;
+  border-radius: 0.5rem;
+  /* glowItem and active are global and will be applied directly */
+}
+
+/* Hide the burger button trigger on screens 779px wide and above */
+@media (min-width: 779px) {
+  .navigationModalRoot {
+    display: none !important;
+  }
+}
+
+/* Re-usable fadeIn animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

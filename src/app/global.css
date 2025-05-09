@@ -18,6 +18,7 @@ body {
   inherits: false;
 }
 
+
 .glowItem {
   --glow-colors-1: #52014d;
   --glow-colors-2: #d26fee;
@@ -25,18 +26,18 @@ body {
   --glow-colors-4: #812dff;
   --glow-colors-5: #f67a28;
   position: relative;
-  background-color: var(--glow-colors-1);
-  margin: 0.5rem;
-  padding: 0 auto;
+  background-color: transparent;
+  margin: inherit;
+  padding: inherit;
   justify-content: center;
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
 }
 
 .glowItem.active::before,
 .glowItem.active::after {
   content: "";
   position: absolute;
-  inset: -0.1rem;
+  inset: 0.40rem;
   z-index: -1;
   background: conic-gradient(from var(--gradient-angle),
       var(--glow-colors-1),
@@ -51,7 +52,6 @@ body {
 
 .glowItem.active {
   background-color: rgba(82, 1, 77, 0.3);
-  font-weight: bold;
 }
 
 @keyframes rotation {
@@ -64,10 +64,10 @@ body {
   }
 }
 
-/* @media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
 
   .glowItem.active::before,
   .glowItem.active::after {
     animation: none;
   }
-} */
+}

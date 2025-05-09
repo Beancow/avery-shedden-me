@@ -45,16 +45,16 @@ export default function NavigationModal({
               height="fill"
             >
               {navLinks.map((link) => (
-                <Dialog.Close asChild key={link.href}>
-                  <GlowWhenActive
-                    key={link.href}
-                    isActive={checkActive(link.href)}
-                  >
+                <GlowWhenActive
+                  key={link.href}
+                  isActive={checkActive(link.href)}
+                >
+                  <Dialog.Close asChild key={link.href}>
                     <Link href={link.href} className={styles.mobileNavLink}>
                       {link.label}
                     </Link>
-                  </GlowWhenActive>
-                </Dialog.Close>
+                  </Dialog.Close>
+                </GlowWhenActive>
               ))}
             </Flex>
           </Dialog.Content>

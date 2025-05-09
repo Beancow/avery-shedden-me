@@ -1,9 +1,10 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { Button, Flex } from "@radix-ui/themes";
+import { Button, Flex, useThemeContext } from "@radix-ui/themes";
 import Link from "next/link";
 import { NavigationProps } from "../navigationProps";
 import styles from "./styles.module.css";
+import GlowWhenActive from "@/components/wrappers/GlowWhenActive/GlowWhenActive";
 
 export default function NavigationModal({
   navLinks,
@@ -37,22 +38,22 @@ export default function NavigationModal({
 
             <Flex
               direction="column"
-              gap="4" // Radix Flex gap prop
+              width="fill"
+              gap="4"
               align="center"
-              justify="center"
-              height="100%" // Ensure Flex takes full height of Dialog.Content
+              justify="between"
+              height="fill"
             >
               {navLinks.map((link) => (
-                // Dialog.Close ensures clicking a link closes the modal
                 <Dialog.Close asChild key={link.href}>
-                  <Link
-                    href={link.href}
-                    className={`${styles.mobileNavLink} glowItem ${
-                      checkActive(link.href) ? "active" : ""
-                    }`}
+                  <GlowWhenActive
+                    key={link.href}
+                    isActive={checkActive(link.href)}
                   >
-                    {link.label}
-                  </Link>
+                    <Link href={link.href} className={styles.mobileNavLink}>
+                      {link.label}
+                    </Link>
+                  </GlowWhenActive>
                 </Dialog.Close>
               ))}
             </Flex>

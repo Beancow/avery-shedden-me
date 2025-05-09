@@ -1,0 +1,7 @@
+.GlowWhenActive {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 8px;
+    position: relative;
+    z-index: 10;
+}

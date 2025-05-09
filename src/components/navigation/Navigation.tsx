@@ -15,7 +15,10 @@ export function Navigation() {
   const navLinks = [
     { href: "/", label: "Home", replace: false },
     { href: "/work-history", label: "Work History", replace: true },
+    { href: "/projects", label: "Projects", replace: true },
+    { href: "/contact", label: "Contact", replace: true },
   ];
+
   return (
     <>
       <NavigationMenuBar navLinks={navLinks} checkActive={isActive} />

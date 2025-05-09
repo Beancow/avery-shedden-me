@@ -1,47 +1,34 @@
-.navigationModalRoot {
-}
+.navigationModalRoot {}
 
-/* Styles for the Radix Dialog components */
 .dialogOverlay {
   position: fixed;
   top: 0;
   right: 0;
-  height: 100vh;
   width: 100%;
+  height: 100vh;
   max-width: 500px;
-  background-color: #222; /* Consistent with .dialogContent */
-  color: white; /* Consistent with .dialogContent */
-  padding: 1rem; /* Consistent with .dialogContent */
-  box-sizing: border-box;
-  overflow-y: auto; /* Allow scrolling if content is too long */
-  z-index: 50; /* Ensure it's above overlay, matches .dialogContent */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* To center .mobileNavLink items */
-  justify-content: center; /* To vertically center content, matches .dialogContent */
+  background-color: #222;
+  overflow-y: auto;
 }
 
 .dialogContent {
   position: fixed;
   top: 0;
   right: 0;
-  height: 100vh;
   width: 100%;
+  height: 100vh;
   max-width: 500px;
-  background-color: #222; /* Consistent with .dialogContent */
-  color: white; /* Consistent with .dialogContent */
-  padding: 1rem; /* Consistent with .dialogContent */
-  box-sizing: border-box;
-  overflow-y: auto; /* Allow scrolling if content is too long */
-  z-index: 50; /* Ensure it's above overlay, matches .dialogContent */
+  color: white;
+  padding: 1rem;
+  overflow-y: auto;
+  z-index: 50;
   display: flex;
   flex-direction: column;
-  align-items: center; /* To center .mobileNavLink items */
-  justify-content: center; /* To vertically center content, matches .dialogContent */
+  align-items: stretch;
+  justify-content: center;
 }
 
 .dialogTitle {
-  /* Visually hidden, but good for accessibility */
   position: absolute;
   width: 1px;
   height: 1px;
@@ -54,35 +41,35 @@
 }
 
 .dialogCloseButton {
-  position: absolute !important; /* Override Radix default if needed */
+  position: absolute !important;
   top: 1rem;
   right: 1rem;
-  color: white !important; /* Ensure icon is visible */
+  color: white !important;
   background-color: transparent !important;
 }
 
-/* Styles for links within the mobile modal */
 .mobileNavLink {
-  width: 80%;
+  position: relative;
+  color: white;
+  min-width: 20rem;
   text-align: center;
-  font-size: 1.5rem; /* Larger text for mobile */
-  padding: 1rem;
-  border-radius: 0.5rem;
-  /* glowItem and active are global and will be applied directly */
+  background: blueviolet;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
 }
 
-/* Hide the burger button trigger on screens 779px wide and above */
 @media (min-width: 779px) {
   .navigationModalRoot {
     display: none !important;
   }
 }
 
-/* Re-usable fadeIn animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }

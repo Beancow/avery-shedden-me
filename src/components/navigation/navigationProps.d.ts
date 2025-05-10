@@ -1,4 +1,20 @@
+export type LinkSectionItem = {
+  type: "link";
+  label: string;
+  content: React.ReactNode;
+  href: string;
+};
+
+export type TriggerSectionItem = {
+  type: "trigger";
+  title: string;
+  content: React.ReactNode;
+  items: LinkSectionItem[];
+};
+
+export type NavSection = TriggerSectionItem | LinkSectionItem;
+
 export type NavigationProps = {
-  navLinks: { href: string; label: string; replace: boolean }[];
+  navItems: NavSection[];
   checkActive: (x: string) => boolean;
 };

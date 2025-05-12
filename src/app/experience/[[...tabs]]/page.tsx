@@ -1,4 +1,3 @@
-"use client";
 import { useCallback, useState, useEffect } from "react"; // Added useEffect
 import { useRouter, usePathname } from "next/navigation"; // Added Next.js navigation hooks
 import { ExperienceTabs } from "../components/ExperienceTabs";

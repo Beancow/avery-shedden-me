@@ -2,7 +2,6 @@ import * as TabsPrimitive from "@radix-ui/react-tabs";
 import Link from "next/link";
 
 export async function ExperienceTabs({ experience }: { experience: string }) {
-  console.log("ExperienceTabs", experience);
   const tabs = [
     { value: "Tab1", label: "Tab 1" },
     { value: "Tab2", label: "Tab 2" },

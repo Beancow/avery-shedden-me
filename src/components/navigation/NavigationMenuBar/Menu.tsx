@@ -7,7 +7,7 @@ import { LinkSection } from "./LinkSection";
 export function NavigationMenuBar({ navRoutes }: { navRoutes: NavSection[] }) {
   return (
     <>
-      <Nav.Root className={styles.navigationMenuRoot}>
+      <Nav.Root className={styles.navigationMenuBarRoot}>
         <Nav.List className={styles.navigationMenuList}>
           {navRoutes.map((item) => {
             if (item.type === "trigger") {

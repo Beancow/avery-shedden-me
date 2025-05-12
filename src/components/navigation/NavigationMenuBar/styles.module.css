@@ -1,5 +1,10 @@
 .navigationMenuBarRoot {
-    display: none;
+    .navigationMenuBarRoot {
+        display: flex;
+        justify-content: center;
+        padding: 0;
+        background-color: transparent;
+    }
 }
 
 .navigationMenuList {
@@ -42,11 +47,8 @@
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
 }
 
-@media (min-width: 780px) {
+@media (max-width: 779px) {
     .navigationMenuBarRoot {
-        display: flex;
-        justify-content: center;
-        padding: 0;
-        background-color: transparent;
+        display: none !important;
     }
 }

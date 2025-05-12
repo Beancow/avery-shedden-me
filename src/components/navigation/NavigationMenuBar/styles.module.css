@@ -5,28 +5,48 @@
 .navigationMenuList {
     display: flex;
     list-style: none;
-    padding: 0;
-    margin: 0;
-    gap: 1rem;
+    gap: 2rem;
     overflow-y: auto;
 }
 
-.navigationMenuLink {
+.navigationMenuLink,
+.navigationMenuTrigger {
     position: relative;
     color: white;
     min-width: 8rem;
+    outline: none;
+    user-select: none;
+    font-weight: 500;
+    line-height: 1;
     text-align: center;
     background: #52014d;
     text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
+    padding: 0.5rem;
+    margin: 0;
+    border-radius: 0.35rem;
+}
+
+.navigationMenuItem {
+    position: relative;
+    color: white;
+    border-radius: 0.35rem;
+}
+
+.navigationMenuContent {
+    position: absolute;
+    z-index: 1;
+    border-radius: 0.5rem;
+    margin: 1rem;
+    padding: 0.5rem;
+    background-color: var(--gray-2);
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
 }
 
 @media (min-width: 780px) {
     .navigationMenuBarRoot {
         display: flex;
         justify-content: center;
-        padding: 0.25rem 0;
-        background-color: #333;
+        padding: 0;
+        background-color: transparent;
     }
 }

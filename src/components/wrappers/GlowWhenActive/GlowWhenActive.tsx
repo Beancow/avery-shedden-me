@@ -14,6 +14,8 @@ export default function GlowWhenActive({
       gap="2"
       align="center"
       justify="center"
+      p="0"
+      m="0"
       className={`${styles.GlowWhenActive} glowItem ${
         isActive ? "active" : ""
       }`}

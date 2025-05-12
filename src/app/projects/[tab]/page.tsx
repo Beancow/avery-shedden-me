@@ -1,9 +1,9 @@
 import { ProjectTabs } from "../components/ProjectsTabs";
 
 export const generateStaticParams = async () => [
-  { tab: ["Tab1"] },
-  { tab: ["Tab2"] },
-  { tab: ["Tab3"] },
+  { tab: "Tab1" },
+  { tab: "Tab2" },
+  { tab: "Tab3" },
 ];
 
 export default async function Page({

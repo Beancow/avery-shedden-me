@@ -19,7 +19,7 @@ export async function ProjectTabs({ projectId }: { projectId: string }) {
           </Link>
         ))}
       </TabsPrimitive.List>
-      <TabsPrimitive.Content value={"Tab1"}>
+      <TabsPrimitive.Content value={projectId}>
         <div>
           <h2>{projectId}</h2>
           <p>Content for {projectId}</p>

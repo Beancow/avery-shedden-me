@@ -10,5 +10,9 @@ export default async function Page({
   params: Promise<{ tab: string }>;
 }) {
   const { tab } = await params;
+  if (!tab) {
+    return <div>Loading...</div>;
+  }
+  console.log("ProjectTabs", tab);
   return <ProjectTabs projectId={tab} />;
 }

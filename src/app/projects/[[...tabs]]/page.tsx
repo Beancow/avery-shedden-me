@@ -7,12 +7,12 @@ export const generateStaticParams = async () => [
 export default async function Page({
   params,
 }: {
-  params: Promise<{ tab: string }>;
+  params: Promise<{ tabs: string }>;
 }) {
-  const { tab } = await params;
-  if (!tab) {
+  const { tabs } = await params;
+  if (!tabs) {
     return <div>Loading...</div>;
   }
-  console.log("ProjectTabs", tab);
-  return <ProjectTabs projectId={tab} />;
+  console.log("ProjectTabs", tabs);
+  return <ProjectTabs projectId={tabs} />;
 }

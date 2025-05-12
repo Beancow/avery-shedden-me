@@ -1,8 +1,11 @@
-"use client";
-
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 
-export function ProjectTabs() {
+export async function ProjectTabs({
+  params,
+}: {
+  params: Promise<{ projectId: string }>;
+}) {
+  const { projectId } = await params;
   const tabs = [
     { value: "Tab1", label: "Tab 1" },
     { value: "Tab2", label: "Tab 2" },
@@ -10,23 +13,20 @@ export function ProjectTabs() {
   ];
 
   return (
-    <TabsPrimitive.Root
-      value={"Tab1"}
-      onValueChange={(e) => console.log("Tab changed to:", e)}
-    >
-      <TabsPrimitive.List aria-label="Experience sections">
+    <TabsPrimitive.Root value={projectId}>
+      <TabsPrimitive.List aria-label="project sections">
         {tabs.map((tab) => (
-          <>
+          <div key={tab.value}>
             <TabsPrimitive.Trigger key={tab.value} value={tab.value}>
               {tab.label}
             </TabsPrimitive.Trigger>
-          </>
+          </div>
         ))}
       </TabsPrimitive.List>
       <TabsPrimitive.Content value={"Tab1"}>
         <div>
-          <h2>{1}</h2>
-          <p>Content for {1}</p>
+          <h2>{projectId}</h2>
+          <p>Content for {projectId}</p>
         </div>
       </TabsPrimitive.Content>
     </TabsPrimitive.Root>

@@ -8,6 +8,10 @@ export async function generateStaticParams() {
   ];
 }
 
-export default async function Experience() {
-  return <ExperienceTabs />;
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ experience: string }>;
+}) {
+  return <ExperienceTabs params={params} />;
 }

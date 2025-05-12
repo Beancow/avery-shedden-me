@@ -1,4 +1,5 @@
 import * as TabsPrimitive from "@radix-ui/react-tabs";
+import Link from "next/link";
 
 export async function ProjectTabs({ projectId }: { projectId: string }) {
   const tabs = [
@@ -11,11 +12,11 @@ export async function ProjectTabs({ projectId }: { projectId: string }) {
     <TabsPrimitive.Root value={projectId}>
       <TabsPrimitive.List aria-label="project sections">
         {tabs.map((tab) => (
-          <div key={tab.value}>
+          <Link key={tab.value} href={`/projects/${tab.value}`}>
             <TabsPrimitive.Trigger key={tab.value} value={tab.value}>
               {tab.label}
             </TabsPrimitive.Trigger>
-          </div>
+          </Link>
         ))}
       </TabsPrimitive.List>
       <TabsPrimitive.Content value={"Tab1"}>

@@ -1,11 +1,6 @@
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 
-export async function ExperienceTabs({
-  params,
-}: {
-  params: Promise<{ experience: string }>;
-}) {
-  const { experience } = await params;
+export function ExperienceTabs({ experience }: { experience: string }) {
   const tabs = [
     { value: "Tab1", label: "Tab 1" },
     { value: "Tab2", label: "Tab 2" },

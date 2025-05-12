@@ -9,5 +9,6 @@ export default async function Page({
 }: {
   params: Promise<{ projectId: string }>;
 }) {
-  return <ProjectTabs params={params} />;
+  const { projectId } = await params;
+  return <ProjectTabs projectId={projectId} />;
 }

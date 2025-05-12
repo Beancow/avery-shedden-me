@@ -13,5 +13,6 @@ export default async function Page({
 }: {
   params: Promise<{ experience: string }>;
 }) {
-  return <ExperienceTabs params={params} />;
+  const { experience } = await params;
+  return <ExperienceTabs experience={experience} />;
 }

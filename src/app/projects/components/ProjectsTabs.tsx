@@ -1,11 +1,6 @@
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 
-export async function ProjectTabs({
-  params,
-}: {
-  params: Promise<{ projectId: string }>;
-}) {
-  const { projectId } = await params;
+export async function ProjectTabs({ projectId }: { projectId: string }) {
   const tabs = [
     { value: "Tab1", label: "Tab 1" },
     { value: "Tab2", label: "Tab 2" },

@@ -12,13 +12,13 @@ export function TriggerSection({ section }: { section: TriggerSectionItem }) {
   };
 
   return (
-    <Nav.Item key={section.title}>
+    <Nav.Item key={section.label}>
       <GlowWhenActive
-        key={section.title}
+        key={section.label}
         isActive={isActive(section.sectionBaseHref)}
       >
         <Nav.Trigger className={styles.navigationMenuTrigger}>
-          <span>{section.title}</span>
+          <span>{section.label}</span>
         </Nav.Trigger>
       </GlowWhenActive>
 

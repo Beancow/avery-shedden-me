@@ -20,6 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@/data/*": ["./src/data/*"],
+      "@/components/*": ["./src/components/*"],
       "@/public/*": ["./public/*"]
     }
   },

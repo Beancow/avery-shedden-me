@@ -3,6 +3,14 @@ import { useCallback, useState, useEffect } from "react"; // Added useEffect
 import { useRouter, usePathname } from "next/navigation"; // Added Next.js navigation hooks
 import { ProjectTabs } from "../components/ProjectsTabs";
 
+export function generateStaticParams() {
+  return [
+    { experience: "Tab1" },
+    { experience: "Tab2" },
+    { experience: "Tab3" },
+  ];
+}
+
 export default function Projects() {
   const router = useRouter();
   const pathname = usePathname();

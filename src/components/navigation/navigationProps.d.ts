@@ -7,14 +7,10 @@ export type LinkSectionItem = {
 
 export type TriggerSectionItem = {
   type: "trigger";
+  sectionBaseHref: string;
   title: string;
   content: React.ReactNode;
   items: LinkSectionItem[];
 };
 
 export type NavSection = TriggerSectionItem | LinkSectionItem;
-
-export type NavigationProps = {
-  navItems: NavSection[];
-  checkActive: (x: string) => boolean;
-};

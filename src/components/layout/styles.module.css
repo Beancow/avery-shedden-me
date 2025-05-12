@@ -1,18 +1,17 @@
 .topBar {
   display: flex;
-  justify-content: space-between; /* Pushes logo and navigation to opposite ends */
-  align-items: center; /* Vertically aligns items in the center */
-  padding: 0.5rem 1rem; /* Add some padding (adjust as needed) */
-  background-color: #222; /* Example background color, change as desired */
-  color: white; /* Example text color, change as desired */
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--gray-2);
+  color: white;
 }
 
 .logoLink {
-  display: inline-flex; /* Ensures the link and image behave as a block for alignment */
+  display: inline-flex;
   align-items: center;
 }
 
-/* Optional: Add specific styling for the logo image if needed */
 .logoImage {
-  display: block; /* Removes extra space below the image if it's an inline element */
+  display: block;
 }

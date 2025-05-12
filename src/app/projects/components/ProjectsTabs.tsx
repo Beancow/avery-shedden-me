@@ -13,7 +13,7 @@ const tabs = [
   { value: "Tab3", label: "Tab 3" },
 ];
 
-export function ExperienceTabs({
+export function ProjectTabs({
   value: activeTabValue,
   onValueChange: handleTabChange,
 }: ExperienceTabsProps) {
@@ -21,11 +21,11 @@ export function ExperienceTabs({
     <TabsPrimitive.Root value={activeTabValue} onValueChange={handleTabChange}>
       <TabsPrimitive.List aria-label="Experience sections">
         {tabs.map((tab) => (
-          <div key={tab.value}>
+          <>
             <TabsPrimitive.Trigger key={tab.value} value={tab.value}>
               {tab.label}
             </TabsPrimitive.Trigger>
-          </div>
+          </>
         ))}
       </TabsPrimitive.List>
       <TabsPrimitive.Content value={activeTabValue}>

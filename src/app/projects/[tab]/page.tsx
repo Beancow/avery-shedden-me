@@ -1,19 +1,19 @@
 import { ProjectTabs } from "../components/ProjectsTabs";
 
 export const generateStaticParams = async () => [
-  { tabs: ["Tab1"] },
-  { tabs: ["Tab2"] },
-  { tabs: ["Tab3"] },
+  { tab: ["Tab1"] },
+  { tab: ["Tab2"] },
+  { tab: ["Tab3"] },
 ];
 
 export default async function Page({
   params,
 }: {
-  params: Promise<{ tabs: string }>;
+  params: Promise<{ tab: string }>;
 }) {
-  const { tabs } = await params;
-  if (!tabs) {
+  const { tab } = await params;
+  if (!tab) {
     return <div>Loading...</div>;
   }
-  return <ProjectTabs projectId={tabs} />;
+  return <ProjectTabs tab={tab} />;
 }

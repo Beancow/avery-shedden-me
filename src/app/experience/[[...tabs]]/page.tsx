@@ -1,9 +1,9 @@
 import { ExperienceTabs } from "../components/ExperienceTabs";
 
 export const generateStaticParams = async () => [
-  {
-    tabs: ["Tab1", "Tab2", "Tab3"],
-  },
+  {tabs: ["Tab1"]},
+  {tabs: ["Tab2"]},
+  {tabs: ["Tab3"]},
 ];
 
 export default async function Page({

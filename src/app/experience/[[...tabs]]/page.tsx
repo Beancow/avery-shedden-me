@@ -1,6 +1,6 @@
 import { ExperienceTabs } from "../components/ExperienceTabs";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return [
     { experience: "Tab1" },
     { experience: "Tab2" },

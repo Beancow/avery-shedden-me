@@ -1,13 +1,7 @@
 "use client";
 import { useCallback, useState, useEffect } from "react"; // Added useEffect
 import { useRouter, usePathname } from "next/navigation"; // Added Next.js navigation hooks
-
 import * as TabsPrimitive from "@radix-ui/react-tabs";
-
-interface ExperienceTabsProps {
-  value: string;
-  onValueChange: (value: string) => void;
-}
 
 const tabs = [
   { value: "Tab1", label: "Tab 1" },

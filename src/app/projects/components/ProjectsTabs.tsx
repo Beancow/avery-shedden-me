@@ -5,11 +5,6 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 
-interface ExperienceTabsProps {
-  value: string;
-  onValueChange: (value: string) => void;
-}
-
 const tabs = [
   { value: "Tab1", label: "Tab 1" },
   { value: "Tab2", label: "Tab 2" },

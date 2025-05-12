@@ -1,13 +1,9 @@
 import { ProjectTabs } from "../components/ProjectsTabs";
 
 export function generateStaticParams() {
-  return [
-    { experience: "Tab1" },
-    { experience: "Tab2" },
-    { experience: "Tab3" },
-  ];
+  return [{ projects: "Tab1" }, { projects: "Tab2" }, { projects: "Tab3" }];
 }
 
-export default function Projects() {
+export default async function Projects() {
   return <ProjectTabs />;
 }

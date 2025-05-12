@@ -8,6 +8,6 @@ export function generateStaticParams() {
   ];
 }
 
-export default function Experience() {
+export default async function Experience() {
   return <ExperienceTabs />;
 }

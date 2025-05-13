@@ -14,6 +14,7 @@
     "build:static": "cross-env BUILD_TARGET=static next build"
   },
   "dependencies": {
+    "@next/env": "^15.3.2",
     "next": "15.3.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

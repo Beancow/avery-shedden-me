@@ -1,6 +1,8 @@
 import { ImageLoaderProps } from "next/image";
 
-const imageBasePath = process.env.REPO_NAME ? `/${process.env.REPO_NAME}` : "";
+const imageBasePath = process.env.NEXT_PUBLIC_REPO_NAME
+  ? `/${process.env.NEXT_PUBLIC_REPO_NAME}`
+  : "";
 
 export default function staticImageLoader({
   src,

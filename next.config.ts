@@ -2,7 +2,9 @@ import { NextConfig } from "next";
 import process from "process";
 
 const isStaticBuild = process.env.BUILD_TARGET === "static";
-const repoName = process.env.BASE_PATH;
+const repoName = process.env.BASE_PATH
+  ? `/${process.env.BASE_PATH}`
+  : undefined;
 
 console.log(
   `Building for: ${isStaticBuild ? "Static Export" : "SSR/Standard"}`

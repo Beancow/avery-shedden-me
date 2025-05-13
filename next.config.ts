@@ -11,11 +11,11 @@ module.exports = {
   basePath: isStaticBuild ? `/${repoName}` : undefined,
   output: isStaticBuild ? "export" : undefined,
   trailingSlash: isStaticBuild ? true : undefined,
-  images: isStaticBuild
-    ? {
-        loader: "custom",
-        loaderFile: "./src/utils/imageLoader.ts",
-        unoptimized: true,
-      }
-    : undefined,
+  images: {
+    unoptimized: isStaticBuild,
+    remotePatterns:
+      repoName === "avery-shedden-me"
+        ? [new URL("https://beancow.github.io/avery-shedden-me/**")]
+        : undefined,
+  },
 };

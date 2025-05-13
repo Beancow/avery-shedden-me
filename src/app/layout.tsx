@@ -30,10 +30,6 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     startupImage: [`${basePath}/favicon.svg`],
   },
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-  ],
 };
 
 export default function RootLayout({ children }: Props) {

@@ -7,6 +7,8 @@ console.log(
   `Building for: ${isStaticBuild ? "Static Export" : "SSR/Standard"}`
 );
 
+console.log(`Base path: ${repoName}`);
+
 module.exports = {
   basePath: isStaticBuild ? `/${repoName}` : undefined,
   output: isStaticBuild ? "export" : undefined,
@@ -14,8 +16,6 @@ module.exports = {
   images: isStaticBuild
     ? {
         unoptimized: true,
-        loader: "custom",
-        loaderFile: "src/utils/imageLoader.ts",
       }
     : undefined,
 };

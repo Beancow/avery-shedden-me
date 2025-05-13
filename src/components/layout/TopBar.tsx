@@ -1,13 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Navigation } from "../navigation/Navigation";
 import styles from "./styles.module.css";
+import { ImageWithBasePath } from "../image/ImageLoader/ImageWithBasePath";
 
 export function TopBar() {
   return (
     <header className={styles.topBar}>
       <Link href="/" className={styles.logoLink}>
-        <Image
+        <ImageWithBasePath
           src="favicon.svg"
           alt="Avery Shedden Portfolio Logo"
           width={40}

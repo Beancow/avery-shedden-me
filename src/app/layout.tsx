@@ -41,11 +41,7 @@ export const metadata: Metadata = {
     capable: true,
     title: "Averything",
     statusBarStyle: "default",
-    startupImage: [
-      `${basePath}/favicon.svg`,
-      `${basePath}/favicon.svg`,
-      `${basePath}/favicon.svg`,
-    ],
+    startupImage: [`${basePath}/favicon.svg`],
   },
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },

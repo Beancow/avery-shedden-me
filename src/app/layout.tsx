@@ -31,12 +31,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Averything",
-    description: "My Portfolio and other stuff",
-    images: [`${basePath}/favicon.svg`],
-  },
   robots: {
     index: true,
     follow: true,

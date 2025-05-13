@@ -7,5 +7,6 @@ export default function staticImageLoader({
   width,
   quality,
 }: ImageLoaderProps) {
+  console.log("Image loader called with src:", src, imageBasePath);
   return `${imageBasePath}${src}?w=${width}&q=${quality || 75}`;
 }

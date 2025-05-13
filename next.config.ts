@@ -15,6 +15,8 @@ module.exports = {
   trailingSlash: isStaticBuild ? true : undefined,
   images: isStaticBuild
     ? {
+        loader: "custom",
+        loaderFile: "/src/utils/imageLoader.ts",
         unoptimized: true,
       }
     : undefined,

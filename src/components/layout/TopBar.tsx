@@ -2,31 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Navigation } from "../navigation/Navigation";
 import styles from "./styles.module.css";
-
-function ImageWithBasePath({
-  src,
-  alt,
-  width,
-  height,
-  className,
-}: {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-  className?: string;
-}) {
-  const basePath = process.env.BASE_PATH ? `/${process.env.BASE_PATH}` : "";
-  return (
-    <Image
-      src={`${basePath}${src}`}
-      alt={alt}
-      width={width}
-      height={height}
-      className={className}
-    />
-  );
-}
+import { ImageWithBasePath } from "../image/ImageWithBasePath";
 
 export function TopBar() {
   return (

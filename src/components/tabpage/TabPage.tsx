@@ -1,4 +1,6 @@
 import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { Flex } from "@radix-ui/themes";
+import styles from "./styles.module.css";
 import Link from "next/link";
 
 export async function TabPage({
@@ -8,19 +10,19 @@ export async function TabPage({
   sectionTitle,
 }: {
   currentTab: string;
-  tabs: { label: string; value: string }[];
+  tabs: { label: React.ReactNode; value: string }[];
   ariaLabel: string;
   sectionTitle: string;
 }) {
   return (
     <TabsPrimitive.Root value={currentTab}>
-      <TabsPrimitive.List aria-label={ariaLabel}>
+      <TabsPrimitive.List aria-label={ariaLabel} className={styles.tabList}>
         {tabs.map((item) => (
-          <Link key={item.value} href={item.value}>
-            <TabsPrimitive.Trigger key={item.value} value={item.value}>
+          <TabsPrimitive.Trigger asChild value={item.value} key={item.value}>
+            <Link key={item.value} href={item.value} className={styles.tabLink}>
               {item.label}
-            </TabsPrimitive.Trigger>
-          </Link>
+            </Link>
+          </TabsPrimitive.Trigger>
         ))}
       </TabsPrimitive.List>
       <TabsPrimitive.Content value={currentTab}>

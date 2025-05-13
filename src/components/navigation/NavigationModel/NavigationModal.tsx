@@ -1,6 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { Button, Flex } from "@radix-ui/themes";
+import { Button, ChevronDownIcon, Flex } from "@radix-ui/themes";
 import Link from "next/link";
 import {
   DynamicSectionItem,
@@ -23,9 +23,18 @@ function TriggerSection({ section }: { section: TriggerSectionItem }) {
       key={section.label}
       isActive={isActive(section.sectionBaseHref)}
     >
-      <Collapsible.Trigger className={styles.mobileNavLink} asChild>
+      <Collapsible.Trigger asChild className={styles.mobileNavLink}>
         <Button variant="soft" size="3">
-          <span>{section.label}</span>
+          <span
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: ".5rem",
+            }}
+          >
+            {section.label} <ChevronDownIcon />
+          </span>
         </Button>
       </Collapsible.Trigger>
     </GlowWhenActive>
@@ -40,9 +49,11 @@ function LinkSection({ link }: { link: LinkSectionItem }) {
   };
   return (
     <GlowWhenActive key={link.href} isActive={isActive(link.href)}>
-      <Link href={link.href} className={styles.mobileNavLink}>
-        {link.label}
-      </Link>
+      <Dialog.Close asChild>
+        <Link href={link.href} className={styles.mobileNavLink}>
+          {link.label}
+        </Link>
+      </Dialog.Close>
     </GlowWhenActive>
   );
 }
@@ -98,10 +109,9 @@ export default function NavigationModal({
             <Flex
               direction="column"
               width="fill"
-              gap="8"
-              align="stretch"
+              gap="16"
+              align="center"
               justify="between"
-              height="fill"
             >
               {navRoutes.map((link) => {
                 if (link.type === "link") {
@@ -110,18 +120,7 @@ export default function NavigationModal({
                 if (link.type === "trigger") {
                   return (
                     <Collapsible.Root key={link.label}>
-                      <Collapsible.Trigger
-                        className={styles.mobileNavLink}
-                        asChild
-                      >
-                        <Button
-                          variant="soft"
-                          size="3"
-                          className={styles.mobileNavLink}
-                        >
-                          {link.label}
-                        </Button>
-                      </Collapsible.Trigger>
+                      <TriggerSection section={link} />
                       <Collapsible.Content>
                         <Flex direction="column" gap="2">
                           {link.items.map((item) => {

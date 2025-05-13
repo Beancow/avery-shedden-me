@@ -11,6 +11,7 @@ module.exports = {
   basePath: isStaticBuild ? `/${repoName}` : undefined,
   output: isStaticBuild ? "export" : undefined,
   trailingSlash: isStaticBuild ? true : undefined,
+  assetPrefix: isStaticBuild ? `/${repoName}` : undefined,
   images: {
     unoptimized: isStaticBuild,
   },

@@ -13,9 +13,5 @@ module.exports = {
   trailingSlash: isStaticBuild ? true : undefined,
   images: {
     unoptimized: isStaticBuild,
-    remotePatterns:
-      repoName === "avery-shedden-me"
-        ? [new URL("https://beancow.github.io/avery-shedden-me/**")]
-        : undefined,
   },
 };

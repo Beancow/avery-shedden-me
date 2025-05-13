@@ -14,19 +14,19 @@ export const navRoutes: NavSection[] = [
     items: [
       {
         type: "link",
-        label: "Got to experience Tab1",
+        label: "Go to experience Tab1",
         content: "About this piece of work",
         href: "/experience/Tab1",
       },
       {
         type: "link",
-        label: "Got to experience Tab2",
+        label: "Go to experience Tab2",
         content: "About this piece of work",
         href: "/experience/Tab2",
       },
       {
         type: "link",
-        label: "Got to experience Tab3",
+        label: "Go to experience Tab3",
         content: "About this piece of work",
         href: "/experience/Tab3",
       },
@@ -39,19 +39,19 @@ export const navRoutes: NavSection[] = [
     items: [
       {
         type: "link",
-        label: "Got to projects Tab1",
+        label: "Go to projects Tab1",
         content: "About this piece of work",
         href: "/projects/Tab1",
       },
       {
         type: "link",
-        label: "Got to projects Tab2",
+        label: "Go to projects Tab2",
         content: "About this piece of work",
         href: "/projects/Tab2",
       },
       {
         type: "link",
-        label: "Got to projects Tab3",
+        label: "Go to projects Tab3",
         content: "About this piece of work",
         href: "/projects/Tab3",
       },

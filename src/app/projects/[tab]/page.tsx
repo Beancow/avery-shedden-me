@@ -1,10 +1,26 @@
-import { ProjectTabs } from "../components/ProjectsTabs";
+import { LinkSectionItem } from "@/components/navigation/navigationProps";
+import { TabPage } from "@/components/tabpage/TabPage";
+import { navRoutes } from "@/data/navRoutes";
 
-export const generateStaticParams = async () => [
-  { tab: "Tab1" },
-  { tab: "Tab2" },
-  { tab: "Tab3" },
-];
+const sectionName = "Projects";
+const sectionBaseHref = "/projects";
+
+const getSectionRoutes = (sectionBaseHref: string) => {
+  return navRoutes.reduce((acc, route) => {
+    if (route.type === "trigger" && route.sectionBaseHref === sectionBaseHref) {
+      acc = acc.concat(route.items);
+    }
+    return acc;
+  }, [] as LinkSectionItem[]);
+};
+
+const tabs = getSectionRoutes(sectionBaseHref)
+  .filter((item) => item.type === "link" && item.label !== sectionName)
+  .map((item) => ({
+    label: item.label,
+    value: item.href,
+    parent: sectionName,
+  }));
 
 export default async function Page({
   params,
@@ -15,5 +31,18 @@ export default async function Page({
   if (!tab) {
     return <div>Loading...</div>;
   }
-  return <ProjectTabs tab={tab} />;
+  return (
+    <TabPage
+      sectionTitle={sectionName}
+      ariaLabel="project tabs"
+      tabs={tabs}
+      currentTab={tab}
+    />
+  );
 }
+
+export const generateStaticParams = async () => {
+  return tabs.map((tab) => ({
+    tab: tab.value,
+  }));
+};

@@ -1,4 +1,3 @@
-import * as Nav from "@radix-ui/react-navigation-menu";
 import { LinkSectionItem } from "../navigationProps";
 import { usePathname } from "next/navigation";
 import Link from "next/link";

@@ -1,6 +1,5 @@
-import "@radix-ui/themes/styles.css";
 import "./global.css";
-import { Theme } from "@radix-ui/themes";
+import { Theme, ThemePanel } from "@radix-ui/themes";
 import { TopBar } from "../components/layout/TopBar";
 import type { Metadata } from "next";
 
@@ -37,13 +36,15 @@ export default function RootLayout({ children }: Props) {
     <html lang="en">
       <body>
         <Theme
-          accentColor="plum"
+          accentColor="crimson"
           grayColor="sage"
           radius="medium"
           panelBackground="solid"
+          hasBackground
         >
           <TopBar />
           <>{children}</>
+          <ThemePanel />
         </Theme>
       </body>
     </html>

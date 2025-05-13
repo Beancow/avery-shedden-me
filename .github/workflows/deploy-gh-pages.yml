@@ -1,8 +1,5 @@
 name: Deploy Static Site to GitHub Pages
 
-env:
-  REPO_NAME: ${{ github.event.repository.name }}
-
 on:
   push:
     branches: ["main"]

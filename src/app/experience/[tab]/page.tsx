@@ -41,8 +41,7 @@ export default async function Page({
   );
 }
 
-export const generateStaticParams = async () => {
-  return tabs.map((tab) => ({
-    tab: tab.value,
-  }));
-};
+export const generateStaticParams = async () =>
+  tabs.map((tab) => {
+    return { tab: tab.value.replace(`${sectionBaseHref}/`, "") };
+  });

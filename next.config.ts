@@ -16,11 +16,8 @@ module.exports = {
     unoptimized: isStaticBuild,
     localPatterns: [
       {
-        pathname: "/avery-shedden-me/**",
+        pathname: `/${repoName}/**`,
         search: "",
-        // This is a workaround for the fact that Next.js doesn't support
-        // local images in static builds. This is a workaround for the fact
-        // that Next.js doesn't support local images in static builds.
       },
     ],
   },

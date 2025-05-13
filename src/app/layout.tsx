@@ -8,9 +8,73 @@ type Props = {
   children: React.ReactNode;
 };
 
+const basePath = process.env.BASE_PATH ? `/${process.env.BASE_PATH}` : "";
+
 export const metadata: Metadata = {
   title: "Averything",
   description: "My Portfolio and other stuff",
+  icons: {
+    icon: `${basePath}/favicon.svg`,
+    shortcut: `${basePath}/favicon.svg`,
+    apple: `${basePath}/favicon.svg`,
+  },
+  openGraph: {
+    title: "Averything",
+    description: "My Portfolio and other stuff",
+    url: `${basePath}/`,
+    siteName: "Averything",
+    images: [
+      {
+        url: `${basePath}/favicon.svg`,
+        width: 512,
+        height: 512,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Averything",
+    description: "My Portfolio and other stuff",
+    images: [`${basePath}/favicon.svg`],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+  },
+  manifest: `${basePath}/site.webmanifest`,
+  appleWebApp: {
+    capable: true,
+    title: "Averything",
+    statusBarStyle: "default",
+    startupImage: [
+      `${basePath}/favicon.svg`,
+      `${basePath}/favicon.svg`,
+      `${basePath}/favicon.svg`,
+    ],
+  },
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: `${basePath}/`,
+    languages: {
+      "en-US": `${basePath}/`,
+      "ja-JP": `${basePath}/ja`,
+    },
+  },
 };
 
 export default function RootLayout({ children }: Props) {

@@ -7,8 +7,6 @@ console.log(
   `Building for: ${isStaticBuild ? "Static Export" : "SSR/Standard"}`
 );
 
-console.log(`Base path: ${repoName}`);
-
 module.exports = {
   basePath: isStaticBuild ? `/${repoName}` : undefined,
   output: isStaticBuild ? "export" : undefined,

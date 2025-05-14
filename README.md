@@ -41,7 +41,7 @@ This section will be updated with the latest progress and features added to the 
 **Latest Previews (Dark and Light Mode):**
 
 <p align="center">
-    <img src="/public/Dark.png" alt="Dark Mode Preview" width="45%">
+    <img src="/Dark-preview.png" alt="Dark Mode Preview" width="45%">
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <img src="/public/Light.png" alt="Light Mode Preview" width="45%">
+    <img src="/Light-preview.png" alt="Light Mode Preview" width="45%">
 </p>

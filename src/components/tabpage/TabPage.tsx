@@ -16,14 +16,25 @@ export async function TabPage({
 }) {
   return (
     <TabsPrimitive.Root value={currentTab}>
-      <TabsPrimitive.List aria-label={ariaLabel} className={styles.tabList}>
-        {tabs.map((item) => (
-          <TabsPrimitive.Trigger asChild value={item.value} key={item.value}>
-            <Link key={item.value} href={item.value} className={styles.tabLink}>
-              {item.label}
-            </Link>
-          </TabsPrimitive.Trigger>
-        ))}
+      <TabsPrimitive.List aria-label={ariaLabel}>
+        <TabsPrimitive.Tabs
+          dir={"ltr"}
+          orientation="horizontal"
+          defaultValue={currentTab}
+          className={styles.tabList}
+        >
+          {tabs.map((item) => (
+            <TabsPrimitive.Trigger asChild value={item.value} key={item.value}>
+              <Link
+                key={item.value}
+                href={item.value}
+                className={styles.tabLink}
+              >
+                {item.label}
+              </Link>
+            </TabsPrimitive.Trigger>
+          ))}
+        </TabsPrimitive.Tabs>
       </TabsPrimitive.List>
       <TabsPrimitive.Content value={currentTab}>
         <div>

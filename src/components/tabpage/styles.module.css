@@ -16,5 +16,6 @@
     cursor: pointer;
     justify-content: stretch;
     background: var(--accent-11);
+    color: var(--accent-1);
     border-radius: var(--radius-3);
 }

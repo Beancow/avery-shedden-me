@@ -12,21 +12,22 @@ export function TriggerSection({ section }: { section: TriggerSectionItem }) {
   };
 
   return (
-    <Nav.Item key={section.label}>
-      <GlowWhenActive
-        key={section.label}
-        isActive={isActive(section.sectionBaseHref)}
-      >
-        <Nav.Trigger className={styles.navigationMenuTrigger}>
-          <span>{section.label}</span>
-        </Nav.Trigger>
-      </GlowWhenActive>
-
-      <Nav.Content className={styles.navigationMenuContent}>
-        {section.items.map((link) => (
-          <LinkSection key={link.label} link={link} />
-        ))}
-      </Nav.Content>
-    </Nav.Item>
+    <div style={{ position: "relative" }}>
+      <Nav.Item key={section.label}>
+        <GlowWhenActive
+          key={section.label}
+          isActive={isActive(section.sectionBaseHref)}
+        >
+          <Nav.Trigger className={styles.navigationMenuTrigger}>
+            <span>{section.label}</span>
+          </Nav.Trigger>
+        </GlowWhenActive>
+        <Nav.Content className={styles.navigationMenuContent}>
+          {section.items.map((link) => (
+            <LinkSection key={link.label} link={link} />
+          ))}
+        </Nav.Content>
+      </Nav.Item>
+    </div>
   );
 }

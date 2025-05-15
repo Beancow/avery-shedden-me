@@ -36,11 +36,14 @@ export default function RootLayout({ children }: Props) {
     <html lang="en">
       <body>
         <Theme
-          accentColor="crimson"
+          accentColor="jade"
           grayColor="sage"
-          radius="medium"
-          panelBackground="solid"
+          radius="small"
           hasBackground
+          style={{
+            backgroundImage:
+              "linear-gradient(to bottom, var(--accent-1), var(--accent-3))",
+          }}
         >
           <TopBar />
           <>{children}</>

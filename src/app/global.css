@@ -39,7 +39,7 @@ body {
 .glowItem.active::after {
   content: "";
   position: absolute;
-  inset: 0.40rem;
+  inset: 0.20rem;
   z-index: -1;
   background: conic-gradient(from var(--gradient-angle),
       var(--glow-colors-1),

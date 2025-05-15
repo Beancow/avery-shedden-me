@@ -55,6 +55,12 @@ export const navRoutes: NavSection[] = [
         content: "About this piece of work",
         href: "/projects/SAFStuff",
       },
+      {
+        type: "link",
+        label: "SAF Website",
+        content: "About this piece of work",
+        href: "/projects/SAFWebsite",
+      },
     ],
   },
   {

@@ -6,21 +6,19 @@ import { LinkSection } from "./LinkSection";
 
 export function NavigationMenuBar({ navRoutes }: { navRoutes: NavSection[] }) {
   return (
-    <>
-      <Nav.Root className={styles.navigationMenuBarRoot}>
-        <Nav.List className={styles.navigationMenuList}>
-          {navRoutes.map((item) => {
-            if (item.type === "trigger") {
-              return <TriggerSection key={item.label} section={item} />;
-            } else if (item.type === "link") {
-              return <LinkSection key={item.label} link={item} />;
-            } else {
-              console.error("Unknown item type:", item);
-              return null;
-            }
-          })}
-        </Nav.List>
-      </Nav.Root>
-    </>
+    <Nav.Root className={styles.navigationMenuBarRoot}>
+      <Nav.List className={styles.navigationMenuList}>
+        {navRoutes.map((item) => {
+          if (item.type === "trigger") {
+            return <TriggerSection key={item.label} section={item} />;
+          } else if (item.type === "link") {
+            return <LinkSection key={item.label} link={item} />;
+          } else {
+            console.error("Unknown item type:", item);
+            return null;
+          }
+        })}
+      </Nav.List>
+    </Nav.Root>
   );
 }

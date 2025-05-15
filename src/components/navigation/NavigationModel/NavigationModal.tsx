@@ -3,7 +3,6 @@ import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { Button, ChevronDownIcon, Flex } from "@radix-ui/themes";
 import Link from "next/link";
 import {
-  DynamicSectionItem,
   LinkSectionItem,
   NavSection,
   TriggerSectionItem,
@@ -14,59 +13,31 @@ import { Collapsible } from "radix-ui";
 import { usePathname } from "next/navigation";
 
 function TriggerSection({ section }: { section: TriggerSectionItem }) {
-  const pathName = usePathname();
-  const isActive = (href: string) => {
-    return pathName === href || pathName.startsWith(href + "/");
-  };
   return (
-    <GlowWhenActive
-      key={section.label}
-      isActive={isActive(section.sectionBaseHref)}
-    >
-      <Collapsible.Trigger asChild className={styles.mobileNavLink}>
-        <Button variant="soft" size="3">
-          <span
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: ".5rem",
-            }}
-          >
-            {section.label} <ChevronDownIcon />
-          </span>
-        </Button>
-      </Collapsible.Trigger>
-    </GlowWhenActive>
+    <Collapsible.Trigger asChild className={styles.mobileNavLink}>
+      <Button variant="outline" size="3">
+        <span
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: ".5rem",
+          }}
+        >
+          {section.label} <ChevronDownIcon />
+        </span>
+      </Button>
+    </Collapsible.Trigger>
   );
 }
 
 function LinkSection({ link }: { link: LinkSectionItem }) {
-  const pathname = usePathname();
-
-  const isActive = (href: string) => {
-    return pathname === href || pathname.startsWith(href + "/");
-  };
   return (
-    <GlowWhenActive key={link.href} isActive={isActive(link.href)}>
-      <Dialog.Close asChild>
-        <Link href={link.href} className={styles.mobileNavLink}>
-          {link.label}
-        </Link>
-      </Dialog.Close>
-    </GlowWhenActive>
-  );
-}
-
-function CollapsibleContent({ section }: { section: DynamicSectionItem }) {
-  return (
-    <Collapsible.Content>
-      {
-        <Flex direction="column" gap="2">
-          {section.pattern}
-        </Flex>
-      }
-    </Collapsible.Content>
+    <Dialog.Close asChild>
+      <Link href={link.href} className={styles.mobileNavLink}>
+        {link.label}
+      </Link>
+    </Dialog.Close>
   );
 }
 
@@ -91,28 +62,27 @@ export default function NavigationModal({
         <Dialog.Portal>
           <Dialog.Overlay className={styles.dialogOverlay} />
           <Dialog.Content className={styles.dialogContent}>
-            <Dialog.Title className={styles.dialogTitle}>
-              Navigation Menu
-            </Dialog.Title>
-
-            <Dialog.Close asChild>
-              <Button
-                variant="ghost"
-                size="3"
-                aria-label="Close"
-                className={styles.dialogCloseButton}
-              >
-                <Cross2Icon width="24" height="24" />
-              </Button>
-            </Dialog.Close>
-
-            <Flex
-              direction="column"
-              width="fill"
-              gap="16"
-              align="center"
-              justify="between"
+            <div
+              style={{
+                backgroundImage:
+                  "linear-gradient(to top, var(--accent-1), var(--accent-5))",
+              }}
             >
+              <Dialog.Title className={styles.dialogTitle}>
+                Navigation Menu
+              </Dialog.Title>
+
+              <Dialog.Close asChild>
+                <Button
+                  variant="ghost"
+                  size="3"
+                  aria-label="Close"
+                  className={styles.dialogCloseButton}
+                >
+                  <Cross2Icon width="24" height="24" />
+                </Button>
+              </Dialog.Close>
+
               {navRoutes.map((link) => {
                 if (link.type === "link") {
                   return <LinkSection key={link.label} link={link} />;
@@ -122,28 +92,22 @@ export default function NavigationModal({
                     <Collapsible.Root key={link.label}>
                       <TriggerSection section={link} />
                       <Collapsible.Content>
-                        <Flex direction="column" gap="2">
-                          {link.items.map((item) => {
-                            if (item.type === "link") {
-                              return (
-                                <LinkSection key={item.label} link={item} />
-                              );
-                            }
-                            if (item.type === "dynamic") {
-                              return (
-                                <LinkSection key={item.label} link={item} />
-                              );
-                            }
-                            return null;
-                          })}
-                        </Flex>
+                        {link.items.map((item) => {
+                          if (item.type === "link") {
+                            return <LinkSection key={item.label} link={item} />;
+                          }
+                          if (item.type === "dynamic") {
+                            return <LinkSection key={item.label} link={item} />;
+                          }
+                          return null;
+                        })}
                       </Collapsible.Content>
                     </Collapsible.Root>
                   );
                 }
                 return null;
               })}
-            </Flex>
+            </div>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>

@@ -4,6 +4,13 @@ export type LinkSectionItem = {
   content: React.ReactNode;
   href: string;
 };
+export type Replace<T, U> = {
+  [K in keyof T]: K extends keyof U ? U[K] : T[K];
+};
+
+export type SubSectionItem = Replace<TriggerSectionItem, type["trigger"]> & {
+  type: "subsection";
+};
 
 export type TriggerSectionItem = {
   type: "trigger";
@@ -12,13 +19,4 @@ export type TriggerSectionItem = {
   items: LinkSectionItem[];
 };
 
-export type DynamicSectionItem = {
-  type: "dynamic";
-  label: string;
-  sectionBaseHref: string;
-  pattern: string;
-};
-export type NavSection =
-  | LinkSectionItem
-  | TriggerSectionItem
-  | DynamicSectionItem;
+export type NavSection = LinkSectionItem | TriggerSectionItem;

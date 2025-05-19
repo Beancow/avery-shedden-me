@@ -1,6 +1,11 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { Button, ChevronDownIcon, Flex } from "@radix-ui/themes";
+import * as Accordion from "@radix-ui/react-accordion";
+import {
+  CircleIcon,
+  Cross2Icon,
+  HamburgerMenuIcon,
+} from "@radix-ui/react-icons";
+import { Button, ChevronDownIcon, useThemeContext } from "@radix-ui/themes";
 import Link from "next/link";
 import {
   LinkSectionItem,
@@ -8,36 +13,64 @@ import {
   TriggerSectionItem,
 } from "../navigationProps";
 import styles from "./styles.module.css";
-import GlowWhenActive from "@/components/wrappers/GlowWhenActive/GlowWhenActive";
-import { Collapsible } from "radix-ui";
 import { usePathname } from "next/navigation";
-
-function TriggerSection({ section }: { section: TriggerSectionItem }) {
-  return (
-    <Collapsible.Trigger asChild className={styles.mobileNavLink}>
-      <Button variant="outline" size="3">
-        <span
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: ".5rem",
-          }}
-        >
-          {section.label} <ChevronDownIcon />
-        </span>
-      </Button>
-    </Collapsible.Trigger>
-  );
-}
 
 function LinkSection({ link }: { link: LinkSectionItem }) {
   return (
     <Dialog.Close asChild>
       <Link href={link.href} className={styles.mobileNavLink}>
-        {link.label}
+        <span>{link.label}</span>
       </Link>
     </Dialog.Close>
+  );
+}
+
+function ExpandableSection({ section }: { section: TriggerSectionItem }) {
+  const pathName = usePathname();
+  const isActive = pathName.startsWith(section.sectionBaseHref);
+
+  return (
+    <Accordion.Item
+      key={section.label}
+      value={section.label}
+      className={styles.accordionItem}
+    >
+      <Accordion.Header className={styles.accordionHeader}>
+        <Accordion.Trigger className={styles.accordionTrigger}>
+          <CircleIcon
+            style={{
+              position: "relative",
+              background: isActive
+                ? `linear-gradient(90deg, var(--accent-1) 0%, var(--accent-12) 100%)`
+                : "transparent",
+              borderRadius: "50%",
+            }}
+            color="transparent"
+            direction={
+              isActive
+                ? `${section.label} is active`
+                : "This section is expandable but not active"
+            }
+          />
+          <span>{section.label}</span>
+          <ChevronDownIcon
+            width="24"
+            height="24"
+            className={styles.accordionChevron}
+          />
+        </Accordion.Trigger>
+      </Accordion.Header>
+      <Accordion.Content className={styles.accordionContent}>
+        <div className={styles.accordionContentInner}>
+          {section.items.map((item) => {
+            if (item.type === "link") {
+              return <LinkSection key={item.label} link={item} />;
+            }
+            return null;
+          })}
+        </div>
+      </Accordion.Content>
+    </Accordion.Item>
   );
 }
 
@@ -46,11 +79,6 @@ export default function NavigationModal({
 }: {
   navRoutes: NavSection[];
 }) {
-  const pathname = usePathname();
-
-  const isActive = (href: string) => {
-    return pathname === href || pathname.startsWith(href + "/");
-  };
   return (
     <div className={styles.navigationModalRoot}>
       <Dialog.Root>
@@ -62,52 +90,45 @@ export default function NavigationModal({
         <Dialog.Portal>
           <Dialog.Overlay className={styles.dialogOverlay} />
           <Dialog.Content className={styles.dialogContent}>
-            <div
-              style={{
-                backgroundImage:
-                  "linear-gradient(to top, var(--accent-1), var(--accent-5))",
-              }}
+            <Dialog.Description
+              className={styles.vissiblyHiddenForScreenReaders}
             >
-              <Dialog.Title className={styles.dialogTitle}>
-                Navigation Menu
-              </Dialog.Title>
-
-              <Dialog.Close asChild>
-                <Button
-                  variant="ghost"
-                  size="3"
-                  aria-label="Close"
-                  className={styles.dialogCloseButton}
-                >
-                  <Cross2Icon width="24" height="24" />
-                </Button>
-              </Dialog.Close>
-
-              {navRoutes.map((link) => {
-                if (link.type === "link") {
-                  return <LinkSection key={link.label} link={link} />;
+              This is a modal dialog. Clicking outside this dialog will dismiss
+              it.
+            </Dialog.Description>
+            <Dialog.Title className={styles.vissiblyHiddenForScreenReaders}>
+              Navigation Menu
+            </Dialog.Title>
+            <Dialog.Close asChild>
+              <Button
+                variant="ghost"
+                size="3"
+                aria-label="Close"
+                className={styles.dialogCloseButton}
+              >
+                <Cross2Icon width="24" height="24" />
+              </Button>
+            </Dialog.Close>
+            <Accordion.Root
+              type="single"
+              className={styles.accordionRoot}
+              collapsible
+            >
+              {navRoutes.map((section) => {
+                if (section.type === "link") {
+                  return <LinkSection key={section.label} link={section} />;
                 }
-                if (link.type === "trigger") {
+                if (section.type === "trigger") {
                   return (
-                    <Collapsible.Root key={link.label}>
-                      <TriggerSection section={link} />
-                      <Collapsible.Content>
-                        {link.items.map((item) => {
-                          if (item.type === "link") {
-                            return <LinkSection key={item.label} link={item} />;
-                          }
-                          if (item.type === "dynamic") {
-                            return <LinkSection key={item.label} link={item} />;
-                          }
-                          return null;
-                        })}
-                      </Collapsible.Content>
-                    </Collapsible.Root>
+                    <ExpandableSection
+                      key={section.sectionBaseHref}
+                      section={section}
+                    />
                   );
                 }
                 return null;
               })}
-            </div>
+            </Accordion.Root>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>

@@ -20,7 +20,7 @@
       var(--accent-12));
 }
 
-.dialogTitle {
+.vissiblyHiddenForScreenReaders {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -40,16 +40,38 @@
   background-color: transparent !important;
 }
 
-.mobileNavLink {
-  color: var(--accent-1);
+.accordionRoot {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(auto-fill, 1fr);
+  place-content: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.mobileNavLink,
+.accordionTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--acent-11);
+  color: var(--acent-1);
   width: 100%;
   max-width: 600px;
   text-align: center;
-  background-image: linear-gradient(to right, var(--accent-11), var(--accent-12));
   text-decoration: none;
   padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
 }
+
+.accordionTrigger {
+  display: grid;
+  grid-template-columns: 2rem 1fr 2rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  animation: accordionTriggerExpanded 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 
 @media (min-width: 779px) {
   .navigationModalRoot {
@@ -64,5 +86,52 @@
 
   to {
     opacity: 1;
+  }
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.accordionChevron {
+  color: var(--accent-10);
+  transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.accordionTrigger[data-state="open"]>.accordionChevron {
+  transform: rotate(180deg);
+}
+
+.accordionContent[data-state="open"] {
+  animation: slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.accordionContent[data-state="closed"] {
+  animation: slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: 1;
+  }
+
+  to {
+    height: 0;
   }
 }

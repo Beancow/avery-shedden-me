@@ -1,5 +1,4 @@
 import * as TabsPrimitive from "@radix-ui/react-tabs";
-import { Flex } from "@radix-ui/themes";
 import styles from "./styles.module.css";
 import Link from "next/link";
 

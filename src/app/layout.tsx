@@ -2,6 +2,7 @@ import "./global.css";
 import { Theme, ThemePanel } from "@radix-ui/themes";
 import { TopBar } from "../components/layout/TopBar";
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 
 type Props = {
   children: React.ReactNode;
@@ -31,6 +32,13 @@ export const metadata: Metadata = {
   },
 };
 
+const ToggleThemeSelect = dynamic(
+  () => import("../components/themePanelToggle/ThemePanelToggle"),
+  {
+    loading: () => <p>Loading...</p>,
+  }
+);
+
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
@@ -46,8 +54,8 @@ export default function RootLayout({ children }: Props) {
           }}
         >
           <TopBar />
+          <ToggleThemeSelect />
           <>{children}</>
-          <ThemePanel />
         </Theme>
       </body>
     </html>

@@ -54,8 +54,8 @@ function ExpandableSection({ section }: { section: TriggerSectionItem }) {
           </GlowWhenActive>
           <span>{section.label}</span>
           <ChevronDownIcon
-            width="24"
-            height="24"
+            width="18"
+            height="18"
             className={styles.accordionChevron}
           />
         </Accordion.Trigger>

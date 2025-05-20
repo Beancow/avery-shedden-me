@@ -16,9 +16,9 @@ export default function GlowWhenActive({
       gap="2"
       align="center"
       justify="center"
-      p="0"
+      p="0.35rem 0.35rem"
       m="0"
-      className={`${styles.glowItem} ${isActive ? `${styles.active}` : ""}`}
+      className={`${styles.glowItem} ${isActive ? `${styles.active}` : ""} `}
       style={customStyles}
     >
       {children}

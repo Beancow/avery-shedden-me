@@ -40,7 +40,8 @@
 .triggerCircle {
     color: transparent;
     background: var(--accent-11);
-    scale: 1.15;
+    height: 0.5rem;
+    width: 0.5rem;
     border-radius: 50%;
 }
 

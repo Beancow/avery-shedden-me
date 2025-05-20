@@ -9,7 +9,6 @@
     background-color: transparent;
     flex-flow: row nowrap;
     width: fit-content;
-    padding: 0.30rem 0.35rem;
     position: relative;
     z-index: 10;
     border-radius: 0.45rem;

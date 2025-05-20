@@ -1,4 +1,4 @@
-@import "@radix-ui/themes/styles.css";
+@import "../../../app/global.css";
 
 @property --gradient-angle {
     syntax: "<angle>";

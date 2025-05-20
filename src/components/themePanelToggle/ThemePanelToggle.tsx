@@ -10,9 +10,11 @@ export default function ThemePanelToggle() {
   };
 
   return (
-    <div className="theme-panel-toggle">
+    <div
+      style={{ position: "fixed", bottom: "4rem", left: "16px", zIndex: 1000 }}
+    >
       <Button onClick={togglePanel} typeof="toggle">
-        Toggle {isPanelOpen ? "Close" : "Open"} Theme Panel
+        {isPanelOpen ? "Close" : "Open"} Theme Panel
       </Button>
       {isPanelOpen && <ThemePanel />}
     </div>

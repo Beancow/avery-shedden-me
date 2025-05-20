@@ -14,6 +14,7 @@ import {
 } from "../navigationProps";
 import styles from "./styles.module.css";
 import { usePathname } from "next/navigation";
+import GlowWhenActive from "@/components/wrappers/GlowWhenActive/GlowWhenActive";
 
 function LinkSection({ link }: { link: LinkSectionItem }) {
   return (
@@ -27,7 +28,14 @@ function LinkSection({ link }: { link: LinkSectionItem }) {
 
 function ExpandableSection({ section }: { section: TriggerSectionItem }) {
   const pathName = usePathname();
-  const isActive = pathName.startsWith(section.sectionBaseHref);
+
+  // Check if the current path matches the section's base href only
+  const isActive = (href: string) => {
+    return pathName === href || pathName.endsWith(href + "/");
+  };
+  const activeSection = section.items.some((item) => {
+    return isActive(item.href);
+  });
 
   return (
     <Accordion.Item
@@ -37,21 +45,13 @@ function ExpandableSection({ section }: { section: TriggerSectionItem }) {
     >
       <Accordion.Header className={styles.accordionHeader}>
         <Accordion.Trigger className={styles.accordionTrigger}>
-          <CircleIcon
-            style={{
-              position: "relative",
-              background: isActive
-                ? `linear-gradient(90deg, var(--accent-1) 0%, var(--accent-12) 100%)`
-                : "transparent",
-              borderRadius: "50%",
-            }}
-            color="transparent"
-            direction={
-              isActive
-                ? `${section.label} is active`
-                : "This section is expandable but not active"
-            }
-          />
+          <GlowWhenActive
+            styles={{ borderRadius: "999999999px" }}
+            key={section.label}
+            isActive={activeSection}
+          >
+            <CircleIcon className={styles.accordionCircle} />
+          </GlowWhenActive>
           <span>{section.label}</span>
           <ChevronDownIcon
             width="24"

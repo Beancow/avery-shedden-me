@@ -20,11 +20,6 @@ body {
 
 
 .glowItem {
-  --glow-colors-1: #52014d;
-  --glow-colors-2: #d26fee;
-  --glow-colors-3: #ff5492;
-  --glow-colors-4: #812dff;
-  --glow-colors-5: #f67a28;
   position: relative;
   background-color: transparent;
   margin: inherit;
@@ -37,17 +32,20 @@ body {
 .glowItem.active::after {
   content: "";
   position: absolute;
-  inset: 0.20rem;
+  inset: 0.1rem;
   z-index: -1;
-  background: conic-gradient(from var(--gradient-angle),
-      var(--glow-colors-1),
-      var(--glow-colors-3),
-      var(--glow-colors-4),
-      var(--glow-colors-3),
-      var(--glow-colors-1));
+  background-image: conic-gradient(from var(--gradient-angle),
+      var(--purple-10),
+      var(--crimson-10),
+      var(--blue-11),
+      var(--crimson-9),
+      var(--orange-10),
+      var(--blue-11),
+      var(--crimson-10),
+      var(--purple-10));
   border-radius: inherit;
   animation: rotation 8s linear infinite;
-  filter: blur(0.35rem) brightness(1.3);
+  filter: brightness(1.35);
 }
 
 .glowItem.active {

@@ -1,6 +1,6 @@
 .tabList {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
     gap: .5rem;
     padding: 1rem;
 }
@@ -18,4 +18,11 @@
     background: var(--accent-11);
     color: var(--accent-1);
     border-radius: var(--radius-3);
+}
+
+@media screen and (min-width: 870px) {
+    .tabList {
+        display: none;
+    }
+
 }

@@ -1,5 +1,5 @@
 import "./global.css";
-import { Theme, ThemePanel } from "@radix-ui/themes";
+import { Portal, Theme } from "@radix-ui/themes";
 import { TopBar } from "../components/layout/TopBar";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
@@ -56,6 +56,7 @@ export default function RootLayout({ children }: Props) {
           <TopBar />
           <ToggleThemeSelect />
           <>{children}</>
+          <Portal id="insideTheme" />
         </Theme>
       </body>
     </html>

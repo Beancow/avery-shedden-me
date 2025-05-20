@@ -44,7 +44,7 @@
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
 }
 
-@media (max-width: 800px) {
+@media (max-width: 871px) {
     .navigationMenuBarRoot {
         display: none !important;
     }

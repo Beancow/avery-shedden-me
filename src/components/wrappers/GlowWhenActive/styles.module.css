@@ -1,10 +1,60 @@
-.GlowWhenActive {
+@import "@radix-ui/themes/styles.css";
+
+@property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.glowItem {
     display: flex;
+    background-color: transparent;
     flex-flow: row nowrap;
     width: fit-content;
     padding: 0.30rem 0.35rem;
     position: relative;
     z-index: 10;
     border-radius: 0.45rem;
-    ;
+}
+
+.glowItem.active::before,
+.glowItem.active::after {
+    content: "";
+    position: absolute;
+    inset: 0.1rem;
+    z-index: -1;
+    background-image: conic-gradient(from var(--gradient-angle),
+            var(--purple-10),
+            var(--crimson-10),
+            var(--blue-11),
+            var(--crimson-9),
+            var(--orange-10),
+            var(--blue-11),
+            var(--crimson-10),
+            var(--purple-10));
+    border-radius: inherit;
+    animation: rotation 8s linear infinite;
+    filter: brightness(1.35);
+}
+
+.glowItem.active {
+    background: var(--accent-a1);
+}
+
+@keyframes rotation {
+    0% {
+        --gradient-angle: 0deg;
+    }
+
+    100% {
+        --gradient-angle: 360deg;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .glowItem.active::before,
+    .glowItem.active::after {
+        animation: none;
+    }
 }

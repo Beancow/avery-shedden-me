@@ -46,7 +46,7 @@ function ExpandableSection({ section }: { section: TriggerSectionItem }) {
       <Accordion.Header className={styles.accordionHeader}>
         <Accordion.Trigger className={styles.accordionTrigger}>
           <GlowWhenActive
-            styles={{ borderRadius: "999999999px" }}
+            style={{ borderRadius: "9999999px" }}
             key={section.label}
             isActive={activeSection}
           >

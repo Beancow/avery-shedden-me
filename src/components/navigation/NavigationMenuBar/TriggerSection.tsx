@@ -30,7 +30,7 @@ export function TriggerSection({ section }: { section: TriggerSectionItem }) {
               className={styles.navigationMenuTriggerLink}
             >
               <GlowWhenActive
-                styles={{ borderRadius: "999999999px" }}
+                style={{ borderRadius: "999999999px" }}
                 key={section.label}
                 isActive={activeSection}
               >

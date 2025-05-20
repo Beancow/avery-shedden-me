@@ -4,11 +4,11 @@ import styles from "./styles.module.css";
 export default function GlowWhenActive({
   children,
   isActive,
-  styles: customStyles,
+  style: customStyles,
 }: {
   children: React.ReactNode;
   isActive: boolean;
-  styles?: React.CSSProperties;
+  style?: React.CSSProperties;
 }) {
   return (
     <Flex
@@ -18,9 +18,7 @@ export default function GlowWhenActive({
       justify="center"
       p="0"
       m="0"
-      className={`${styles.GlowWhenActive} glowItem ${
-        isActive ? "active" : ""
-      }`}
+      className={`${styles.glowItem} ${isActive ? `${styles.active}` : ""}`}
       style={customStyles}
     >
       {children}

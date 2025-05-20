@@ -44,7 +44,8 @@ export default function RootLayout({ children }: Props) {
     <html lang="en">
       <body>
         <Theme
-          accentColor="jade"
+          accentColor="violet"
+          appearance="dark"
           grayColor="sage"
           radius="small"
           hasBackground

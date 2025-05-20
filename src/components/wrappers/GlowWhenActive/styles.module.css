@@ -1,4 +1,7 @@
-@import "../../../app/global.css";
+@import "@radix-ui/color/purple.css";
+@import "@radix-ui/color/crimson.css";
+@import "@radix-ui/color/blue.css";
+@import "@radix-ui/color/orange.css";
 
 @property --gradient-angle {
     syntax: "<angle>";

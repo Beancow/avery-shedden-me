@@ -1,0 +1,46 @@
+@property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.cssChevronRightIcon {
+    height: 1rem;
+    width: 1rem;
+    background: var(--accent-9);
+    clip-path: polygon(65% 0, 95% 50%, 65% 100%, 25% 100%, 55% 50%, 25% 0);
+}
+
+
+.cssChevronRightIcon.active {
+    background: transparent;
+    background-image: conic-gradient(from var(--gradient-angle),
+            var(--purple-10),
+            var(--crimson-10),
+            var(--blue-11),
+            var(--crimson-9));
+    clip-path: polygon(65% 0, 95% 50%, 65% 100%, 25% 100%, 55% 50%, 25% 0);
+    animation: rotation 8s linear infinite;
+}
+
+a[data-state="open"]>.cssChevronRightIcon {
+    transform: rotate(90deg);
+}
+
+@keyframes rotation {
+    from {
+        --gradient-angle: 360deg;
+    }
+
+    to {
+        --gradient-angle: 0deg;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .chevronRightIcon.active::before,
+    .chevronRightIcon.active::after {
+        animation: none;
+    }
+}

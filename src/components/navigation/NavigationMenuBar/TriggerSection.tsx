@@ -5,8 +5,8 @@ import { LinkSection } from "./LinkSection";
 import GlowWhenActive from "@/components/wrappers/GlowWhenActive/GlowWhenActive";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ChevronDownIcon } from "@radix-ui/themes";
 import { CircleIcon } from "@radix-ui/react-icons";
+import CheveronIconGlowWhenActive from "@/components/styledIcons/IconGlowWhenActive/IconGlowWhenActive";
 
 export function TriggerSection({ section }: { section: TriggerSectionItem }) {
   const pathName = usePathname();
@@ -24,20 +24,19 @@ export function TriggerSection({ section }: { section: TriggerSectionItem }) {
           key={section.label}
           isActive={isActive(section.sectionBaseHref)}
         >
-          <Nav.Trigger asChild className={styles.navigationMenuTrigger}>
+          <Nav.Trigger
+            asChild
+            className={`${styles.navigationMenuTrigger}  ${
+              activeSection ? styles.active : ""
+            }`}
+          >
             <Link
               href={section.sectionBaseHref}
               className={styles.navigationMenuTriggerLink}
             >
-              <GlowWhenActive
-                style={{ borderRadius: "999999999px" }}
-                key={section.label}
-                isActive={activeSection}
-              >
-                <CircleIcon className={styles.triggerCircle} />
-              </GlowWhenActive>
+              <CircleIcon className={styles.triggerCircle} />
               <span>{section.label}</span>
-              <ChevronDownIcon className={styles.triggerChevron} />
+              <CheveronIconGlowWhenActive isActive={activeSection} />
             </Link>
           </Nav.Trigger>
         </GlowWhenActive>

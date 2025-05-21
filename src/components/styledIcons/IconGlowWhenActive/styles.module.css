@@ -7,7 +7,7 @@
 .cssChevronRightIcon {
     height: 1rem;
     width: 1rem;
-    background: var(--accent-9);
+    background: var(--accent-5);
     clip-path: polygon(65% 0, 95% 50%, 65% 100%, 25% 100%, 55% 50%, 25% 0);
 }
 
@@ -21,9 +21,15 @@
             var(--crimson-9));
     clip-path: polygon(65% 0, 95% 50%, 65% 100%, 25% 100%, 55% 50%, 25% 0);
     animation: rotation 8s linear infinite;
+    filter: brightness(1.35);
 }
 
+
 a[data-state="open"]>.cssChevronRightIcon {
+    transform: rotate(90deg);
+}
+
+button[data-state="open"]>.cssChevronRightIcon {
     transform: rotate(90deg);
 }
 

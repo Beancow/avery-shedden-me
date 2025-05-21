@@ -5,7 +5,7 @@ import {
   Cross2Icon,
   HamburgerMenuIcon,
 } from "@radix-ui/react-icons";
-import { Button, ChevronDownIcon } from "@radix-ui/themes";
+import { Button } from "@radix-ui/themes";
 import Link from "next/link";
 import {
   LinkSectionItem,
@@ -15,21 +15,33 @@ import {
 import styles from "./styles.module.css";
 import { usePathname } from "next/navigation";
 import GlowWhenActive from "@/components/wrappers/GlowWhenActive/GlowWhenActive";
+import CheveronIconGlowWhenActive from "@/components/styledIcons/IconGlowWhenActive/CheveronIconGlowWhenActive";
 
 function LinkSection({ link }: { link: LinkSectionItem }) {
+  const pathName = usePathname();
+
+  const isActive = (href: string) => {
+    return pathName === href || pathName.endsWith(href + "/");
+  };
   return (
-    <Dialog.Close asChild>
-      <Link href={link.href} className={styles.mobileNavLink}>
-        <span>{link.label}</span>
-      </Link>
-    </Dialog.Close>
+    <GlowWhenActive key={link.label} isActive={isActive(link.href)}>
+      <Dialog.Close asChild>
+        <Link
+          href={link.href}
+          className={`${styles.mobileNavLink} ${
+            isActive(link.href) ? styles.active : ""
+          }`}
+        >
+          <span>{link.label}</span>
+        </Link>
+      </Dialog.Close>
+    </GlowWhenActive>
   );
 }
 
 function ExpandableSection({ section }: { section: TriggerSectionItem }) {
   const pathName = usePathname();
 
-  // Check if the current path matches the section's base href only
   const isActive = (href: string) => {
     return pathName === href || pathName.endsWith(href + "/");
   };
@@ -44,20 +56,14 @@ function ExpandableSection({ section }: { section: TriggerSectionItem }) {
       className={styles.accordionItem}
     >
       <Accordion.Header className={styles.accordionHeader}>
-        <Accordion.Trigger className={styles.accordionTrigger}>
-          <GlowWhenActive
-            style={{ borderRadius: "9999999px" }}
-            key={section.label}
-            isActive={activeSection}
-          >
-            <CircleIcon className={styles.accordionCircle} />
-          </GlowWhenActive>
+        <Accordion.Trigger
+          className={`${styles.accordionTrigger} ${
+            activeSection ? styles.active : ""
+          }`}
+        >
+          <CircleIcon className={styles.accordionCircle} />
           <span>{section.label}</span>
-          <ChevronDownIcon
-            width="18"
-            height="18"
-            className={styles.accordionChevron}
-          />
+          <CheveronIconGlowWhenActive isActive={activeSection} />
         </Accordion.Trigger>
       </Accordion.Header>
       <Accordion.Content className={styles.accordionContent}>

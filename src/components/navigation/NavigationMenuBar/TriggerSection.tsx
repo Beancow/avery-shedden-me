@@ -6,11 +6,10 @@ import GlowWhenActive from "@/components/wrappers/GlowWhenActive/GlowWhenActive"
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { CircleIcon } from "@radix-ui/react-icons";
-import CheveronIconGlowWhenActive from "@/components/styledIcons/IconGlowWhenActive/IconGlowWhenActive";
+import CheveronIconGlowWhenActive from "@/components/styledIcons/IconGlowWhenActive/CheveronIconGlowWhenActive";
 
 export function TriggerSection({ section }: { section: TriggerSectionItem }) {
   const pathName = usePathname();
-  // Check if the current path matches the section's base href only
   const isActive = (href: string) => {
     return pathName === href || pathName.endsWith(href + "/");
   };

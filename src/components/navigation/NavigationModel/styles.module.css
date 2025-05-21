@@ -1,10 +1,11 @@
 .dialogOverlay {
-  background-color: var(--gray-7);
+  background-image: linear-gradient(to top,
+      var(--accent-2),
+      var(--accent-4));
   position: fixed;
   inset: 0;
   animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 
 .dialogContent {
   position: fixed;
@@ -42,36 +43,55 @@
 
 .accordionRoot {
   margin-top: 3rem;
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(auto-fill, 1fr);
-  place-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.25rem;
 }
 
 .mobileNavLink,
 .accordionTrigger {
+  font: inherit;
+  font-weight: 400;
+  font-size: 1.15rem;
+  color: var(--accent-3);
+  min-height: 3.5rem;
+  min-width: 80vw;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--acent-11);
-  color: var(--acent-1);
-  width: 100%;
-  max-width: 600px;
+  background: var(--accent-11);
   text-align: center;
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  border-radius: var(--radius-4);
+}
+
+.mobileNavLink {
+  margin: 0;
+}
+
+
+.accordionHeader {
+  position: relative;
 }
 
 .accordionTrigger {
   display: grid;
+  padding: 0.15rem;
+  margin: 0.25rem;
   grid-template-columns: 2rem 1fr 2rem;
   cursor: pointer;
+  outline: none;
+  border: none;
   transition: background-color 0.2s ease-in-out;
-  animation: accordionTriggerExpanded 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.accordionTrigger.active,
+.mobileNavLink.active {
+  background: var(--accent-10);
+}
 
 @media (min-width: 870px) {
   .navigationModalRoot {
@@ -100,10 +120,11 @@
 }
 
 .accordionCircle {
-  color: transparent;
-  background: var(--gray-7);
+  color: var(--accent-11);
+  background: var(--accent-11);
   height: 0.5rem;
   width: 0.5rem;
+  margin: 1.25rem;
   border-radius: 50%;
 }
 
@@ -114,32 +135,4 @@
 
 .accordionTrigger[data-state="open"]>.accordionChevron {
   transform: rotate(180deg);
-}
-
-.accordionContent[data-state="open"] {
-  animation: slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1);
-}
-
-.accordionContent[data-state="closed"] {
-  animation: slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1);
-}
-
-@keyframes slideDown {
-  from {
-    height: 0;
-  }
-
-  to {
-    height: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    height: 1;
-  }
-
-  to {
-    height: 0;
-  }
 }

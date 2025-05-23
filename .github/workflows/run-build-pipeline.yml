@@ -1,0 +1,39 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  call-build-workflow:
+    name: Build Static Site
+    uses: beancow/avery-shedden-me/.github/workflows/build-static-site.yml@main
+    with:
+      secrets: inherit
+
+  call-test-workflow:
+    name: Run Unit Tests
+    needs: call-build-workflow
+    if: ${{ github.event.workflow.jobs['call-build-workflow'].conclusion == 'success' }}
+    uses: beancow/avery-shedden-me/.github/workflows/run-unit-tests.yml@main
+    with:
+      secrets: inherit
+
+  call-deploy-workflow:
+    name: Deploy to GitHub Pages
+    needs: call-test-workflow
+    if: ${{ github.event.workflow.jobs['call-test-workflow'].conclusion == 'success' && github.event.workflow.jobs['call-build-workflow'] == 'success' }}
+    uses: beancow/avery-shedden-me/.github/workflows/deploy-gh-pages.yml@main
+    with:
+      secrets: inherit

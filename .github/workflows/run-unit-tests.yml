@@ -1,10 +1,7 @@
-name: Test Static Build Artifact
+name: Run Unit Tests
 
 on:
-  workflow_run:
-    workflows: ["Build Static Site"]
-    types:
-      - completed
+  workflow_call:
 
 jobs:
   run-jest-tests:

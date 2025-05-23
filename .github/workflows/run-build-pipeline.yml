@@ -12,8 +12,8 @@ concurrency:
 on:
   push:
     branches: ["main"]
-    tags-ignore:
-      - "v*"
+    tags:
+      - "!v*"
 
 jobs:
   call_build_workflow:

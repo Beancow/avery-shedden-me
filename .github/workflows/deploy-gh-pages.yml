@@ -1,4 +1,4 @@
-name: Build Static Site
+name: Deploy to GitHub Pages
 
 on:
   workflow_run:
@@ -6,7 +6,6 @@ on:
     types:
       - completed
 
-  workflow_dispatch:
 permissions:
   contents: read
   pages: write
@@ -20,20 +19,20 @@ jobs:
   download_artifact:
     runs-on: ubuntu-latest
     steps:
-      - name: Download build artifact from deployment workflow
+      - name: Download build artifact from build workflow
         uses: actions/download-artifact@v4
         with:
           name: github-pages
-          path: ./downloaded-artifact
+          path: ./out
 
   deploy:
     needs: download_artifact
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }} # Sets the deployment URL in the GitHub environment tab
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 # Action to deploy the uploaded artifact
+        uses: actions/deploy-pages@v4

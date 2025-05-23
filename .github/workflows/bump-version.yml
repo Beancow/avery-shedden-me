@@ -26,7 +26,7 @@ jobs:
         if: ${{ steps.bump_version.outputs.version != '' }}
         run: |
           git config --local user.name "GitHub Actions"
-          git config --local user.email ${{ github.actor }}@users.noreply.github.com
+          git config --local user.email "${{ github.event.sender.id }}@users.noreply.github.com"
           git add package.json package-lock.json
           git commit -m "Bump version to ${{ steps.bump_version.output.version }}"
           git tag -a "v${{ steps.bump_version.outputs.version }}" -m "Version ${{ steps.bump_version.outputs.version }}"

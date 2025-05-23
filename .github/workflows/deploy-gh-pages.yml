@@ -13,17 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  download_artifact:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download build artifact from build workflow
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages
-          path: ./out
-
   deploy:
-    needs: download_artifact
     runs-on: ubuntu-latest
     environment:
       name: github-pages

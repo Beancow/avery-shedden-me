@@ -2,7 +2,7 @@ name: Run Unit Tests
 
 on:
   workflow_call:
-
+  # This workflow is triggered by the build workflow
 jobs:
   run-jest-tests:
     name: Run test

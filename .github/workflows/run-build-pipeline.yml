@@ -27,13 +27,11 @@ jobs:
     needs: call-build-workflow
     if: ${{ github.event.workflow.jobs['call-build-workflow'].conclusion == 'success' }}
     uses: beancow/avery-shedden-me/.github/workflows/run-unit-tests.yml@main
-    with:
-      secrets: inherit
 
   call-deploy-workflow:
     name: Deploy to GitHub Pages
     needs: call-test-workflow
-    if: ${{ github.event.workflow.jobs['call-test-workflow'].conclusion == 'success' && github.event.workflow.jobs['call-build-workflow'] == 'success' }}
+    if: ${{ github.event.workflow.jobs['call-test-workflow'].conclusion == 'success' && github.event.workflow.jobs['call-build-workflow'].conclusion == 'success' }}
     uses: beancow/avery-shedden-me/.github/workflows/deploy-gh-pages.yml@main
     with:
       secrets: inherit

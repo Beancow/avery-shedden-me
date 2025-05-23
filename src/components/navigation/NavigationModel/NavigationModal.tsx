@@ -1,84 +1,11 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Accordion from "@radix-ui/react-accordion";
-import {
-  CircleIcon,
-  Cross2Icon,
-  HamburgerMenuIcon,
-} from "@radix-ui/react-icons";
+import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { Button } from "@radix-ui/themes";
-import Link from "next/link";
-import {
-  LinkSectionItem,
-  NavSection,
-  TriggerSectionItem,
-} from "../navigationProps";
+import { NavSection } from "../navigationProps";
 import styles from "./styles.module.css";
-import { usePathname } from "next/navigation";
-import GlowWhenActive from "@/components/wrappers/GlowWhenActive/GlowWhenActive";
-import CheveronIconGlowWhenActive from "@/components/styledIcons/IconGlowWhenActive/CheveronIconGlowWhenActive";
-
-function LinkSection({ link }: { link: LinkSectionItem }) {
-  const pathName = usePathname();
-
-  const isActive = (href: string) => {
-    return pathName === href || pathName.endsWith(href + "/");
-  };
-  return (
-    <GlowWhenActive key={link.label} isActive={isActive(link.href)}>
-      <Dialog.Close asChild>
-        <Link
-          href={link.href}
-          className={`${styles.mobileNavLink} ${
-            isActive(link.href) ? styles.active : ""
-          }`}
-        >
-          <span>{link.label}</span>
-        </Link>
-      </Dialog.Close>
-    </GlowWhenActive>
-  );
-}
-
-function ExpandableSection({ section }: { section: TriggerSectionItem }) {
-  const pathName = usePathname();
-
-  const isActive = (href: string) => {
-    return pathName === href || pathName.endsWith(href + "/");
-  };
-  const activeSection = section.items.some((item) => {
-    return isActive(item.href);
-  });
-
-  return (
-    <Accordion.Item
-      key={section.label}
-      value={section.label}
-      className={styles.accordionItem}
-    >
-      <Accordion.Header className={styles.accordionHeader}>
-        <Accordion.Trigger
-          className={`${styles.accordionTrigger} ${
-            activeSection ? styles.active : ""
-          }`}
-        >
-          <CircleIcon className={styles.accordionCircle} />
-          <span>{section.label}</span>
-          <CheveronIconGlowWhenActive isActive={activeSection} />
-        </Accordion.Trigger>
-      </Accordion.Header>
-      <Accordion.Content className={styles.accordionContent}>
-        <div className={styles.accordionContentInner}>
-          {section.items.map((item) => {
-            if (item.type === "link") {
-              return <LinkSection key={item.label} link={item} />;
-            }
-            return null;
-          })}
-        </div>
-      </Accordion.Content>
-    </Accordion.Item>
-  );
-}
+import { LinkSection } from "./LinkSection";
+import ExpandableSection from "./ExpandableSection";
 
 export default function NavigationModal({
   navRoutes,
@@ -100,7 +27,7 @@ export default function NavigationModal({
             it.
           </Dialog.Description>
           <Dialog.Title className={styles.vissiblyHiddenForScreenReaders}>
-            Navigation Menu
+            Welcome to the Navigation Menu
           </Dialog.Title>
           <Dialog.Close asChild>
             <Button

@@ -18,18 +18,16 @@
     border-radius: 0.35rem;
     border: none;
     appearance: none;
+    background: var(--button-background);
+}
+
+
+.navigationMenuLink:hover {
     background: var(--accent-11);
 }
 
-.navigationMenuLink:focus,
-.navigationMenuTrigger:focus,
-.navigationMenuTrigger:hover,
-.navigationMenuLink:hover {
-    background: var(--accent-10);
-}
-
-.navigationMenuTrigger.active {
-    background: var(--accent-10);
+.navigationMenuTrigger[data-state="closed"].active {
+    background: var(--button-background-open);
 }
 
 .navigationMenuTriggerLink {

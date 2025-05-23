@@ -4,7 +4,7 @@
       var(--accent-4));
   position: fixed;
   inset: 0;
-  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: overlayShow 250ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dialogContent {
@@ -37,7 +37,7 @@
   position: absolute !important;
   top: 1rem;
   right: 1rem;
-  color: var(--accent-1);
+  color: var(--accent-11);
   background-color: transparent !important;
 }
 
@@ -62,7 +62,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--accent-11);
+  background: var(--button-background);
   text-align: center;
   text-decoration: none;
   border-radius: var(--radius-4);
@@ -85,12 +85,37 @@
   cursor: pointer;
   outline: none;
   border: none;
-  transition: background-color 0.2s ease-in-out;
+  transition: background 0.2s ease-in-out;
 }
 
-.accordionTrigger.active,
 .mobileNavLink.active {
   background: var(--accent-10);
+}
+
+.accordionTrigger:hover {
+  background: var(--accent-10);
+}
+
+.accordionTrigger[data-state="open"] {
+  background: var(--button-background-open);
+}
+
+.accordionCircle {
+  color: var(--accent-11);
+  background: var(--accent-11);
+  height: 0.5rem;
+  width: 0.5rem;
+  margin: 1.25rem;
+  border-radius: 50%;
+}
+
+.accordionChevron {
+  color: var(--accent-10);
+  transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.accordionTrigger[data-state="open"]>.accordionChevron {
+  transform: rotate(180deg);
 }
 
 @media (min-width: 870px) {
@@ -117,22 +142,4 @@
   to {
     opacity: 1;
   }
-}
-
-.accordionCircle {
-  color: var(--accent-11);
-  background: var(--accent-11);
-  height: 0.5rem;
-  width: 0.5rem;
-  margin: 1.25rem;
-  border-radius: 50%;
-}
-
-.accordionChevron {
-  color: var(--accent-10);
-  transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
-}
-
-.accordionTrigger[data-state="open"]>.accordionChevron {
-  transform: rotate(180deg);
 }

@@ -12,6 +12,8 @@ concurrency:
 on:
   push:
     branches: ["main"]
+    tags-ignore:
+      - "v*"
 
 jobs:
   call_build_workflow:
@@ -31,4 +33,10 @@ jobs:
     needs: [call_test_workflow, call_build_workflow]
     if: ${{ needs.call_test_workflow.result == 'success' && needs.call_build_workflow.result == 'success' }}
     uses: beancow/avery-shedden-me/.github/workflows/deploy-gh-pages.yml@main
+    secrets: inherit
+  call_bump_version_workflow:
+    name: Bump Version
+    needs: [call_deploy_workflow]
+    if: ${{ needs.call_deploy_workflow.result == 'success' }}
+    uses: beancow/avery-shedden-me/.github/workflows/bump-version.yml@main
     secrets: inherit

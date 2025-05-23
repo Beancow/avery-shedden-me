@@ -1,10 +1,8 @@
 name: Bump minor version
 
 on:
-  workflow_run:
-    workflows: ["Build Static Site", "Run Unit Tests"]
-    types:
-      - completed
+  workflow_call:
+
 jobs:
   bump_version:
     outputs:

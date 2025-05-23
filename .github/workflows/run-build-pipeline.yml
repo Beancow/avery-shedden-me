@@ -16,21 +16,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  call-build-workflow:
+  call_build_workflow:
     name: Build Static Site
     uses: beancow/avery-shedden-me/.github/workflows/build-static-site.yml@main
     secrets: inherit
     with:
       base_path: ${{ github.event.repository.name }}
 
-  call-test-workflow:
+  call_test_workflow:
     name: Run Unit Tests
-    needs: call-build-workflow
-    if: ${{ github.event.workflow.jobs['call-build-workflow'].conclusion == 'success' }}
+    needs: call_build_workflow
+    if: ${{ github.event.workflow.jobs.call_build_workflow.conclusion == 'success' }}
     uses: beancow/avery-shedden-me/.github/workflows/run-unit-tests.yml@main
 
-  call-deploy-workflow:
+  call_deploy_workflow:
     name: Deploy to GitHub Pages
-    needs: call-test-workflow
-    if: ${{ github.event.workflow.jobs['call-test-workflow'].conclusion == 'success' && github.event.workflow.jobs['call-build-workflow'].conclusion == 'success' }}
+    needs: call_test_workflow
+    if: ${{ github.event.workflow.jobs.call_test_workflow.conclusion == 'success' && github.event.workflow.jobs.call_build_workflow.conclusion == 'success' }}
     uses: beancow/avery-shedden-me/.github/workflows/deploy-gh-pages.yml@main

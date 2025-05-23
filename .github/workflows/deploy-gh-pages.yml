@@ -1,11 +1,12 @@
-name: Deploy Static Site to GitHub Pages
+name: Build Static Site
 
 on:
-  push:
-    branches: ["main"]
+  workflow_run:
+    workflows: ["Test Static Build Artifact"]
+    types:
+      - completed
 
   workflow_dispatch:
-
 permissions:
   contents: read
   pages: write
@@ -13,45 +14,20 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
-  build:
+  download_artifact:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set Environment Variables
-        env:
-          BASE_PATH: ${{ github.event.inputs.base_path || github.event.repository.name }}
-        run: |
-          echo "" > .env.local
-          echo BASE_PATH=$BASE_PATH >> .env.local
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Download build artifact from deployment workflow
+        uses: actions/download-artifact@v4
         with:
-          node-version: 20 # Use the Node.js version your project requires
-          cache: "npm"
-          cache-dependency-path: package-lock.json # Cache dependencies for faster builds
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build static site
-        run: npm run build:static
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "./out"
+          name: github-pages
+          path: ./downloaded-artifact
 
   deploy:
-    needs: build
+    needs: download_artifact
     runs-on: ubuntu-latest
     environment:
       name: github-pages

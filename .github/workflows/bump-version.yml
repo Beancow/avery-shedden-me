@@ -34,5 +34,6 @@ jobs:
         run: |
           git add package.json package-lock.json
           git commit -m "Bump version to ${{ steps.bump_version.outputs.new_version }}"
-          git tag -a "v${{ steps.bump_version.outputs.new_version }}" -m "Version bumped from ${{ steps.bump_version.outputs.current_version }} > ${{ steps.bump_version.outputs.new_version }}"
+          git tag -a "${{ steps.bump_version.outputs.new_version }}" -m "Version bumped from v${{ steps.bump_version.outputs.current_version }} > ${{ steps.bump_version.outputs.new_version }}"
+          git pull --rebase
           git push

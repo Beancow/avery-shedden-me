@@ -17,12 +17,11 @@ concurrency:
 
 jobs:
   call-build-workflow:
-    if: ${{ github.event.repository.name }}
     name: Build Static Site
     uses: beancow/avery-shedden-me/.github/workflows/build-static-site.yml@main
+    secrets: inherit
     with:
       base_path: ${{ github.event.repository.name }}
-    secrets: inherit
 
   call-test-workflow:
     name: Run Unit Tests
@@ -35,5 +34,3 @@ jobs:
     needs: call-test-workflow
     if: ${{ github.event.workflow.jobs['call-test-workflow'].conclusion == 'success' && github.event.workflow.jobs['call-build-workflow'].conclusion == 'success' }}
     uses: beancow/avery-shedden-me/.github/workflows/deploy-gh-pages.yml@main
-    with:
-      secrets: inherit

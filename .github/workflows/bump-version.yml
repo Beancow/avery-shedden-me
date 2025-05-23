@@ -25,6 +25,7 @@ jobs:
       - name: Bump version
         run: npm version patch >> $GITHUB_OUTPUT
       - name: Push changes
+        if: ${{ steps.bump_version.outputs.version != '' }}
         run: |
           git config --local user.name "GitHub Actions"
           git config --local user.email ${{ github.actor }}@users.noreply.github.com

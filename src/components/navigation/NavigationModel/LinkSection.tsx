@@ -5,7 +5,7 @@ import GlowWhenActive from "@/components/wrappers/GlowWhenActive/GlowWhenActive"
 import * as Dialog from "@radix-ui/react-dialog";
 import Link from "next/link";
 
-export function LinkSection({ link }: { link: LinkSectionItem }) {
+export default function LinkSection({ link }: { link: LinkSectionItem }) {
   const pathName = usePathname();
 
   const isActive = (href: string) => {
@@ -26,3 +26,5 @@ export function LinkSection({ link }: { link: LinkSectionItem }) {
     </GlowWhenActive>
   );
 }
+
+export { LinkSection };

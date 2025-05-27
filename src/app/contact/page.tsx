@@ -1,8 +1,8 @@
 export default function ConnectPage() {
   return (
     <div>
-      <h1>Connect</h1>
-      <p>Connect page content goes here.</p>
+      <h1>Contact</h1>
+      <p>Contact page content goes here.</p>
     </div>
   );
 }

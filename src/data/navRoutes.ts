@@ -3,12 +3,12 @@ import { NavSection } from "@/components/navigation/navigationProps";
 export const navRoutes: NavSection[] = [
   {
     type: "trigger",
-    label: "Abour Avery",
+    label: "Abour",
     sectionBaseHref: "/about",
     items: [
       {
         type: "link",
-        label: "About Me",
+        label: "Me",
         content: "A brief introduction about me",
         href: "/about/me",
         default: true,
@@ -27,9 +27,9 @@ export const navRoutes: NavSection[] = [
       },
       {
         type: "link",
-        label: "Get in Touch",
+        label: "Contact me",
         content: "Contact me",
-        href: "/connect",
+        href: "/contact",
       },
     ],
   },

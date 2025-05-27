@@ -33,7 +33,10 @@ export const metadata: Metadata = {
 };
 
 const ToggleThemeSelect = dynamic(
-  () => import("../components/themePanelToggle/ThemePanelToggle"),
+  () =>
+    import(
+      "../components/dynamic_components/themePanelToggle/ThemePanelToggle"
+    ),
   {
     loading: () => <p>Loading...</p>,
   }

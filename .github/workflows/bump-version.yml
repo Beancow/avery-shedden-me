@@ -7,7 +7,7 @@ jobs:
   bump_version:
     outputs:
       version: ${{ steps.bump_version.outputs.version }}
-    name: Bump Version
+    name: bump version
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

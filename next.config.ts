@@ -12,6 +12,14 @@ console.log(
 
 module.exports = {
   basePath: repoName,
+  redirects: async () => [
+    {
+      source: "/",
+      basePath: repoName,
+      destination: `/about/me`,
+      permanent: true,
+    },
+  ],
   output: isStaticBuild ? "export" : undefined,
   trailingSlash: isStaticBuild ? true : undefined,
   images: {

@@ -1,5 +1,5 @@
 "use client";
-import { Button, ThemePanel, useThemeContext } from "@radix-ui/themes";
+import { Button, ThemePanel } from "@radix-ui/themes";
 import { useState } from "react";
 
 export default function ThemePanelToggle() {

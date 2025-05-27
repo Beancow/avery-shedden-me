@@ -2,10 +2,36 @@ import { NavSection } from "@/components/navigation/navigationProps";
 
 export const navRoutes: NavSection[] = [
   {
-    type: "link",
-    label: "Home",
-    content: "Home",
-    href: "/",
+    type: "trigger",
+    label: "Abour Avery",
+    sectionBaseHref: "/about",
+    items: [
+      {
+        type: "link",
+        label: "About Me",
+        content: "A brief introduction about me",
+        href: "/about/me",
+        default: true,
+      },
+      {
+        type: "link",
+        label: "My Interests",
+        content: "What I am interested in",
+        href: "/about/interests",
+      },
+      {
+        type: "link",
+        label: "Pride",
+        content: "Groups I support and why",
+        href: "/about/pride",
+      },
+      {
+        type: "link",
+        label: "Get in Touch",
+        content: "Contact me",
+        href: "/connect",
+      },
+    ],
   },
   {
     type: "trigger",
@@ -14,21 +40,21 @@ export const navRoutes: NavSection[] = [
     items: [
       {
         type: "link",
-        label: "SumUp",
-        content: "About my work at SumUp",
-        href: "/experience/SumUp",
+        label: "Software Engineer",
+        content: "About my work as a Software Engineer",
+        href: "/experience/SoftwareEngineer",
       },
       {
         type: "link",
-        label: "SIS",
-        content: "My work at SIS - Satelite Internet Services",
-        href: "/experience/SIS",
+        label: "DevOps Engineer",
+        content: "About my work as a DevOps Engineer",
+        href: "/experience/DevOpsEngineer",
       },
       {
         type: "link",
-        label: "SalesMaster",
-        content: "About my work at SalesMaster",
-        href: "/experience/SalesMaster",
+        label: "IT Service Desk Engineer",
+        content: "About my work as an It Service Desk Engineer",
+        href: "/experience/ItServiceDeskEngineer",
       },
     ],
   },
@@ -39,34 +65,36 @@ export const navRoutes: NavSection[] = [
     items: [
       {
         type: "link",
-        label: "Custom Shell Prompt",
-        content: "About this piece of work",
+        label: "My dotfiles",
+        content: "About my customised shell configuration and other utils",
         href: "/projects/shell",
       },
       {
         type: "link",
-        label: "CV Website",
-        content: "About this piece of work",
-        href: "/projects/CVSite",
+        label: "This Website - Averything",
+        content:
+          "About how I approached building this website and my love of word play",
+        href: "/projects/thisSite",
       },
       {
         type: "link",
         label: "SAF Landing Page",
-        content: "About this piece of work",
-        href: "/projects/SAFStuff",
+        content: "About the SAF Landing Page project",
+        href: "/projects/SAFLandingPage",
       },
       {
         type: "link",
-        label: "SAF Website",
-        content: "About this piece of work",
-        href: "/projects/SAFWebsite",
+        label: "Habit Tracker",
+        content: "How I approached building a Habit Tracker and why",
+        href: "/projects/habitTracker",
       },
     ],
   },
   {
     type: "link",
-    label: "Connect",
-    content: "Contact me",
-    href: "/connect",
+    label: "Donations",
+    content:
+      "As a trans person, I would appreciate your support - I dont like to ask for money, but it does help to show my ability to implement a donation system :D",
+    href: "/donation",
   },
 ];

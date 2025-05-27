@@ -15,7 +15,6 @@ module.exports = {
   redirects: async () => [
     {
       source: "/",
-      basePath: repoName,
       destination: `/about/me`,
       permanent: true,
     },

@@ -28,10 +28,15 @@ jobs:
         id: bump_version
         run: |
           echo "current_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
-          echo "new_version=$(npm version patch --no-git-tag-version)" >> $GITHUB_OUTPUT
+          echo "new_version=$(npm version patch --no-git-tag-version --allow-same-version)" >> $GITHUB_OUTPUT
       - name: Add, Commit, Tag and push changes
         if: ${{ steps.bump_version.outputs.new_version != '' }}
         run: |
+          if [${{ steps.bump_version.outputs.new_version}} == ${{ steps.bump_version.outputs.current_version}}]; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          echo "Bumping version from ${{ steps.bump_version.outputs.current_version }} to ${{ steps.bump_version.outputs.new_version }}"
           git add package.json package-lock.json
           git commit -m "Bump version to ${{ steps.bump_version.outputs.new_version }}"
           git tag -a "${{ steps.bump_version.outputs.new_version }}" -m "Version bumped from v${{ steps.bump_version.outputs.current_version }} > ${{ steps.bump_version.outputs.new_version }}"

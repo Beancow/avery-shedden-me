@@ -11,7 +11,6 @@ export const navRoutes: NavSection[] = [
         label: "Me",
         content: "A brief introduction about me",
         href: "/about/me",
-        default: true,
       },
       {
         type: "link",
@@ -43,6 +42,7 @@ export const navRoutes: NavSection[] = [
         label: "Software Engineer",
         content: "About my work as a Software Engineer",
         href: "/experience/SoftwareEngineer",
+        default: true,
       },
       {
         type: "link",
@@ -68,6 +68,7 @@ export const navRoutes: NavSection[] = [
         label: "My dotfiles",
         content: "About my customised shell configuration and other utils",
         href: "/projects/shell",
+        default: true,
       },
       {
         type: "link",

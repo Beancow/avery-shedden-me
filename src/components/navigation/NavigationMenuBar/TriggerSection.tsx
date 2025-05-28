@@ -1,5 +1,5 @@
 import * as Nav from "@radix-ui/react-navigation-menu";
-import { LinkSectionItem, TriggerSectionItem } from "../navigationProps";
+import { TriggerSectionItem } from "../navigationProps";
 import styles from "./styles.module.css";
 import { LinkSection } from "./LinkSection";
 import GlowWhenActive from "@/components/wrappers/GlowWhenActive/GlowWhenActive";
@@ -16,6 +16,16 @@ export function TriggerSection({ section }: { section: TriggerSectionItem }) {
   const activeSection = section.items.some((item) => {
     return isActive(item.href);
   });
+
+  const getSectionHref = (section: TriggerSectionItem) => {
+    return section.items.reduce((path, item) => {
+      if (item.default) {
+        path = item.href;
+      }
+      return path;
+    }, section.sectionBaseHref);
+  };
+
   return (
     <div style={{ position: "relative" }}>
       <Nav.Item key={section.label}>
@@ -28,9 +38,11 @@ export function TriggerSection({ section }: { section: TriggerSectionItem }) {
             className={`${styles.navigationMenuTrigger}  ${
               activeSection ? styles.active : ""
             }`}
+            key={section.label}
           >
             <Link
-              href={section.sectionBaseHref}
+              key={section.label}
+              href={getSectionHref(section)}
               className={styles.navigationMenuTriggerLink}
             >
               <CircleIcon className={styles.triggerCircle} />

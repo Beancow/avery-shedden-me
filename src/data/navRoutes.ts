@@ -3,7 +3,7 @@ import { NavSection } from "@/components/navigation/navigationProps";
 export const navRoutes: NavSection[] = [
   {
     type: "trigger",
-    label: "Abour",
+    label: "About",
     sectionBaseHref: "/about",
     items: [
       {
@@ -16,7 +16,7 @@ export const navRoutes: NavSection[] = [
       {
         type: "link",
         label: "My Interests",
-        content: "What I am interested in",
+        content: "What I'm interested in",
         href: "/about/interests",
       },
       {

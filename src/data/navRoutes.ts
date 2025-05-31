@@ -8,12 +8,6 @@ export const navRoutes: NavSection[] = [
     items: [
       {
         type: "link",
-        label: "Me",
-        content: "A brief introduction about me",
-        href: "/about/me",
-      },
-      {
-        type: "link",
         label: "My Interests",
         content: "What I'm interested in",
         href: "/about/interests",

@@ -28,7 +28,7 @@ jobs:
         id: bump_version
         run: |
           echo "current_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
-          echo "new_version=$(npm version patch --no-git-tag-version --allow-same-version)" >> $GITHUB_OUTPUT
+          echo "new_version=$(npm version patch --allow-same-version)" >> $GITHUB_OUTPUT
       - name: Add, Commit, Tag and push changes
         if: ${{ steps.bump_version.outputs.new_version != '' }}
         run: |
@@ -38,9 +38,10 @@ jobs:
           else
             echo "Tag $NEW_VERSION already exists"
             echo "Bumping version again to avoid conflicts"
-            NEW_VERSION=$(npm version patch --no-git-tag-version --allow-same-version)
+            NEW_VERSION=$(npm version patch --allow-same-version)
             git tag -a "${NEW_VERSION}" -m "Version bumped from v${{ steps.bump_version.outputs.current_version }} > ${NEW_VERSION}"
           fi
           git add package.json package-lock.json
           git commit -m "Bump version to $NEW_VERSION"
           git push --tags
+          git push origin main

@@ -8,6 +8,7 @@
     height: 1rem;
     width: 1rem;
     background: var(--accent-5);
+    margin: 0 auto;
     clip-path: polygon(65% 0, 95% 50%, 65% 100%, 25% 100%, 55% 50%, 25% 0);
 }
 

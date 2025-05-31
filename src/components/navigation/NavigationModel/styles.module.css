@@ -58,7 +58,7 @@
   font-size: 1.15rem;
   color: var(--accent-3);
   min-height: 3.5rem;
-  min-width: 80vw;
+  min-width: 88vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,29 +75,26 @@
 
 .accordionHeader {
   position: relative;
+  margin-bottom: .4rem;
 }
 
 .accordionTrigger {
   display: grid;
   padding: 0.15rem;
   margin: 0.25rem;
-  grid-template-columns: 2rem 1fr 2rem;
+  grid-template-columns: 3.5rem 1fr 3.5rem;
   cursor: pointer;
   outline: none;
   border: none;
   transition: background 0.2s ease-in-out;
 }
 
-.mobileNavLink.active {
-  background: var(--accent-10);
-}
-
-.accordionTrigger:hover {
-  background: var(--accent-10);
-}
-
 .accordionTrigger[data-state="open"] {
   background: var(--button-background-open);
+}
+
+.accordionItem[data-state="open"] {
+  margin-bottom: 0.5rem;
 }
 
 .accordionCircle {
@@ -107,6 +104,7 @@
   width: 0.5rem;
   margin: 1.25rem;
   border-radius: 50%;
+  margin: 0 auto;
 }
 
 .accordionChevron {

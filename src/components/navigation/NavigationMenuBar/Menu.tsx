@@ -11,7 +11,10 @@ export function NavigationMenuBar({ navRoutes }: { navRoutes: NavSection[] }) {
         {navRoutes.map((item) => {
           if (item.type === "trigger") {
             return <TriggerSection key={item.label} section={item} />;
-          } else if (item.type === "link") {
+          } else if (
+            item.type === "linkWithHref" ||
+            item.type === "linkWithSlug"
+          ) {
             return <LinkSection key={item.label} link={item} />;
           } else {
             console.error("Unknown item type:", item);

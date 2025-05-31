@@ -34,7 +34,7 @@ jobs:
         run: |
           NEW_VERSION=${{ steps.bump_version.outputs.new_version }}
           echo "Checking existing tag for version ${NEW_VERSION}"
-          if git rev-parse --verify --quiet "refs/tags/${NEW_VERSION}" >/dev/null; then
+          if [$(git rev-parse --verify refs/tags/${NEW_VERSION})]; then
             echo "Tag for version ${NEW_VERSION} already exists"
             NEW_VERSION=$(npm version patch --no-git-tag-version --allow-same-version)
           fi

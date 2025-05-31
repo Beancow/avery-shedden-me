@@ -32,9 +32,11 @@ jobs:
       - name: Add, Commit, Tag and push changes
         if: ${{ steps.bump_version.outputs.new_version != '' }}
         run: |
-          if [${{ steps.bump_version.outputs.new_version}} == ${{ steps.bump_version.outputs.current_version}}]; then
-            echo "No changes to commit"
-            exit 0
+          currentVersionNumbers=${{ steps.bump_version.outputs.current_version }} | tr -d . | tr -d v 
+          newVersionNumbers=${{ steps.bump_version.outputs.new_version }} | tr -d . | tr -d v
+          if [currentVersionNumbers > newVersionNumbers ]; then
+            echo "New version is behind the current version"
+            exit 1
           fi
           echo "Bumping version from ${{ steps.bump_version.outputs.current_version }} to ${{ steps.bump_version.outputs.new_version }}"
           git add package.json package-lock.json

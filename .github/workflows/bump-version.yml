@@ -34,14 +34,15 @@ jobs:
         run: |
           NEW_VERSION=${{ steps.bump_version.outputs.new_version }}
           if git rev-parse "$NEW_VERSION" >/dev/null 2>&1; then
+            git add package.json package-lock.json
             git tag -a "${NEW_VERSION}" -m "Version bumped from v${{ steps.bump_version.outputs.current_version }} > ${NEW_VERSION}"
           else
             echo "Tag $NEW_VERSION already exists"
             echo "Bumping version again to avoid conflicts"
+            git add package.json package-lock.json
             git commit -m "Bump version to $NEW_VERSION"
             NEW_VERSION=$(npm version patch --allow-same-version)
           fi
-          git add package.json package-lock.json
           git commit -m "Bump version to $NEW_VERSION"
           git push --tags
           git push origin main

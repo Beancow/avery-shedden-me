@@ -30,7 +30,6 @@ jobs:
           echo "current_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
           echo "new_version=$(npm version patch --no-git-tag-version --allow-same-version)" >> $GITHUB_OUTPUT
       - name: Add, Commit, Tag and push changes
-        id: add_commit_tag
         if: ${{ steps.bump_version.outputs.new_version != '' }}
         run: |
           NEW_VERSION=${{ steps.bump_version.outputs.new_version }}

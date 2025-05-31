@@ -19,7 +19,7 @@ export function TriggerSection({ section }: { section: TriggerSectionItem }) {
 
   const getSectionHref = (section: TriggerSectionItem) => {
     return section.items.reduce((path, item) => {
-      if (item.default) {
+      if (item.type === "linkWithSlug") {
         path = item.href;
       }
       return path;

@@ -30,15 +30,17 @@ jobs:
           echo "current_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
           echo "new_version=$(npm version patch --no-git-tag-version --allow-same-version)" >> $GITHUB_OUTPUT
       - name: Add, Commit, Tag and push changes
+        id: add_commit_tag
         if: ${{ steps.bump_version.outputs.new_version != '' }}
         run: |
-          if [ git rev-parse --verify refs/tags/${{ steps.bump_version.outputs.new_version }} ]; then
-            echo "Tag already exists for version ${{ steps.bump_version.outputs.new_version }}. Bumping version again."
-            echo "new_new_version=$(npm version patch --no-git-tag-version --allow-same-version)"
-            exit 0
+          NEW_VERSION=${{ steps.bump_version.outputs.new_version }}
+          echo "Checking existing tag for version ${NEW_VERSION}"
+          if [ git rev-parse --verify refs/tags/${NEW_VERSION} ]; then
+            echo "Tag for version ${NEW_VERSION} already exists"
+            NEW_VERSION=$(npm version patch --no-git-tag-version --allow-same-version)
           fi
-          echo "Bumping version from ${{ steps.bump_version.outputs.current_version }} to ${new_new_version}"
+          echo "Bumping version from ${{ steps.bump_version.outputs.current_version }} to ${NEW_VERSION}"
           git add package.json package-lock.json
-          git commit -m "Bump version to ${new_new_version || ${{ steps.bump_version.outputs.new_version }}}"
-          git tag -a "${new_new_version}" -m "Version bumped from v${{ steps.bump_version.outputs.current_version }} > ${new_new_version || ${{ steps.bump_version.outputs.new_version }}}"
+          git commit -m "Bump version to ${NEW_VERSION}"
+          git tag -a "${NEW_VERSION}" -m "Version bumped from v${{ steps.bump_version.outputs.current_version }} > ${NEW_VERSION}"
           git push --tags

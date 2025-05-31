@@ -15,7 +15,7 @@ const getSectionRoutes = (sectionBaseHref: string) => {
 };
 
 const tabs = getSectionRoutes(sectionBaseHref)
-  .filter((item) => item.type === "link" && item.label !== sectionName)
+  .filter((item) => item.type === "linkWithSlug" && item.label !== sectionName)
   .map((item) => ({
     label: item.label,
     value: item.href,

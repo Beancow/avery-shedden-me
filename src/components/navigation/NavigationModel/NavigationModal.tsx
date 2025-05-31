@@ -45,7 +45,10 @@ export default function NavigationModal({
             collapsible
           >
             {navRoutes.map((section) => {
-              if (section.type === "link") {
+              if (
+                section.type === "linkWithHref" ||
+                section.type === "linkWithSlug"
+              ) {
                 return <LinkSection key={section.label} link={section} />;
               }
               if (section.type === "trigger") {

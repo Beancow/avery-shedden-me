@@ -1,17 +1,27 @@
-export type LinkSectionItem = {
-  type: "link";
+import Link from "next/link";
+
+type LinkSectionWithSlug = {
+  type: "linkWithSlug";
   label: string;
-  content: React.ReactNode;
   href: string;
+  content: string;
   default?: boolean;
 };
-export type Replace<T, U> = {
-  [K in keyof T]: K extends keyof U ? U[K] : T[K];
+
+type LinkSectionWithHref = {
+  type: "linkWithHref";
+
+  label: string;
+  href: string;
+  mobileNavLabel?: string;
 };
+
+export type LinkSectionItem = LinkSectionWithSlug | LinkSectionWithHref;
 
 export type TriggerSectionItem = {
   type: "trigger";
   label: string;
+  mobileNavLabel?: string;
   sectionBaseHref: string;
   items: LinkSectionItem[];
 };

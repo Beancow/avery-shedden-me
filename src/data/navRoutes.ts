@@ -4,24 +4,22 @@ export const navRoutes: NavSection[] = [
   {
     type: "trigger",
     label: "About",
+    mobileNavLabel: "Home",
     sectionBaseHref: "/about",
     items: [
       {
-        type: "link",
+        type: "linkWithHref",
         label: "My Interests",
-        content: "What I'm interested in",
         href: "/about/interests",
       },
       {
-        type: "link",
+        type: "linkWithHref",
         label: "Pride",
-        content: "Groups I support and why",
         href: "/about/pride",
       },
       {
-        type: "link",
+        type: "linkWithHref",
         label: "Contact me",
-        content: "Contact me",
         href: "/contact",
       },
     ],
@@ -32,20 +30,20 @@ export const navRoutes: NavSection[] = [
     sectionBaseHref: "/experience",
     items: [
       {
-        type: "link",
+        type: "linkWithSlug",
         label: "Software Engineer",
         content: "About my work as a Software Engineer",
         href: "/experience/SoftwareEngineer",
         default: true,
       },
       {
-        type: "link",
+        type: "linkWithSlug",
         label: "DevOps Engineer",
         content: "About my work as a DevOps Engineer",
         href: "/experience/DevOpsEngineer",
       },
       {
-        type: "link",
+        type: "linkWithSlug",
         label: "IT Service Desk Engineer",
         content: "About my work as an It Service Desk Engineer",
         href: "/experience/ItServiceDeskEngineer",
@@ -58,27 +56,27 @@ export const navRoutes: NavSection[] = [
     sectionBaseHref: "/projects",
     items: [
       {
-        type: "link",
+        type: "linkWithSlug",
         label: "My dotfiles",
         content: "About my customised shell configuration and other utils",
         href: "/projects/shell",
         default: true,
       },
       {
-        type: "link",
+        type: "linkWithSlug",
         label: "This Website - Averything",
         content:
           "About how I approached building this website and my love of word play",
         href: "/projects/thisSite",
       },
       {
-        type: "link",
+        type: "linkWithSlug",
         label: "SAF Landing Page",
         content: "About the SAF Landing Page project",
         href: "/projects/SAFLandingPage",
       },
       {
-        type: "link",
+        type: "linkWithSlug",
         label: "Habit Tracker",
         content: "How I approached building a Habit Tracker and why",
         href: "/projects/habitTracker",
@@ -86,10 +84,8 @@ export const navRoutes: NavSection[] = [
     ],
   },
   {
-    type: "link",
+    type: "linkWithHref",
     label: "Donations",
-    content:
-      "As a trans person, I would appreciate your support - I dont like to ask for money, but it does help to show my ability to implement a donation system :D",
     href: "/donation",
   },
 ];

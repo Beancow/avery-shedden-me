@@ -11,6 +11,9 @@ export default function ExpandableSection({
 }: {
   section: TriggerSectionItem;
 }) {
+  // Create a local copy of the section to avoid mutating the original and affecting the other navigation components
+  const localSectionCopy = { ...section, items: [...section.items] };
+
   const pathName = usePathname();
 
   const isActive = (href: string) => {
@@ -20,10 +23,27 @@ export default function ExpandableSection({
     return isActive(item.href);
   });
 
+  // Adds a default "Home" link if no items have a default property.
+  // As the navRoutes is shared between mobile and desktop nav to be able to get
+  // back to home on the mobile nav we need to ensure that the home link is
+  // present as the component works a bit differently
+  // If anothe section needs this I will need to refactor this logic as the Home label is hardcoded
+  if (
+    localSectionCopy.items.every((item) => item.type === "linkWithHref") &&
+    localSectionCopy.sectionBaseHref
+  ) {
+    localSectionCopy.items.unshift({
+      type: "linkWithHref",
+      label: localSectionCopy.mobileNavLabel!,
+      href: localSectionCopy.sectionBaseHref,
+      mobileNavLabel: localSectionCopy.mobileNavLabel,
+    });
+  }
+
   return (
     <Accordion.Item
-      key={section.label}
-      value={section.label}
+      key={localSectionCopy.label}
+      value={localSectionCopy.label}
       className={styles.accordionItem}
     >
       <Accordion.Header className={styles.accordionHeader}>
@@ -33,14 +53,14 @@ export default function ExpandableSection({
           }`}
         >
           <CircleIcon className={styles.accordionCircle} />
-          <span>{section.label}</span>
+          <span>{localSectionCopy.label}</span>
           <CheveronIconGlowWhenActive isActive={activeSection} />
         </Accordion.Trigger>
       </Accordion.Header>
       <Accordion.Content className={styles.accordionContent}>
         <div className={styles.accordionContentInner}>
-          {section.items.map((item) => {
-            if (item.type === "link") {
+          {localSectionCopy.items.map((item) => {
+            if (item.type === "linkWithSlug" || item.type === "linkWithHref") {
               return <LinkSection key={item.label} link={item} />;
             }
             return null;

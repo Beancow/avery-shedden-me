@@ -38,6 +38,11 @@ jobs:
             echo "New version is behind the current version"
             exit 1
           fi
+          if [ git rev-parse --verify refs/tags/$newVersionNumbers ]; then
+            echo "Tag already exists for version ${{ steps.bump_version.outputs.new_version }}. Bumping version again."
+            newVersionNumbers=npm version patch --no-git-tag-version --allow-same-version
+            exit 0
+          fi
           echo "Bumping version from ${{ steps.bump_version.outputs.current_version }} to ${{ steps.bump_version.outputs.new_version }}"
           git add package.json package-lock.json
           git commit -m "Bump version to ${{ steps.bump_version.outputs.new_version }}"

@@ -38,6 +38,7 @@ jobs:
           else
             echo "Tag $NEW_VERSION already exists"
             echo "Bumping version again to avoid conflicts"
+            git commit -m "Bump version to $NEW_VERSION"
             NEW_VERSION=$(npm version patch --allow-same-version)
           fi
           git add package.json package-lock.json

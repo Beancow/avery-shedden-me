@@ -46,3 +46,4 @@ jobs:
           fi
           git tag -a "${NEW_VERSION}" -m "Version bumped from v${{ steps.bump_version.outputs.current_version }} > ${NEW_VERSION}"
           git push
+          git push --tags

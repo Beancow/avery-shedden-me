@@ -44,5 +44,5 @@ jobs:
             NEW_VERSION=$(npm version patch --allow-same-version)
           fi
           git commit -m "Bump version to $NEW_VERSION"
+          git push
           git push --tags
-          git push origin main

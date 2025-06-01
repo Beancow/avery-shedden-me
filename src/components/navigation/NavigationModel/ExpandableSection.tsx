@@ -14,15 +14,6 @@ export default function ExpandableSection({
   // Create a local copy of the section to avoid mutating the original and affecting the other navigation components
   const localSectionCopy = { ...section, items: [...section.items] };
 
-  const pathName = usePathname();
-
-  const isActive = (href: string) => {
-    return pathName === href || pathName.endsWith(href + "/");
-  };
-  const activeSection = section.items.some((item) => {
-    return isActive(item.href);
-  });
-
   // Adds a default "Home" link if no items have a default property.
   // As the navRoutes is shared between mobile and desktop nav to be able to get
   // back to home on the mobile nav we need to ensure that the home link is
@@ -39,6 +30,16 @@ export default function ExpandableSection({
       mobileNavLabel: localSectionCopy.mobileNavLabel,
     });
   }
+
+  const pathName = usePathname();
+
+  const isActive = (href: string) => {
+    return pathName === href || pathName.endsWith(href + "/");
+  };
+
+  const activeSection = localSectionCopy.items.some((item) => {
+    return isActive(item.href);
+  });
 
   return (
     <Accordion.Item

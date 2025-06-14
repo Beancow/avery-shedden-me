@@ -2,6 +2,8 @@ import "./global.css";
 import { Theme, Portal } from "@radix-ui/themes";
 import { TopBar } from "../components/layout/TopBar";
 import type { Metadata } from "next";
+import { cookies } from "next/headers"; // Import cookies from next/headers
+import { inherits } from "util";
 
 type Props = {
   children: React.ReactNode;
@@ -32,8 +34,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children, searchParams }: Props) {
-  const appearance = new Headers().get("X-Theme"); // This is just to ensure headers are fetched, not used directly
+export default async function RootLayout({ children, searchParams }: Props) {
+  const cookieStore = await cookies();
+  const themePreference = cookieStore.get("theme")?.value;
+
+  let appearance: "light" | "inherit" | "dark" = "light"; // Default to 'inherit'
+
+  if (
+    themePreference &&
+    ["light", "dark", "inherit"].includes(themePreference)
+  ) {
+    appearance = themePreference as "light" | "inherit" | "dark";
+  }
+
   return (
     <html lang="en">
       <body>
@@ -42,8 +55,9 @@ export default function RootLayout({ children, searchParams }: Props) {
           grayColor="sage"
           radius="small"
           hasBackground
+          appearance={appearance} // Set appearance based on cookie
           style={{
-            colorScheme: appearance || "light", // Fallback to light if no appearance is set
+            // Radix UI's Theme component handles color-scheme based on its appearance prop
             backgroundImage:
               "linear-gradient(to bottom, var(--accent-1), var(--accent-3))",
           }}

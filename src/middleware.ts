@@ -72,9 +72,9 @@ export async function middleware(req: NextRequest) {
     requestHeaders.set("x-theme", themeCookie.value);
     console.log(`Setting x-theme header from cookie: ${themeCookie.value}`);
   } else {
-    // Optional: Handle missing or invalid cookie, e.g., by setting a default or removing the header
-    // requestHeaders.set('x-theme', 'light'); // Example: default to light
-    // console.log('No valid theme cookie found. x-theme not set or defaulted.');
+    // If no valid theme cookie, set a default value
+    requestHeaders.set("x-theme", "light");
+    console.log("No valid theme cookie found. Defaulting to 'light'.");
   }
 
   // Continue processing, forwarding the request with potentially modified headers

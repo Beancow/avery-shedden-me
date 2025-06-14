@@ -1,11 +1,11 @@
 import "./global.css";
-import { Portal, Theme } from "@radix-ui/themes";
+import { Theme, Portal } from "@radix-ui/themes";
 import { TopBar } from "../components/layout/TopBar";
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 
 type Props = {
   children: React.ReactNode;
+  searchParams?: { [key: string]: string | string[] | undefined };
 };
 
 const basePath = process.env.BASE_PATH ? `/${process.env.BASE_PATH}` : "";
@@ -32,33 +32,23 @@ export const metadata: Metadata = {
   },
 };
 
-const ToggleThemeSelect = dynamic(
-  () =>
-    import(
-      "../components/dynamic_components/themePanelToggle/ThemePanelToggle"
-    ),
-  {
-    loading: () => <p>Loading...</p>,
-  }
-);
-
-export default function RootLayout({ children }: Props) {
+export default function RootLayout({ children, searchParams }: Props) {
+  const appearance = new Headers().get("X-Theme"); // This is just to ensure headers are fetched, not used directly
   return (
     <html lang="en">
       <body>
         <Theme
           accentColor="violet"
-          appearance="dark"
           grayColor="sage"
           radius="small"
           hasBackground
           style={{
+            colorScheme: appearance || "light", // Fallback to light if no appearance is set
             backgroundImage:
               "linear-gradient(to bottom, var(--accent-1), var(--accent-3))",
           }}
         >
           <TopBar />
-          <ToggleThemeSelect />
           <>{children}</>
           <Portal id="insideTheme" />
         </Theme>

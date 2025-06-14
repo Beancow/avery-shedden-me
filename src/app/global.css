@@ -1,5 +1,9 @@
 @import "@radix-ui/themes/styles.css";
 
+:root {
+  color-scheme: light dark;
+}
+
 * {
   margin: 0;
   padding: 0;

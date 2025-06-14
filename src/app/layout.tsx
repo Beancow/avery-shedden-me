@@ -3,7 +3,6 @@ import { Theme, Portal } from "@radix-ui/themes";
 import { TopBar } from "../components/layout/TopBar";
 import type { Metadata } from "next";
 import { cookies } from "next/headers"; // Import cookies from next/headers
-import { inherits } from "util";
 
 type Props = {
   children: React.ReactNode;

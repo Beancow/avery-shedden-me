@@ -37,9 +37,11 @@ export default function ExpandableSection({
     return pathName === href || pathName.endsWith(href + "/");
   };
 
-  const activeSection = localSectionCopy.items.some((item) => {
-    return isActive(item.href);
-  });
+  const activeSection = localSectionCopy.items
+    .filter((item) => item.type !== "linkWithIcon")
+    .some((item) => {
+      return isActive(item.href);
+    });
 
   return (
     <Accordion.Item

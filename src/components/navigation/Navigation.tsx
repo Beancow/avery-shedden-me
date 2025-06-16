@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 
 import { NavigationMenuBar } from "./NavigationMenuBar/Menu";
 import NavigationModal from "./NavigationModel/NavigationModal";

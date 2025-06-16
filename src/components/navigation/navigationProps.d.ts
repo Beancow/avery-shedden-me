@@ -10,13 +10,21 @@ type LinkSectionWithSlug = {
 
 type LinkSectionWithHref = {
   type: "linkWithHref";
-
   label: string;
   href: string;
   mobileNavLabel?: string;
 };
 
-export type LinkSectionItem = LinkSectionWithSlug | LinkSectionWithHref;
+type LinkSectionWithIcon = {
+  type: "linkWithIcon";
+  value: string;
+  icon: React.ReactNode;
+};
+
+export type LinkSectionItem =
+  | LinkSectionWithSlug
+  | LinkSectionWithHref
+  | LinkSectionWithIcon;
 
 export type TriggerSectionItem = {
   type: "trigger";

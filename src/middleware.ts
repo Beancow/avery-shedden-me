@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
@@ -37,53 +38,24 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const requestHeaders = new Headers(req.headers); // Headers for the request to be forwarded
-
-  // 1. Handle theme from search parameters (this takes priority)
   const themeSearchParam = req.nextUrl.searchParams.get("theme");
 
-  if (themeSearchParam === "light" || themeSearchParam === "dark") {
+  // If the theme search parameter is present set or update the cookie
+  if (themeSearchParam) {
     const newUrl = req.nextUrl.clone();
     newUrl.searchParams.delete("theme");
-
-    // Create a redirect response
-    const redirectResponse = NextResponse.redirect(newUrl);
-
-    // Set the theme cookie on the redirect response
-    redirectResponse.cookies.set("theme", themeSearchParam, {
+    const responseRedirect = NextResponse.redirect(newUrl);
+    responseRedirect.cookies.set("theme", themeSearchParam, {
       path: "/",
-      maxAge: 60 * 60 * 24 * 365, // 1 year
-      sameSite: "lax",
       secure: process.env.NODE_ENV === "production",
-      httpOnly: false, // Allow client-side JS to read it too
+      sameSite: "lax",
     });
-    console.log(
-      `Theme param '${themeSearchParam}' found. Setting cookie and redirecting.`
-    );
-    return redirectResponse;
+    return responseRedirect;
   }
 
-  // 2. If not redirecting, set x-theme header from existing cookie for server-side access
-  const themeCookie = req.cookies.get("theme");
-  if (
-    themeCookie?.value &&
-    (themeCookie.value === "light" || themeCookie.value === "dark")
-  ) {
-    requestHeaders.set("x-theme", themeCookie.value);
-    console.log(`Setting x-theme header from cookie: ${themeCookie.value}`);
-  } else {
-    // If no valid theme cookie, set a default value
-    requestHeaders.set("x-theme", "light");
-    console.log("No valid theme cookie found. Defaulting to 'light'.");
-  }
-
-  // Continue processing, forwarding the request with potentially modified headers
-  return NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
+  return NextResponse.next();
 }
+
 export const config = {
   matcher:
     "/((?!api/|_next/|static/|favicon\\.ico|favicon\\.svg|robots\\.txt|sitemap\\.xml|site\\.webmanifest).*)",

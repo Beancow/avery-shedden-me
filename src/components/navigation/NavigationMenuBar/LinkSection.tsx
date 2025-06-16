@@ -24,11 +24,22 @@ export function LinkSection({ link }: { link: LinkSectionItem }) {
       </Link>
     );
   }
-  return (
-    <GlowWhenActive key={link.href} isActive={isActive(link.href)}>
-      <Link href={link.href} className={styles.navigationMenuLink}>
-        {link.label}
-      </Link>
-    </GlowWhenActive>
-  );
+  if (link.type === "linkWithSlug") {
+    return (
+      <GlowWhenActive key={link.href} isActive={isActive(link.href)}>
+        <Link href={link.href} className={styles.navigationMenuLink}>
+          {link.label}
+        </Link>
+      </GlowWhenActive>
+    );
+  }
+  if (link.type === "linkWithHref") {
+    return (
+      <GlowWhenActive key={link.href} isActive={isActive(link.href)}>
+        <Link href={link.href} className={styles.navigationMenuLink}>
+          {link.label}
+        </Link>
+      </GlowWhenActive>
+    );
+  }
 }

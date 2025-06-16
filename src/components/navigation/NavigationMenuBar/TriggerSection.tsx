@@ -13,9 +13,11 @@ export function TriggerSection({ section }: { section: TriggerSectionItem }) {
   const isActive = (href: string) => {
     return pathName === href || pathName.endsWith(href + "/");
   };
-  const activeSection = section.items.some((item) => {
-    return isActive(item.href);
-  });
+  const activeSection = section.items
+    .filter((item) => item.type !== "linkWithIcon")
+    .some((item) => {
+      return isActive(item.href);
+    });
 
   const getSectionHref = (section: TriggerSectionItem) => {
     return section.items.reduce((path, item) => {
@@ -52,9 +54,11 @@ export function TriggerSection({ section }: { section: TriggerSectionItem }) {
           </Nav.Trigger>
         </GlowWhenActive>
         <Nav.Content className={styles.navigationMenuContent}>
-          {section.items.map((link) => (
-            <LinkSection key={link.label} link={link} />
-          ))}
+          {section.items
+            .filter((item) => item.type !== "linkWithIcon")
+            .map((link) => (
+              <LinkSection key={link.label} link={link} />
+            ))}
         </Nav.Content>
       </Nav.Item>
     </div>

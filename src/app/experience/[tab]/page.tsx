@@ -1,4 +1,7 @@
-import { LinkSectionItem } from "@/components/navigation/navigationProps";
+import {
+  LinkSectionItem,
+  LinkSectionWithSlug,
+} from "@/components/navigation/navigationProps";
 import { TabPage } from "@/components/tabpage/TabPage";
 import { navRoutes } from "@/data/navRoutes";
 
@@ -11,11 +14,11 @@ const getSectionRoutes = (sectionBaseHref: string) => {
       acc = acc.concat(route.items);
     }
     return acc;
-  }, [] as LinkSectionItem[]);
+  }, [] as (LinkSectionItem | LinkSectionWithSlug)[]);
 };
 
 const tabs = getSectionRoutes(sectionBaseHref)
-  .filter((item) => item.type === "linkWithSlug" && item.label !== sectionName)
+  .filter((item) => item.type === "linkWithSlug")
   .map((item) => ({
     label: item.label,
     value: item.href,

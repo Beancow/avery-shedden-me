@@ -1,11 +1,15 @@
 import { usePathname } from "next/navigation";
-import { LinkSectionItem } from "../navigationProps";
+import { LinkSectionWithHref, LinkSectionWithSlug } from "../navigationProps";
 import styles from "./styles.module.css";
 import GlowWhenActive from "@/components/wrappers/GlowWhenActive/GlowWhenActive";
 import * as Dialog from "@radix-ui/react-dialog";
 import Link from "next/link";
 
-export default function LinkSection({ link }: { link: LinkSectionItem }) {
+export default function LinkSection({
+  link,
+}: {
+  link: LinkSectionWithSlug | LinkSectionWithHref;
+}) {
   const pathName = usePathname();
 
   const isActive = (href: string) => {

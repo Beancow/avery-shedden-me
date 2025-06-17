@@ -31,10 +31,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({ children }: Props) {
+const isStaticBuild = process.env.BUILD_TARGET === "static";
+
+const getAppearance = async (): Promise<"light" | "inherit" | "dark"> => {
   let appearance: "light" | "inherit" | "dark" = "light";
 
-  try {
+  if (!isStaticBuild) {
     const cookieManager = await cookies();
     const themePreference = cookieManager.get("theme")?.value;
     if (
@@ -43,9 +45,13 @@ export default async function RootLayout({ children }: Props) {
     ) {
       appearance = themePreference as "light" | "inherit" | "dark";
     }
-  } catch (error) {
-    throw error;
   }
+
+  return appearance;
+};
+
+export default async function RootLayout({ children }: Props) {
+  let appearance = await getAppearance();
 
   return (
     <html lang="en">

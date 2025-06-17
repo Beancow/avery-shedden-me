@@ -6,10 +6,10 @@ import { LinkSection } from "./LinkSection";
 import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
 import { useThemeContext } from "@radix-ui/themes";
 
+const isStaticBuild = process.env.BUILD_TARGET === "static";
+
 export function NavigationMenuBar({ navRoutes }: { navRoutes: NavSection[] }) {
   const { appearance } = useThemeContext();
-
-  const isStaticBuild = process.env.BUILD_TARGET === "static";
 
   return (
     <span style={{ display: "flex", alignItems: "center" }}>

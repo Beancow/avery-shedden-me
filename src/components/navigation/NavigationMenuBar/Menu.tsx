@@ -9,6 +9,8 @@ import { useThemeContext } from "@radix-ui/themes";
 export function NavigationMenuBar({ navRoutes }: { navRoutes: NavSection[] }) {
   const { appearance } = useThemeContext();
 
+  const isStaticBuild = process.env.BUILD_TARGET === "static";
+
   return (
     <span style={{ display: "flex", alignItems: "center" }}>
       <Nav.Root className={styles.navigationMenuBarRoot}>
@@ -26,13 +28,15 @@ export function NavigationMenuBar({ navRoutes }: { navRoutes: NavSection[] }) {
               return null;
             }
           })}
-          <LinkSection
-            link={{
-              type: "linkWithIcon",
-              icon: appearance === "dark" ? <SunIcon /> : <MoonIcon />,
-              value: appearance === "dark" ? "light" : "dark",
-            }}
-          />
+          {!isStaticBuild && (
+            <LinkSection
+              link={{
+                type: "linkWithIcon",
+                icon: appearance === "dark" ? <SunIcon /> : <MoonIcon />,
+                value: appearance === "dark" ? "light" : "dark",
+              }}
+            />
+          )}
         </Nav.List>
       </Nav.Root>
     </span>

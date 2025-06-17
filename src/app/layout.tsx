@@ -3,6 +3,7 @@ import { Theme, Portal } from "@radix-ui/themes";
 import { TopBar } from "../components/layout/TopBar";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import dynamic from "next/dynamic";
 type Props = {
   children: React.ReactNode;
 };
@@ -51,17 +52,6 @@ const getAppearance = async (): Promise<"light" | "inherit" | "dark"> => {
 
 export default async function RootLayout({ children }: Props) {
   let appearance = await getAppearance();
-  if (isStaticBuild) {
-    const themeSearchParam = new URLSearchParams(window.location.search).get(
-      "theme"
-    );
-    if (
-      themeSearchParam &&
-      ["light", "dark", "inherit"].includes(themeSearchParam)
-    ) {
-      appearance = themeSearchParam as "light" | "inherit" | "dark";
-    }
-  }
 
   return (
     <html lang="en">

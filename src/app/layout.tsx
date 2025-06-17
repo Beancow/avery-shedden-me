@@ -46,6 +46,11 @@ const getAppearance = async (): Promise<"light" | "inherit" | "dark"> => {
       appearance = themePreference as "light" | "inherit" | "dark";
     }
   }
+  return appearance;
+};
+
+export default async function RootLayout({ children }: Props) {
+  let appearance = await getAppearance();
   if (isStaticBuild) {
     const themeSearchParam = new URLSearchParams(window.location.search).get(
       "theme"
@@ -57,12 +62,6 @@ const getAppearance = async (): Promise<"light" | "inherit" | "dark"> => {
       appearance = themeSearchParam as "light" | "inherit" | "dark";
     }
   }
-
-  return appearance;
-};
-
-export default async function RootLayout({ children }: Props) {
-  let appearance = await getAppearance();
 
   return (
     <html lang="en">

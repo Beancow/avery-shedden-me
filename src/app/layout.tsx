@@ -30,21 +30,14 @@ export const metadata: Metadata = {
     startupImage: [`${basePath}/favicon.svg`],
   },
 };
-const DynamicThemeWrappers = dynamic(
-  () => {
-    if (process.env.NEXT_PUBLIC_BUILD_TARGET === "static") {
-      return import(
-        "../components/wrappers/ThemeWrappers/ThemeWrapperLocalState"
-      );
-    }
+const DynamicThemeWrappers = dynamic(() => {
+  if (process.env.NEXT_PUBLIC_BUILD_TARGET === "static") {
     return import(
-      "../components/wrappers/ThemeWrappers/ThemeWrapperWithCookies"
+      "../components/wrappers/ThemeWrappers/ThemeWrapperLocalState"
     );
-  },
-  {
-    ssr: process.env.NEXT_PUBLIC_BUILD_TARGET === "static",
   }
-);
+  return import("../components/wrappers/ThemeWrappers/ThemeWrapperWithCookies");
+});
 
 export default async function RootLayout({ children }: Props) {
   return (

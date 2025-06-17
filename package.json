@@ -11,11 +11,7 @@
     "test": "jest",
     "test:ci": "jest --watchAll=false --ci",
     "test:coverage": "jest --watchAll=false --coverage",
-<<<<<<< HEAD
-    "build:static": "cross-env NEXT_BUILD_TARGET=static next build"
-=======
     "build:static": "cross-env NEXT_PUBLIC_BUILD_TARGET=static next build"
->>>>>>> f1250e8 (fix: update environment variable for static build target to NEXT_BUILD_TARGET)
   },
   "dependencies": {
     "next": "15.3.1",

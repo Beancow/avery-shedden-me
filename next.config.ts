@@ -1,7 +1,11 @@
 import { NextConfig } from "next";
 import process from "process";
 
+<<<<<<< HEAD
 const isStaticBuild = process.env.NEXT_BUILD_TARGET === "static";
+=======
+const isStaticBuild = process.env.NEXT_PUBLIC_BUILD_TARGET === "static";
+>>>>>>> f1250e8 (fix: update environment variable for static build target to NEXT_BUILD_TARGET)
 const repoName = process.env.BASE_PATH
   ? `/${process.env.BASE_PATH}`
   : undefined;

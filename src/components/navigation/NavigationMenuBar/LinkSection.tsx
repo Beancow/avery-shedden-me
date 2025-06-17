@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import GlowWhenActive from "@/components/wrappers/GlowWhenActive/GlowWhenActive";
 import styles from "./styles.module.css";
+import { Flex } from "@radix-ui/themes";
 
 export function LinkSection({ link }: { link: LinkSectionItem }) {
   const pathname = usePathname();
@@ -13,15 +14,23 @@ export function LinkSection({ link }: { link: LinkSectionItem }) {
 
   if (link.type === "linkWithIcon") {
     return (
-      <Link
-        href={{ href: pathname, query: { theme: link.value } }}
-        shallow
-        className={styles.navigationMenuIconButton}
-        key={link.value}
-        aria-label={`Switch to ${link.value} theme`}
+      <Flex
+        direction="row"
+        gap="2"
+        align="center"
+        justify="center"
+        p="0.35rem 0.35rem"
+        m="0"
       >
-        {link.icon}
-      </Link>
+        <Link
+          href={{ href: `${pathname}/`, query: { theme: link.value } }}
+          className={styles.navigationMenuIconButton}
+          key={link.value}
+          aria-label={`Switch to ${link.value} theme`}
+        >
+          {link.icon}
+        </Link>
+      </Flex>
     );
   }
   if (link.type === "linkWithSlug") {

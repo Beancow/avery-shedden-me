@@ -46,6 +46,17 @@ const getAppearance = async (): Promise<"light" | "inherit" | "dark"> => {
       appearance = themePreference as "light" | "inherit" | "dark";
     }
   }
+  if (isStaticBuild) {
+    const themeSearchParam = new URLSearchParams(window.location.search).get(
+      "theme"
+    );
+    if (
+      themeSearchParam &&
+      ["light", "dark", "inherit"].includes(themeSearchParam)
+    ) {
+      appearance = themeSearchParam as "light" | "inherit" | "dark";
+    }
+  }
 
   return appearance;
 };

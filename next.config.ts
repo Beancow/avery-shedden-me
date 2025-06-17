@@ -1,7 +1,7 @@
 import { NextConfig } from "next";
 import process from "process";
 
-const isStaticBuild = process.env.BUILD_TARGET === "static";
+const isStaticBuild = process.env.NEXT_BUILD_TARGET === "static";
 const repoName = process.env.BASE_PATH
   ? `/${process.env.BASE_PATH}`
   : undefined;

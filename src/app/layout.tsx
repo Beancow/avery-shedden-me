@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
 };
 
-const isStaticBuild = process.env.BUILD_TARGET === "static";
+const isStaticBuild = process.env.NEXT_BUILD_TARGET === "static";
 
 const getAppearance = async (): Promise<"light" | "inherit" | "dark"> => {
   let appearance: "light" | "inherit" | "dark" = "light";

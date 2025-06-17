@@ -1,5 +1,5 @@
 import "./global.css";
-import { Theme, Portal } from "@radix-ui/themes";
+import { Portal } from "@radix-ui/themes";
 import { TopBar } from "../components/layout/TopBar";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
     startupImage: [`${basePath}/favicon.svg`],
   },
 };
-const DynamicThemeWrappers = dynamic({
-  loader: () => {
+const DynamicThemeWrappers = dynamic(
+  () => {
     if (process.env.NEXT_PUBLIC_BUILD_TARGET === "static") {
       return import(
         "../components/wrappers/ThemeWrappers/ThemeWrapperLocalState"
@@ -41,13 +41,10 @@ const DynamicThemeWrappers = dynamic({
       "../components/wrappers/ThemeWrappers/ThemeWrapperWithCookies"
     );
   },
-  ssr: false,
-  loading: () => (
-    <Theme accentColor="violet" grayColor="sage" radius="small" hasBackground>
-      <div style={{ padding: "20px" }}>Loading theme...</div>
-    </Theme>
-  ),
-});
+  {
+    ssr: process.env.NEXT_PUBLIC_BUILD_TARGET === "static",
+  }
+);
 
 export default async function RootLayout({ children }: Props) {
   return (

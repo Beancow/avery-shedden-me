@@ -1,3 +1,4 @@
+"use client";
 import { Theme } from "@radix-ui/themes";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -37,5 +38,3 @@ export default async function ThemeWrapperLocalState({
     </Theme>
   );
 }
-
-export const dynamic = "force-dynamic";

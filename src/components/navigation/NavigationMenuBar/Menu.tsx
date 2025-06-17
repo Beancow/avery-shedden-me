@@ -6,20 +6,12 @@ import { LinkSection } from "./LinkSection";
 import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
 import { useThemeContext } from "@radix-ui/themes";
 
-<<<<<<< HEAD
-const isStaticBuild = process.env.NEXT_BUILD_TARGET === "static";
-=======
 const isStaticBuild = process.env.NEXT_PUBLIC_BUILD_TARGET === "static";
->>>>>>> f1250e8 (fix: update environment variable for static build target to NEXT_BUILD_TARGET)
 
 export function NavigationMenuBar({ navRoutes }: { navRoutes: NavSection[] }) {
   const { appearance } = useThemeContext();
 
-<<<<<<< HEAD
-  console.log("Current build target:", process.env.NEXT_BUILD_TARGET);
-=======
   console.log("Current build target:", process.env.NEXT_PUBLIC_BUILD_TARGET);
->>>>>>> f1250e8 (fix: update environment variable for static build target to NEXT_BUILD_TARGET)
 
   return (
     <span style={{ display: "flex", alignItems: "center" }}>

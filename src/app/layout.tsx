@@ -32,11 +32,7 @@ export const metadata: Metadata = {
   },
 };
 
-<<<<<<< HEAD
-const isStaticBuild = process.env.NEXT_BUILD_TARGET === "static";
-=======
 const isStaticBuild = process.env.NEXT_PUBLIC_BUILD_TARGET === "static";
->>>>>>> f1250e8 (fix: update environment variable for static build target to NEXT_BUILD_TARGET)
 
 const getAppearance = async (): Promise<"light" | "inherit" | "dark"> => {
   let appearance: "light" | "inherit" | "dark" = "light";

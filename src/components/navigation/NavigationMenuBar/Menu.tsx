@@ -6,6 +6,8 @@ import { LinkSection } from "./LinkSection";
 import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
 import { useThemeContext } from "@radix-ui/themes";
 
+const isStaticBuild = process.env.BUILD_TARGET === "static";
+
 export function NavigationMenuBar({ navRoutes }: { navRoutes: NavSection[] }) {
   const { appearance } = useThemeContext();
 
@@ -26,13 +28,15 @@ export function NavigationMenuBar({ navRoutes }: { navRoutes: NavSection[] }) {
               return null;
             }
           })}
-          <LinkSection
-            link={{
-              type: "linkWithIcon",
-              icon: appearance === "dark" ? <SunIcon /> : <MoonIcon />,
-              value: appearance === "dark" ? "light" : "dark",
-            }}
-          />
+          {!isStaticBuild && (
+            <LinkSection
+              link={{
+                type: "linkWithIcon",
+                icon: appearance === "dark" ? <SunIcon /> : <MoonIcon />,
+                value: appearance === "dark" ? "light" : "dark",
+              }}
+            />
+          )}
         </Nav.List>
       </Nav.Root>
     </span>

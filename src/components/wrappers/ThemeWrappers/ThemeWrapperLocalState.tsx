@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 
 export default function ThemeWrapperLocalState({
   children,
+  initialAppearance = "light",
 }: {
   children: React.ReactNode;
+  initialAppearance?: "light" | "dark" | "inherit";
 }) {
   const searchParams = useSearchParams();
   const [appearance, setAppearance] = useState<"light" | "dark" | "inherit">(
-    "light"
+    initialAppearance
   );
   useEffect(() => {
     const themePreference = searchParams.get("theme");

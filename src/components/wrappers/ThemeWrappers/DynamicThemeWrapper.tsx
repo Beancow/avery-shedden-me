@@ -10,7 +10,9 @@ export default function DynamicThemeWrappers({
   if (process.env.NEXT_PUBLIC_BUILD_TARGET === "static") {
     return (
       <Suspense>
-        <ThemeWrapperLocalState>{children}</ThemeWrapperLocalState>
+        <ThemeWrapperLocalState initialAppearance="light">
+          {children}
+        </ThemeWrapperLocalState>
       </Suspense>
     );
   }

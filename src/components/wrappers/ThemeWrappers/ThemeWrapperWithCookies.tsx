@@ -14,29 +14,23 @@ export default async function ThemeWrapperWithCookies({
     themePreference &&
     ["light", "dark", "inherit"].includes(themePreference)
   ) {
-    appearance = themePreference as "light" | "inherit" | "dark";
-    return (
-      <Theme
-        accentColor="violet"
-        grayColor="sage"
-        radius="small"
-        hasBackground
-        appearance={appearance}
-        style={{
-          backgroundImage:
-            "linear-gradient(to bottom, var(--accent-1), var(--accent-3))",
-        }}
-      >
-        {children}
-      </Theme>
-    );
+    appearance = themePreference as "light" | "dark" | "inherit";
   }
-  return <>{children}</>;
+  console.log("ThemeWrapperWithCookies appearance:", appearance);
+  return (
+    <Theme
+      data-is-root-theme="true"
+      accentColor="violet"
+      grayColor="sage"
+      radius="small"
+      hasBackground
+      appearance={appearance}
+      style={{
+        backgroundImage:
+          "linear-gradient(to bottom, var(--accent-1), var(--accent-3))",
+      }}
+    >
+      {children}
+    </Theme>
+  );
 }
-
-export const metadata = {
-  title: "Averything - Theme Wrapper",
-  description: "Theme wrapper with cookie management for appearance.",
-};
-
-export const dynamic = "force-dynamic";

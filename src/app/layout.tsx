@@ -2,7 +2,6 @@ import "./global.css";
 import { Theme, Portal } from "@radix-ui/themes";
 import { TopBar } from "../components/layout/TopBar";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import dynamic from "next/dynamic";
 type Props = {
   children: React.ReactNode;
@@ -31,46 +30,34 @@ export const metadata: Metadata = {
     startupImage: [`${basePath}/favicon.svg`],
   },
 };
-
-const isStaticBuild = process.env.NEXT_PUBLIC_BUILD_TARGET === "static";
-
-const getAppearance = async (): Promise<"light" | "inherit" | "dark"> => {
-  let appearance: "light" | "inherit" | "dark" = "light";
-
-  if (!isStaticBuild) {
-    const cookieManager = await cookies();
-    const themePreference = cookieManager.get("theme")?.value;
-    if (
-      themePreference &&
-      ["light", "dark", "inherit"].includes(themePreference)
-    ) {
-      appearance = themePreference as "light" | "inherit" | "dark";
+const DynamicThemeWrappers = dynamic({
+  loader: () => {
+    if (process.env.NEXT_PUBLIC_BUILD_TARGET === "static") {
+      return import(
+        "../components/wrappers/ThemeWrappers/ThemeWrapperLocalState"
+      );
     }
-  }
-  return appearance;
-};
+    return import(
+      "../components/wrappers/ThemeWrappers/ThemeWrapperWithCookies"
+    );
+  },
+  ssr: false,
+  loading: () => (
+    <Theme accentColor="violet" grayColor="sage" radius="small" hasBackground>
+      <div style={{ padding: "20px" }}>Loading theme...</div>
+    </Theme>
+  ),
+});
 
 export default async function RootLayout({ children }: Props) {
-  let appearance = await getAppearance();
-
   return (
     <html lang="en">
       <body>
-        <Theme
-          accentColor="violet"
-          grayColor="sage"
-          radius="small"
-          hasBackground
-          appearance={appearance}
-          style={{
-            backgroundImage:
-              "linear-gradient(to bottom, var(--accent-1), var(--accent-3))",
-          }}
-        >
+        <DynamicThemeWrappers>
           <TopBar />
           <>{children}</>
           <Portal id="insideTheme" />
-        </Theme>
+        </DynamicThemeWrappers>
       </body>
     </html>
   );

@@ -23,9 +23,8 @@ jest.mock("@radix-ui/react-dialog", () => ({
 
 describe("LinkSection", () => {
   const mockLinkItem: LinkSectionItem = {
-    type: "link",
+    type: "linkWithHref",
     label: "Home",
-    content: "Home",
     href: "/home",
   };
 

@@ -16,7 +16,10 @@ export default async function ThemeWrapperWithCookies({
   ) {
     appearance = themePreference as "light" | "dark" | "inherit";
   }
-  console.log("ThemeWrapperWithCookies appearance:", appearance);
+  if (process.env.NODE_ENV !== "production") {
+    console.log("ThemeWrapperWithCookies appearance:", appearance);
+  }
+
   return (
     <Theme
       data-is-root-theme="true"

@@ -24,6 +24,10 @@ export default function ThemeWrapperLocalState({
     }
   }, [searchParams]);
 
+  if (process.env.NODE_ENV !== "production") {
+    console.log("ThemeWrapperWithLocalState appearance:", appearance);
+  }
+
   return (
     <Theme
       accentColor="violet"

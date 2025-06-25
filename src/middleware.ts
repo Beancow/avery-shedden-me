@@ -1,7 +1,7 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  console.log("Middleware triggered for request:", req.url);
   const { pathname } = req.nextUrl;
   const basePath = process.env.BASE_PATH ? `/${process.env.BASE_PATH}` : "";
   const isApiRoute = pathname.startsWith(`${basePath}/api/`);
@@ -39,10 +39,12 @@ export async function middleware(req: NextRequest) {
 
   const themeSearchParam = req.nextUrl.searchParams.get("theme");
 
-  // If the theme search parameter is present set or update the cookie
-  if (themeSearchParam) {
-    const newUrl = req.nextUrl.clone();
-    newUrl.searchParams.delete("theme");
+  const newUrl = req.nextUrl.clone();
+  newUrl.searchParams.delete("theme");
+
+  const cookieTheme = req.cookies.get("theme")?.value;
+
+  if (themeSearchParam && themeSearchParam !== cookieTheme) {
     const responseRedirect = NextResponse.redirect(newUrl);
     responseRedirect.cookies.set("theme", themeSearchParam, {
       path: "/",

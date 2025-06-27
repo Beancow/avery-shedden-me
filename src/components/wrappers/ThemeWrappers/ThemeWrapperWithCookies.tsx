@@ -22,6 +22,7 @@ export default async function ThemeWrapperWithCookies({
 
   return (
     <Theme
+      data-testid="radix-ui-theme"
       data-is-root-theme="true"
       accentColor="violet"
       grayColor="sage"

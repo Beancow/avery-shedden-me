@@ -1,9 +1,8 @@
-//This will test ThemeWrapperWithCookies in isolation, ensuring it behaves correctly with cookie-based theme management.
-import { render, screen, act, waitFor } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import ThemeWrapperWithCookies from "./ThemeWrapperWithCookies";
 import { cookies } from "next/headers";
 import { Suspense } from "react";
-import { Theme, ThemeProps } from "@radix-ui/themes";
+import { ThemeProps } from "@radix-ui/themes";
 
 jest.mock("next/headers", () => ({
   cookies: jest.fn(),
@@ -57,6 +56,7 @@ describe("ThemeWrapperWithCookies", () => {
       )
     );
 
+    // The actual component does not have this attribute at render, and you would need to check for class radix-theme light, but as the component is mocked, we check the attribute directly.
     expect(screen.getByTestId("radix-ui-theme")).toHaveAttribute(
       "appearance",
       "light"
@@ -77,6 +77,7 @@ describe("ThemeWrapperWithCookies", () => {
       )
     );
 
+    // The actual component does not have this attribute at render, and you would need to check for class radix-theme dark, but as the component is mocked, we check the attribute directly.
     expect(screen.getByTestId("radix-ui-theme")).toHaveAttribute(
       "appearance",
       "dark"
@@ -96,7 +97,7 @@ describe("ThemeWrapperWithCookies", () => {
         { wrapper: Suspense }
       )
     );
-
+    // The actual component does not have this attribute at render, and you would need to check for class radix-theme light, but as the componet is mocked, we check the attribute directly.
     expect(screen.getByTestId("radix-ui-theme")).toHaveAttribute(
       "appearance",
       "light"

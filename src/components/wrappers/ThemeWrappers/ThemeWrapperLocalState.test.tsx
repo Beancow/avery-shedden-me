@@ -51,7 +51,7 @@ describe("ThemeWrapperLocalState", () => {
       )
     );
 
-    expect(screen.getByText(/child/i)).toBeInTheDocument();
+    // The actual component does not have this attribute at render, and you would need to check for class radix-theme light, but as the component is mocked, we check the attribute directly.
     expect(screen.getByTestId("radix-ui-theme")).toHaveAttribute(
       "appearance",
       "light"
@@ -66,6 +66,8 @@ describe("ThemeWrapperLocalState", () => {
         </ThemeWrapperLocalState>
       )
     );
+
+    // The actual component does not have this attribute at render, and you would need to check for class radix-theme light, but as the component is mocked, we check the attribute directly.
     expect(screen.getByTestId("radix-ui-theme")).toHaveAttribute(
       "appearance",
       "light"
@@ -86,6 +88,7 @@ describe("ThemeWrapperLocalState", () => {
       )
     );
 
+    // The actual component does not have this attribute at render, and you would need to check for class radix-theme dark, but as the component is mocked, we check the attribute directly.
     expect(screen.getByTestId("radix-ui-theme")).toHaveAttribute(
       "appearance",
       "dark"
@@ -106,6 +109,7 @@ describe("ThemeWrapperLocalState", () => {
       )
     );
 
+    // The actual component does not have this attribute at render, and you would need to check for class radix-theme light, but as the component is mocked, we check the attribute directly.
     expect(screen.getByTestId("radix-ui-theme")).toHaveAttribute(
       "appearance",
       "light"

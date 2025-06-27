@@ -30,7 +30,7 @@ export default function ThemeWrapperLocalState({
 
   return (
     <Theme
-      data-testId="radix-ui-theme"
+      data-testid="radix-ui-theme"
       accentColor="violet"
       grayColor="sage"
       radius="small"

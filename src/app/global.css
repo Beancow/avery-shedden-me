@@ -1,19 +1,21 @@
 @import "@radix-ui/themes/styles.css";
 
-:root {
-  color-scheme: light dark;
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+  }
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  --button-background: linear-gradient(to left,
-      var(--accent-10),
-      var(--accent-11));
-  --button-background-open: linear-gradient(to left,
-      var(--accent-11),
-      var(--accent-10));
 }
 
 html,

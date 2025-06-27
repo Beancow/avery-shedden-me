@@ -1,68 +1,74 @@
-.navigationMenuList {
-    display: flex;
-    list-style: none;
-    gap: 1rem;
-}
+ .navigationMenuList {
+     display: flex;
+     list-style: none;
+     gap: 1rem;
+ }
 
-.navigationMenuLink,
-.navigationMenuTrigger {
-    position: relative;
-    color: var(--accent-1);
-    line-height: 1;
-    width: clamp(10rem, 200px, 20rem);
-    text-align: center;
-    text-decoration: none;
-    font-weight: 400;
-    padding: 0.8rem;
-    margin: 0;
-    border-radius: 0.35rem;
-    border: none;
-    appearance: none;
-    background: var(--button-background);
-}
+ .navigationMenuLink,
+ .navigationMenuTrigger {
+     position: relative;
+     color: var(--accent-1);
+     line-height: 1;
+     width: clamp(10rem, 200px, 20rem);
+     text-align: center;
+     text-decoration: none;
+     font-weight: 400;
+     padding: 0.8rem;
+     margin: 0;
+     border-radius: 0.35rem;
+     border: none;
+     appearance: none;
+     background: var(--button-background);
+     --button-background: linear-gradient(to left,
+             var(--accent-10),
+             var(--accent-11));
+     --button-background-open: linear-gradient(to left,
+             var(--accent-11),
+             var(--accent-10));
+ }
 
 
-.navigationMenuLink:hover {
-    background: var(--accent-11);
-}
+ .navigationMenuLink:hover {
+     background: var(--accent-11);
+ }
 
-.navigationMenuTrigger[data-state="closed"].active {
-    background: var(--button-background-open);
-}
+ .navigationMenuTrigger[data-state="closed"].active {
+     background: var(--button-background-open);
+ }
 
-.navigationMenuTriggerLink {
-    display: grid;
-    place-items: center;
-    grid-template-columns: 2rem 1fr 2rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-}
+ .navigationMenuTriggerLink {
+     display: grid;
+     place-items: center;
+     grid-template-columns: 2rem 1fr 2rem;
+     cursor: pointer;
+     transition: background-color 0.2s ease-in-out;
+ }
 
-.triggerCircle {
-    background-color: var(--accent-11);
-    color: transparent;
-    height: 0.6rem;
-    width: 0.6rem;
-    border-radius: 9999999px;
-}
+ .triggerCircle {
+     background-color: var(--accent-11);
+     color: transparent;
+     height: 0.6rem;
+     width: 0.6rem;
+     border-radius: 9999999px;
+ }
 
-.navigationMenuContent {
-    position: absolute;
-    left: -0.5rem;
-    right: -0.5rem;
-    z-index: 1;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    margin-top: 0.35rem;
-    padding: 0.5rem;
-    background: var(--accent-2);
-    border-radius: var(--radius-5);
-    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
-}
+ .navigationMenuContent {
+     position: absolute;
+     left: -0.5rem;
+     right: -0.5rem;
+     z-index: 1;
+     list-style: none;
+     display: flex;
+     flex-direction: column;
+     margin-top: 0.35rem;
+     padding: 0.5rem;
+     background: var(--accent-2);
+     border-radius: var(--radius-5);
+     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+ }
 
-@media (max-width: 871px) {
-    .navigationMenuBarRoot {
-        display: none !important;
-    }
-}
+ @media (max-width: 871px) {
+     .navigationMenuBarRoot {
+         display: none !important;
+     }
+ }

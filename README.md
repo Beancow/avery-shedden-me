@@ -6,14 +6,6 @@
 
 Welcome to my personal portfolio repository! This site serves as a comprehensive showcase of my professional journey, creative pursuits, and personal interests.
 
-## Table of Contents
-
-- [CV/Resume](./app/cv/README.md): Detailed overview of my professional qualifications, skills, and experience
-- [Work History](./app/work-history/README.md): Timeline of my career journey with key achievements and responsibilities
-- [Hobbies](./app/hobbies/README.md): Exploration of my personal interests and activities outside of work
-- [Pride Groups](./app/pride/README.md): Information about LGBTQ+ organizations and initiatives I'm involved with
-- [Photography](./app/photography/README.md): Gallery showcasing my photographic work and artistic vision
-
 ## Live Preview (GitHub Pages)
 
 A static version of this site is automatically deployed to GitHub Pages on every push to the `main` branch.

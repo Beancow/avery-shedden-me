@@ -1,7 +1,7 @@
 "use client";
 import { Theme } from "@radix-ui/themes";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ThemeWrapperLocalState({
   children,
@@ -29,21 +29,19 @@ export default function ThemeWrapperLocalState({
   }
 
   return (
-    <Suspense fallback={<div>Loading theme...</div>}>
-      <Theme
-        data-testId="radix-ui-theme"
-        accentColor="violet"
-        grayColor="sage"
-        radius="small"
-        hasBackground
-        appearance={appearance}
-        style={{
-          backgroundImage:
-            "linear-gradient(to bottom, var(--accent-1), var(--accent-3))",
-        }}
-      >
-        {children}
-      </Theme>
-    </Suspense>
+    <Theme
+      data-testId="radix-ui-theme"
+      accentColor="violet"
+      grayColor="sage"
+      radius="small"
+      hasBackground
+      appearance={appearance}
+      style={{
+        backgroundImage:
+          "linear-gradient(to bottom, var(--accent-1), var(--accent-3))",
+      }}
+    >
+      {children}
+    </Theme>
   );
 }

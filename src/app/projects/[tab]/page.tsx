@@ -1,26 +1,12 @@
-import { LinkSectionItem } from "@/components/navigation/navigationProps";
 import { TabPage } from "@/components/tabpage/TabPage";
-import { navRoutes } from "@/data/navRoutes";
+import NavRoutes from "@/data/navRoutes";
 
 const sectionName = "Projects";
 const sectionBaseHref = "/projects";
 
-const getSectionRoutes = (sectionBaseHref: string) => {
-  return navRoutes.reduce((acc, route) => {
-    if (route.type === "trigger" && route.sectionBaseHref === sectionBaseHref) {
-      acc = acc.concat(route.items);
-    }
-    return acc;
-  }, [] as LinkSectionItem[]);
-};
+const navRoutes = new NavRoutes();
 
-const tabs = getSectionRoutes(sectionBaseHref)
-  .filter((item) => item.type === "linkWithSlug")
-  .map((item) => ({
-    label: item.label,
-    value: item.href,
-    parent: sectionName,
-  }));
+const tabs = navRoutes.getSectionRoutes(sectionBaseHref);
 
 export default async function Page({
   params,
@@ -34,7 +20,7 @@ export default async function Page({
   return (
     <TabPage
       sectionTitle={sectionName}
-      ariaLabel="project tabs"
+      ariaLabel="experience tabs"
       tabs={tabs}
       currentTab={tab}
     />
@@ -43,5 +29,5 @@ export default async function Page({
 
 export const generateStaticParams = async () =>
   tabs.map((tab) => {
-    return { tab: tab.value.replace(`${sectionBaseHref}/`, "") };
+    return { tab: tab.info.title.replace(`${sectionBaseHref}/`, "") };
   });

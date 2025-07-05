@@ -20,13 +20,18 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/pages/*": ["./src/pages/*"],
-      "@/data/*": ["./src/data/*"],
-      "@/components/*": ["./src/components/*"],
+      "@/*": ["./*"],
+      "@/pages/*": ["./src/app/pages/*"],
+      "@/data/*": ["./data/*"],
+      "@/components/*": ["./components/*"],
       "@/public/*": ["./public/*"]
     }
   },
+  "typeAcquisition": {
+    "enable": true,
+    "include": ["jest", "node"]
+  },
+  "typeRoots": ["./node_modules/@types", "./src/types", "./types"],
   "include": [
     "next-env.d.ts",
     "**/*.ts",

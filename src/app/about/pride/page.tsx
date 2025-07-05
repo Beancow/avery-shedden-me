@@ -1,8 +1,8 @@
+import NavRoutes from "@/data/navRoutes";
+import { usePathname } from "next/navigation";
+
 export default function PridePage() {
-  return (
-    <div>
-      <h1>Pride Page</h1>
-      <p>Celebrate diversity and inclusion!</p>
-    </div>
-  );
+  const pathname = usePathname();
+  const navRoutes = new NavRoutes();
+  return <div>{navRoutes.getPageTitle(pathname)}</div>;
 }

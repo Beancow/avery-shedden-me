@@ -1,17 +1,27 @@
 import Link from "next/link";
+import React from "react";
 
-type LinkSectionWithSlug = {
+export type Info = {
+  title: string;
+  content?: React.ReactNode;
+  meta: {
+    description: string;
+    keywords: string[];
+  };
+};
+
+export type LinkSectionWithSlug = {
   type: "linkWithSlug";
-  label: string;
   href: string;
-  content: string;
+  info: Info;
   default?: boolean;
 };
 
-type LinkSectionWithHref = {
+export type LinkSectionWithHref = {
   type: "linkWithHref";
   label: string;
   href: string;
+  info: Info;
   mobileNavLabel?: string;
 };
 

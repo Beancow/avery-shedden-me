@@ -2,7 +2,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import * as Accordion from "@radix-ui/react-accordion";
 import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { Button } from "@radix-ui/themes";
-import { NavSection } from "../navigationProps";
+import { NavSection } from "../../../types/navigationProps";
 import styles from "./styles.module.css";
 import { LinkSection } from "./LinkSection";
 import ExpandableSection from "./ExpandableSection";

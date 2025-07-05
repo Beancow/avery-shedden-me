@@ -1,5 +1,8 @@
 import { usePathname } from "next/navigation";
-import { LinkSectionWithHref, LinkSectionWithSlug } from "../navigationProps";
+import {
+  LinkSectionWithHref,
+  LinkSectionWithSlug,
+} from "../../../types/navigationProps";
 import styles from "./styles.module.css";
 import GlowWhenActive from "@/components/wrappers/GlowWhenActive/GlowWhenActive";
 import * as Dialog from "@radix-ui/react-dialog";

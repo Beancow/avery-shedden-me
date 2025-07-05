@@ -1,5 +1,5 @@
 import { usePathname } from "next/navigation";
-import { TriggerSectionItem } from "../navigationProps";
+import { TriggerSectionItem } from "../../../types/navigationProps";
 import styles from "./styles.module.css";
 import { CircleIcon } from "@radix-ui/react-icons";
 import * as Accordion from "@radix-ui/react-accordion";

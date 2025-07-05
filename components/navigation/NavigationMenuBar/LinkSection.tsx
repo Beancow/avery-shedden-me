@@ -1,4 +1,4 @@
-import { LinkSectionItem } from "../navigationProps";
+import { LinkSectionItem } from "../../../types/navigationProps";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import GlowWhenActive from "@/components/wrappers/GlowWhenActive/GlowWhenActive";

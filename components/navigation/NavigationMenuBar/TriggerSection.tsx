@@ -1,5 +1,5 @@
 import * as Nav from "@radix-ui/react-navigation-menu";
-import { TriggerSectionItem } from "../navigationProps";
+import { TriggerSectionItem } from "../../../types/navigationProps";
 import styles from "./styles.module.css";
 import { LinkSection } from "./LinkSection";
 import GlowWhenActive from "@/components/wrappers/GlowWhenActive/GlowWhenActive";

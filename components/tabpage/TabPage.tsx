@@ -1,6 +1,7 @@
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import styles from "./styles.module.css";
 import Link from "next/link";
+import { LinkSectionWithSlug } from "@/types/navigationProps";
 
 export async function TabPage({
   currentTab,
@@ -9,7 +10,7 @@ export async function TabPage({
   sectionTitle,
 }: {
   currentTab: string;
-  tabs: { label: React.ReactNode; value: string }[];
+  tabs: LinkSectionWithSlug[];
   ariaLabel: string;
   sectionTitle: string;
 }) {
@@ -23,13 +24,17 @@ export async function TabPage({
           className={styles.tabList}
         >
           {tabs.map((item) => (
-            <TabsPrimitive.Trigger asChild value={item.value} key={item.value}>
+            <TabsPrimitive.Trigger
+              asChild
+              value={item.info.title}
+              key={item.info.title}
+            >
               <Link
-                key={item.value}
-                href={item.value}
+                key={item.info.title}
+                href={item.info.title}
                 className={styles.tabLink}
               >
-                {item.label}
+                {item.info.title}
               </Link>
             </TabsPrimitive.Trigger>
           ))}

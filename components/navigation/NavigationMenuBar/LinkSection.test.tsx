@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { LinkSection } from "@/components/navigation/NavigationModel/LinkSection";
-import { LinkSectionItem } from "@/components/navigation/navigationProps";
+import { LinkSectionItem } from "@/types/navigationProps";
 import { usePathname } from "next/navigation";
 
 jest.mock("next/navigation", () => ({
@@ -25,6 +25,15 @@ describe("LinkSection", () => {
   const mockLinkItem: LinkSectionItem = {
     type: "linkWithHref",
     label: "Home",
+    info: {
+      title: "Home",
+      content: "Go to home page",
+      meta: {
+        description: "Home page",
+        keywords: ["home", "introduction"],
+      },
+    },
+    mobileNavLabel: "Home",
     href: "/home",
   };
 

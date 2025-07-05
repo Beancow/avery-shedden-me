@@ -57,7 +57,7 @@ export function TriggerSection({ section }: { section: TriggerSectionItem }) {
           {section.items
             .filter((item) => item.type !== "linkWithIcon")
             .map((link) => (
-              <LinkSection key={link.label} link={link} />
+              <LinkSection key={link.info.title} link={link} />
             ))}
         </Nav.Content>
       </Nav.Item>

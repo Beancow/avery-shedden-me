@@ -37,7 +37,7 @@ export function LinkSection({ link }: { link: LinkSectionItem }) {
     return (
       <GlowWhenActive key={link.href} isActive={isActive(link.href)}>
         <Link href={link.href} className={styles.navigationMenuLink}>
-          {link.label}
+          {link.info.title}
         </Link>
       </GlowWhenActive>
     );

@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 import { TriggerSection } from "./TriggerSection";
 import { LinkSection } from "./LinkSection";
 import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
-import { useThemeContext } from "@radix-ui/themes";
+import { Flex, Link, useThemeContext } from "@radix-ui/themes";
 
 export function NavigationMenuBar({ navRoutes }: { navRoutes: NavSection[] }) {
   const { appearance } = useThemeContext();
@@ -20,19 +20,30 @@ export function NavigationMenuBar({ navRoutes }: { navRoutes: NavSection[] }) {
               item.type === "linkWithHref" ||
               item.type === "linkWithSlug"
             ) {
-              return <LinkSection key={item.label} link={item} />;
+              return <LinkSection key={item.info.title} link={item} />;
             } else {
               console.error("Unknown item type:", item);
               return null;
             }
           })}
-          <LinkSection
-            link={{
-              type: "linkWithIcon",
-              icon: appearance === "dark" ? <SunIcon /> : <MoonIcon />,
-              value: appearance === "dark" ? "light" : "dark",
-            }}
-          />
+          <Flex
+            direction="row"
+            gap="2"
+            align="center"
+            justify="center"
+            p="0.35rem 0.35rem"
+            m="0"
+          >
+            <Link
+              key="theme-toggle"
+              href={`${appearance === "dark" ? "?theme=light" : "?theme=dark"}`}
+              aria-label={`Switch to ${
+                appearance === "dark" ? "light" : "dark"
+              } theme`}
+            >
+              {appearance === "dark" ? <SunIcon /> : <MoonIcon />}
+            </Link>
+          </Flex>
         </Nav.List>
       </Nav.Root>
     </span>

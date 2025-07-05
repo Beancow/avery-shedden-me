@@ -5,6 +5,14 @@ import {
   TriggerSectionItem,
 } from "@/types/navigationProps";
 
+const sectionBaseHrefs = [
+  "/about",
+  "/experience",
+  "/projects",
+  "/donate",
+] as const;
+type SectionBaseHref = (typeof sectionBaseHrefs)[number];
+
 const defaultRoutes: NavSection[] = [
   {
     type: "trigger",
@@ -180,7 +188,7 @@ export default class NavRoutes {
   }
 
   getTriggerSection = (
-    sectionBaseHref: string
+    sectionBaseHref: SectionBaseHref
   ): TriggerSectionItem | undefined => {
     return this.getRoutes().find(
       (item): item is TriggerSectionItem =>
@@ -188,8 +196,8 @@ export default class NavRoutes {
     );
   };
 
-  getSlugSections = (baseHref: string) => {
-    const section = this.getTriggerSection(baseHref);
+  getSlugSections = (baseSectionHref: SectionBaseHref) => {
+    const section = this.getTriggerSection(baseSectionHref);
     if (!section) {
       return [];
     }

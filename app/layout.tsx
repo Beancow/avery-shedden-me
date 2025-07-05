@@ -1,6 +1,6 @@
 import "./global.css";
 import { Portal } from "@radix-ui/themes";
-import { TopBar } from "../../components/layout/TopBar";
+import { TopBar } from "../components/layout/TopBar";
 import type { Metadata } from "next";
 import DynamicThemeWrapper from "@/components/wrappers/ThemeWrappers/DynamicThemeWrapper";
 type Props = {

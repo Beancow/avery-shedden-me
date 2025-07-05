@@ -25,8 +25,16 @@ export default function ExpandableSection({
   ) {
     localSectionCopy.items.unshift({
       type: "linkWithHref",
-      label: localSectionCopy.mobileNavLabel!,
       href: localSectionCopy.sectionBaseHref,
+      label: localSectionCopy.label,
+      info: {
+        title: localSectionCopy.label,
+        content: "Go to about home",
+        meta: {
+          description: "About page",
+          keywords: ["home", "introduction"],
+        },
+      },
       mobileNavLabel: localSectionCopy.mobileNavLabel,
     });
   }
@@ -64,7 +72,7 @@ export default function ExpandableSection({
         <div className={styles.accordionContentInner}>
           {localSectionCopy.items.map((item) => {
             if (item.type === "linkWithSlug" || item.type === "linkWithHref") {
-              return <LinkSection key={item.label} link={item} />;
+              return <LinkSection key={item.info.title} link={item} />;
             }
             return null;
           })}

@@ -19,7 +19,7 @@ export default function LinkSection({
     return pathName === href || pathName.endsWith(href + "/");
   };
   return (
-    <GlowWhenActive key={link.label} isActive={isActive(link.href)}>
+    <GlowWhenActive key={link.info.title} isActive={isActive(link.href)}>
       <Dialog.Close asChild>
         <Link
           href={link.href}
@@ -27,7 +27,7 @@ export default function LinkSection({
             isActive(link.href) ? styles.active : ""
           }`}
         >
-          <span>{link.label}</span>
+          <span>{link.info.title}</span>
         </Link>
       </Dialog.Close>
     </GlowWhenActive>

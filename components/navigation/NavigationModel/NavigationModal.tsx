@@ -49,7 +49,7 @@ export default function NavigationModal({
                 section.type === "linkWithHref" ||
                 section.type === "linkWithSlug"
               ) {
-                return <LinkSection key={section.label} link={section} />;
+                return <LinkSection key={section.info.title} link={section} />;
               }
               if (section.type === "trigger") {
                 return (

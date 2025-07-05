@@ -24,16 +24,8 @@ export async function TabPage({
           className={styles.tabList}
         >
           {tabs.map((item) => (
-            <TabsPrimitive.Trigger
-              asChild
-              value={item.info.title}
-              key={item.info.title}
-            >
-              <Link
-                key={item.info.title}
-                href={item.info.title}
-                className={styles.tabLink}
-              >
+            <TabsPrimitive.Trigger asChild value={item.href} key={item.href}>
+              <Link key={item.href} href={item.href} className={styles.tabLink}>
                 {item.info.title}
               </Link>
             </TabsPrimitive.Trigger>

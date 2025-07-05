@@ -1,6 +1,5 @@
-import NavRoutes from "@/data/navRoutes";
+import NavRoutes from "@/navRoutes/navRoutes";
 import { NavSection } from "@/types/navigationProps";
-
 describe("NavRoutes", () => {
   const mockRoutes: NavSection[] = [
     {

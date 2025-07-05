@@ -1,4 +1,4 @@
-import NavRoutes from "@/data/navRoutes";
+import NavRoutes from "@/navRoutes/navRoutes";
 
 export default function PridePage() {
   const navRoutes = new NavRoutes();

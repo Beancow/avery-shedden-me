@@ -188,7 +188,7 @@ export default class NavRoutes {
     );
   };
 
-  getSectionRoutes = (baseHref: string) => {
+  getSlugSections = (baseHref: string) => {
     const section = this.getTriggerSection(baseHref);
     if (!section) {
       return [];

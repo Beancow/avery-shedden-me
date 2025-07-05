@@ -1,12 +1,12 @@
 import { TabPage } from "@/components/tabpage/TabPage";
-import NavRoutes from "@/data/navRoutes";
+import NavRoutes from "@/navRoutes/navRoutes";
 
 const sectionName = "Experience";
 const sectionBaseHref = "/experience";
 
 const navRoutes = new NavRoutes();
 
-const tabs = navRoutes.getSectionRoutes(sectionBaseHref);
+const tabs = navRoutes.getSlugSections(sectionBaseHref);
 
 export default async function Page({
   params,
@@ -29,5 +29,5 @@ export default async function Page({
 
 export const generateStaticParams = async () =>
   tabs.map((tab) => {
-    return { tab: tab.info.title.replace(`${sectionBaseHref}/`, "") };
+    return { tab: tab.href.replace(`${sectionBaseHref}/`, "") };
   });

@@ -2,7 +2,7 @@
 
 import { NavigationMenuBar } from "./NavigationMenuBar/Menu";
 import NavigationModal from "./NavigationModel/NavigationModal";
-import NavRoutes from "@/data/navRoutes";
+import NavRoutes from "@/navRoutes/navRoutes";
 
 export function Navigation() {
   const nav = new NavRoutes();

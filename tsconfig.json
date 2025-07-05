@@ -22,7 +22,6 @@
     "paths": {
       "@/*": ["./*"],
       "@/pages/*": ["./app/pages/*"],
-      "@/data/*": ["./data/*"],
       "@/components/*": ["./components/*"],
       "@/public/*": ["./public/*"]
     }

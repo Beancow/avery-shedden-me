@@ -1,12 +1,12 @@
 import { TabPage } from "@/components/tabpage/TabPage";
-import NavRoutes from "@/data/navRoutes";
+import NavRoutes from "@/navRoutes/navRoutes";
 
 const sectionName = "Projects";
 const sectionBaseHref = "/projects";
 
 const navRoutes = new NavRoutes();
 
-const tabs = navRoutes.getSectionRoutes(sectionBaseHref);
+const tabs = navRoutes.getSlugSections(sectionBaseHref);
 
 export default async function Page({
   params,

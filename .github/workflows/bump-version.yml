@@ -34,18 +34,18 @@ jobs:
           echo "new_version=$(npm version patch --no-git-tag-version --allow-same-version)" >> $GITHUB_OUTPUT
       - name: Add, Commit, Tag and push changes
         if: ${{ steps.bump_version.outputs.new_version != '' }}
-        run:
+        run: |
           gh pr checkout -b bump-version-${{ steps.bump_version.outputs.new_version }}
           git add package.json package-lock.json
           git commit -m "Bump version to ${{ steps.bump_version.outputs.new_version }}"
-          if git rev-parse "${{ steps.bump_version.outputs.new_version }}" >/dev/null 2>&1; then
-          echo "Tag ${{ steps.bump_version.outputs.new_version }} already exists"
-          echo "Bumping version again to avoid conflicts"
-          NEW_VERSION=$(npm version patch --no-git-tag-version --allow-same-version)
-          git add package.json package-lock.json
-          git commit -m "Bumping version again - now version $NEW_VERSION"
+          if git rev-parse "$NEW_VERSION" >/dev/null 2>&1; then
+            echo "Tag ${{ steps.bump_version.outputs.new_version }} already exists"
+            echo "Bumping version again to avoid conflicts"
+            NEW_VERSION=$(npm version patch --no-git-tag-version --allow-same-version)
+            git add package.json package-lock.json
+            git commit -m "Bumping version again - now version $NEW_VERSION"
           else
-          echo "Version bumped to ${{ steps.bump_version.outputs.new_version }} - moving on"
+            echo "Version bumped to ${{ steps.bump_version.outputs.new_version }} - moving on"
           fi
           git tag -a "${{ steps.bump_version.outputs.new_version }}" -m "Version bumped from v${{ steps.bump_version.outputs.current_version }} to ${{ steps.bump_version.outputs.new_version }}"
           git push

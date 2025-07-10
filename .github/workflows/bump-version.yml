@@ -1,4 +1,7 @@
 name: Bump minor version
+permissions:
+  deployments: write
+  contents: write
 
 on:
   workflow_call:

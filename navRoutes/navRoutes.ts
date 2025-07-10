@@ -178,7 +178,7 @@ const defaultRoutes: NavSection[] = [
 ];
 
 export default class NavRoutes {
-  private routes: NavSection[] = defaultRoutes;
+  private routes: NavSection[];
   constructor(newNavRoutes: NavSection[] = defaultRoutes) {
     this.routes = newNavRoutes;
   }

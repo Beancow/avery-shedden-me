@@ -2,9 +2,7 @@ import { NextConfig } from "next";
 import process from "process";
 
 const isStaticBuild = process.env.NEXT_PUBLIC_BUILD_TARGET === "static";
-const repoName = process.env.BASE_PATH
-  ? `/${process.env.BASE_PATH}`
-  : undefined;
+const repoName = process.env.BASE_PATH ? `/${process.env.BASE_PATH}` : "";
 
 console.log(
   `Building for: ${isStaticBuild ? "Static Export" : "SSR/Standard"}`
@@ -15,7 +13,7 @@ module.exports = {
   redirects: async () => [
     {
       source: "/",
-      destination: `/about`,
+      destination: `${repoName}/about`,
       permanent: true,
     },
   ],
@@ -25,7 +23,7 @@ module.exports = {
     unoptimized: isStaticBuild,
     localPatterns: [
       {
-        pathname: `/${repoName}/**`,
+        pathname: `${repoName}/**`,
         search: "",
       },
     ],

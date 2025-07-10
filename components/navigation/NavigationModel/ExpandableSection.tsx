@@ -18,7 +18,7 @@ export default function ExpandableSection({
   // As the navRoutes is shared between mobile and desktop nav to be able to get
   // back to home on the mobile nav we need to ensure that the home link is
   // present as the component works a bit differently
-  // If anothe section needs this I will need to refactor this logic as the Home label is hardcoded
+  // If another section needs this I will need to refactor this logic as the Home label is hardcoded
   if (
     localSectionCopy.items.every((item) => item.type === "linkWithHref") &&
     localSectionCopy.sectionBaseHref
@@ -64,7 +64,9 @@ export default function ExpandableSection({
           }`}
         >
           <CircleIcon className={styles.accordionCircle} />
-          <span>{localSectionCopy.label}</span>
+          <span>
+            {localSectionCopy.mobileNavLabel ?? localSectionCopy.label}
+          </span>
           <CheveronIconGlowWhenActive isActive={activeSection} />
         </Accordion.Trigger>
       </Accordion.Header>

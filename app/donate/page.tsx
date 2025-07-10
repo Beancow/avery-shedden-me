@@ -19,7 +19,19 @@ export default function Page() {
       "This button is like a promise, it will be fulfilled... eventually. 🤞",
       "This button is currently under construction 🚧, please check back later. 🗓️ ",
       "This button is like a mystery box, you never know what you'll get... except nothing it's actually nothing... yet. 🤷‍♀️",
+      "This button is like a software update, it promises a lot but takes forever to arrive. ⏳",
+      "This button is like a bad magician, it ultimately fails to perform its trick. 🎩✨",
+      "This button is like a broken pencil, pointless. ✏️",
+      "This button is like a cat, it does what it wants when it wants. 🐱",
+      "This button is like a good joke, it needs timing to work... but right now, it's just not funny. 😂",
+      "This button is like a secret agent, it operates in stealth mode and is currently unavailable. 🕵️‍♂️",
+      "This button is like a ghost, it haunts you with its potential but remains invisible. 👻",
+      "This button is like a Wi-Fi signal, it promises connection but is currently out of range. 📶",
+      "This button is like a good book, it has a great story to tell, but you have to wait for the next chapter. 📖",
     ];
+    if (message === "") {
+      return "This button like to repeat itself, but it will get there eventually! 🐢";
+    }
     return messages[Math.floor(Math.random() * messages.length)];
   };
 

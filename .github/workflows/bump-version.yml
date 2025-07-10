@@ -50,6 +50,9 @@ jobs:
           git tag -a "${{ steps.bump_version.outputs.new_version }}" -m "Version bumped from v${{ steps.bump_version.outputs.current_version }} to ${{ steps.bump_version.outputs.new_version }}"
           git push
           git push --tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Merge Pull Request
         run: |
           gh pr merge bump-version-${{ steps.bump_version.outputs.new_version }} --delete-branch --squash --auto --admin

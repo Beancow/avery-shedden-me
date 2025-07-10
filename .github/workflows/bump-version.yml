@@ -35,24 +35,21 @@ jobs:
       - name: Add, Commit, Tag and push changes
         if: ${{ steps.bump_version.outputs.new_version != '' }}
         run: |
-          gh pr checkout -b bump-version-${{ steps.bump_version.outputs.new_version }}
+          NEW_VERSION="${{ steps.bump_version.outputs.new_version }}"
+          git fetch --tags
+          git checkout -b bump-version-$NEW_VERSION
+          git commit -m "Bump version to $NEW_VERSION"
           git add package.json package-lock.json
-          git commit -m "Bump version to ${{ steps.bump_version.outputs.new_version }}"
-          if git rev-parse "$NEW_VERSION" >/dev/null 2>&1; then
-            echo "Tag ${{ steps.bump_version.outputs.new_version }} already exists"
-            echo "Bumping version again to avoid conflicts"
-            NEW_VERSION=$(npm version patch --no-git-tag-version --allow-same-version)
-            git add package.json package-lock.json
-            git commit -m "Bumping version again - now version $NEW_VERSION"
-          else
-            echo "Version bumped to ${{ steps.bump_version.outputs.new_version }} - moving on"
-          fi
-          git tag -a "${{ steps.bump_version.outputs.new_version }}" -m "Version bumped from v${{ steps.bump_version.outputs.current_version }} to ${{ steps.bump_version.outputs.new_version }}"
-          git push
+          git tag -a "$NEW_VERSION" -m "Version bumped from v${{ steps.bump_version.outputs.current_version }} to $NEW_VERSION"
+          git push origin bump-version-$NEW_VERSION
           git push --tags
+          gh pr create --title "Bump version to $NEW_VERSION" --body "This PR bumps the version from v${{ steps.bump_version.outputs.current_version }} to $NEW_VERSION" --base main --head bump-version-$NEW_VERSION --label "bump-version"
+          echo "Version bumped to $NEW_VERSION"
+          echo "Current version was ${{ steps.bump_version.outputs.current_version }}"
+          echo "New version is $NEW_VERSION"
+          echo "Bump minor version completed successfully"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Merge Pull Request
         run: |
           gh pr merge bump-version-${{ steps.bump_version.outputs.new_version }} --delete-branch --squash --auto --admin
